@@ -1,145 +1,232 @@
-<!DOCTYPE html>  
-<html>
-    <title>TAMUAccounts</title>
-      <head>
-        <link href="css/bootstrap.css" rel="stylesheet">
-        <link href="css/bootstrap-theme.css" rel="stylesheet">
-        <link href="css/bootstrap.min.css" rel="stylesheet">
-        <link href="css/bootstrap-theme.min.css" rel="stylesheet">
-        <link href="css/stylesheet.css" rel="stylesheet" >
-      </head>
-      <body>
+<!DOCTYPE html>
 
-        <div class="navbar navbar fixed top">
-          <div class="navbar-inner"> 
-              
-            <a class="brand" href="http://library.tamu.edu/">
-             <img src="img/logo.png" alt="Library Logo">
-            </a>
-          </div>
-         <form data-toggle="validator" role="form">
-          <div class="color-field">
-            <div class="row-fluid">
-              <div class="span12 pull left breadcrumb">
-                <ul class="breadcrumb">
-                  <a href="http://library.tamu.edu/">University Libraries</a>
-                  >
-                  <a href="index.html">Welcome Page</a>
-                  >
-                  <a href="RequestAccount.html">Request Account</a>
-                </ul>
-              </div>
-            </div>
+<html>
+  <title>
+    TAMU Accounts
+  </title>
+  <head>
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/bootstrap-theme.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="css/stylesheet.css" rel="stylesheet" >
+  </head>
+  <body>
+    
+    <div class="navbar navbar fixed top">
+      <div class="navbar-inner">
+        
+        
+        <a class="brand" href="http://library.tamu.edu/">
+          <img src="img/logo.png" alt="Library Logo">
+        </a>
+      </div>
+      <div class="color-field">
+        <div class="row-fluid">
+          <div class="span12 pull left breadcrumb">
+            <ul class="breadcrumb">
+              <a href="http://library.tamu.edu/">
+                University Libraries
+              </a>
+              >
+              <a href="index.html">
+                Welcome Page
+              </a>
+              >
+              <a href="RequestAccount.html">
+                Request Account
+              </a>
+            </ul>
           </div>
         </div>
-          
-          <div class="container">
-            <div class="row-fluid">
-              <div class="span12 appMain">
-                  <form data-toggle="validator" role="form">
-                   <div class="form-group">
-                    <label for="inputName" class="control-label">Name</label>
-                     <input type="text" class="form-control" id="inputName" placeholder="Cina Saffary" required>
-                   </div>
-                   <div class="form-group">
-                    <label for="inputTwitter" class="control-label">Twitter</label>
-                     <div class="input-group">
-                       <span class="input-group-addon">@</span>
-                       <input type="text" pattern="^([_A-z0-9]){3,}$" maxlength="20" class="form-control" id="inputTwitter" placeholder="1000hz" required>
-                     </div>
-                     <span class="help-block with-errors">Up to 20 letters, numbers and underscores</span>
-                   </div>
-                   <div class="form-group">
-                    <label for="inputEmail" class="control-label">Email</label>
-                    <input type="email" class="form-control" id="inputEmail" placeholder="Email" data-error="Bruh, that email address is invalid" required>
-                     <div class="help-block with-errors"></div>
-                   </div>
-                   <div class="form-group">
-                     <label for="inputPassword" class="control-label">Password</label>
-                      <div class="form-group col-sm-6">
-                       <input type="password" data-minlength="6" class="form-control" id="inputPassword" placeholder="Password" required>
-                        <span class="help-block">Minimum of 6 characters</span>
-                      </div>
-                      <div class="form-group col-sm-6">
-                       <input type="password" class="form-control" id="inputPasswordConfirm" data-match="#inputPassword" data-match-error="Whoops, these don't match" placeholder="Confirm" required>
-                       <div class="help-block with-errors"></div>
-                      </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                 <div class="radio">
-                  <label>
-                   <input type="radio" name="underwear" required>
-                   Boxers
-                  </label>
-                 </div>
-                 <div class="radio">
-                  <label>
-                   <input type="radio" name="underwear" required>
-                   Briefs
-                  </label>
-                 </div>
-                </div>
-                <div class="form-group">
-                 <div class="checkbox">
-                  <label>
-                   <input type="checkbox" id="terms" data-error="Before you wreck yourself" required>
-                   Check yourself
-                  </label>
-                  <div class="help-block with-errors"></div>
-                 </div>
-                </div>
-                <div class="form-group">
-                  <button type="submit" class="btn btn-primary">Submit</button>
-                </div>
-        </form>
-                  <!--<form action="ServerFormValidation.php" method="POST">
-                  <p>First Name:
-                  <input class="FirstNameField" type="text" name="First_Name" size="30" value=""</>
-                  </p>
-                  <p>Last Name:
-                  <input class="LastNameField" type="text" name="Last_Name" size="30" value=""</>
-                  </p>
-                  <p>Email:
-                  <input class="EmailField" type="text" name="Email" size="30" value=""</>
-                  </p>
-                  <p>Phone Number:
-                  <input class="PhoneField" type="text" name="Phone_Number" size="30" value=""</>
-                  </p>
-                  <p>Address:
-                  <input class="AddressField" type="text" name="Address" size="30" value=""</>
-                  </p>
-                  <p>City:
-                  <input class="CityField" type="text" name="City" size="30" value=""</>
-                  </p>
-                  <p>State:
-                  <input class="StateField" type="text" name="State" size="2" value=""</>
-                  </p>
-                  <p>Zip Code:
-                  <input class="ZipField" type="text" name="Zip" size="5" value=""</>
-                  </p>
-                  <p>Password:
-                  <input type="password" name="userpassword" size="30" value=""</>
-                  </p>
-                  <input type="submit" value="submit" id="Submit_Request"><!--onclick="document.getElementById('Submit_Request').disabled = 'disabled'"
-                         <input type="submit" value="reset" id="Reset_Field">
-                  </form>-->
+      </div>
+    </div>
+    
+    <div class="container">
+      <div class="row-fluid">
+        <div class="span12 appMain">
+          <form data-toggle="validator" role="form" action="ServerFormValidation.php" method="POST">
+            <div class="form-group">
+              <label form="inputName" class="control-label" >
+                First Name
+              </label>
+              <input type="text" class="form-control" id="inputName" name="F_Name" required>
+            </div>
+            <div class="form-group">
+              <label class="control-label">
+                Last Name
+              </label>
+              <div class="input-group">
+                <input type="text" class="form-control" name="L_Name"  required>
               </div>
             </div>
-          </div>
-          <!-- Javascript References -->
-          <script src="CleintFormValidation.js"></script>
-      </body> 
-      <div class="container text-center"> 
-        <footer>
-          <a title="Texas A&amp;M University" href="http://www.tamu.edu">Texas A&amp;M University</a>  
-          <a title="Employment" href="http://library.tamu.edu/about/employment/">Employment</a>  
-          <a title="Webmaster" href="http://library.tamu.edu/services/forms/contact-info.html">Webmaster</a>  
-          <a title="Legal" href="http://library.tamu.edu/about/general-information/legal-notices.html">Legal</a>  
-          <a title="Comments" href="http://guides.library.tamu.edu/AskTheLibraries">Comments</a>  
-          <a title="979-845-3731" href="http://library.tamu.edu/about/phone/">979-845-3731</a>
-          <a title="Site Map" href="http://library.tamu.edu/sitemap.html">Site Map</a>
-          <a title="Accessibility" href="http://library.tamu.edu/accessibility/">Accessibility</a>
-        </footer>
+            <div class="form-group">
+              <label form="inputEmail" class="control-label">
+                Email
+              </label>
+              <input type="email" class="form-control" name="E_Mail" required>
+            </div>
+            <div class="input-group" id="Address">
+              <label form="inputStreet" class="control-label">
+                Street
+                <input type="text" class="form-control" name="Street" required>
+              </label>
+              <label form="inputCity" class="control-label">
+                City
+                <input type="text" class="form-control" name="City" required>
+              </label>
+              <label form="inputEmail" class="control-label">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                  <label>
+                    State
+                  </label>
+                  <select name="state" class="form-control">
+                    <option value="AL">AL</option>
+                    <option value="AK">AK</option>
+                    <option value="AZ">AZ</option>
+                    <option value="AR">AR</option>
+                    <option value="CA">CA</option>
+                    <option value="CO">CO</option>
+                    <option value="CT">CT</option>
+                    <option value="DE">DE</option>
+                    <option value="DC">DC</option>
+                    <option value="FL">FL</option>
+                    <option value="GA">GA</option>
+                    <option value="HI">HI</option>
+                    <option value="ID">ID</option>
+                    <option value="IL">IL</option>
+                    <option value="IN">IN</option>
+                    <option value="IA">IA</option>
+                    <option value="KS">KS</option>
+                    <option value="KY">KY</option>
+                    <option value="LA">LA</option>
+                    <option value="ME">ME</option>
+                    <option value="MD">MD</option>
+                    <option value="MA">MA</option>
+                    <option value="MI">MI</option>
+                    <option value="MN">MN</option>
+                    <option value="MS">MS</option>
+                    <option value="MO">MO</option>
+                    <option value="MT">MT</option>
+                    <option value="NE">NE</option>
+                    <option value="NV">NV</option>
+                    <option value="NH">NH</option>
+                    <option value="NJ">NJ</option>
+                    <option value="NM">NM</option>
+                    <option value="NY">NY</option>
+                    <option value="NC">NC</option>
+                    <option value="ND">ND</option>
+                    <option value="OH">OH</option>
+                    <option value="OK">OK</option>
+                    <option value="OR">OR</option>
+                    <option value="PA">PA</option>
+                    <option value="RI">RI</option>
+                    <option value="SC">SC</option>
+                    <option value="SD">SD</option>
+                    <option value="TN">TN</option>
+                    <option value="TX">TX</option>
+                    <option value="UT">UT</option>
+                    <option value="VT">VT</option>
+                    <option value="VA">VA</option>
+                    <option value="WA">WA</option>
+                    <option value="WV">WV</option>
+                    <option value="WI">WI</option>
+                    <option value="WY">WY</option>
+                  </select>
+                </div>
+                
+              </label>
+              <label form="inputEmail" class="control-label">
+                Zip Code
+                <input type="text" class="form-control" data-minlength="5" name="Zip_Code" required>
+              </label>
+            </div>
+            <label class="control-label">
+              ID type
+            </label>
+            <div class="input-group">
+              <input type="text" class="form-control"  required>
+            </div>
+            <label class="control-label">
+              ID Number
+            </label>
+            <div class="input-group">
+              <input type="text" class="form-control" required>
+            </div>
+            <label class="control-label">
+              Comments
+            </label>
+            <div class="input-group">
+              <input type="text" class="form-control">
+            </div>
+            
+            <div class="form-group">
+              <label form="inputPassword" class="control-label">
+                Password
+              </label>
+              <div class="form-group ">
+                <input type="password" class="form-control" required>
+              </div>
+            </div>
+            <div class="radio">
+              <label>
+                <input type="radio" name="numdays">
+                30 Days
+              </label>
+              <label>
+                <input type="radio" name="numdays">
+                60 Days
+              </label>
+              <label>
+                <input type="radio" name="numdays">
+                90 Days
+              </label>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">
+              Submit
+            </button>
+            <button class="btn btn-danger" type="reset">
+              Reset
+            </button>
+          </form>
+        </div>
       </div>
+      <!-- Javascript References -->
+    </body>
+    
+    <div class="container text-center">
+      
+      <footer>
+        <a title="Texas A&amp;M University" href="http://www.tamu.edu">
+          Texas A&amp;M University
+        </a>
+        
+        <a title="Employment" href="http://library.tamu.edu/about/employment/">
+          Employment
+        </a>
+        
+        <a title="Webmaster" href="http://library.tamu.edu/services/forms/contact-info.html">
+          Webmaster
+        </a>
+        
+        <a title="Legal" href="http://library.tamu.edu/about/general-information/legal-notices.html">
+          Legal
+        </a>
+        
+        <a title="Comments" href="http://guides.library.tamu.edu/AskTheLibraries">
+          Comments
+        </a>
+        
+        <a title="979-845-3731" href="http://library.tamu.edu/about/phone/">
+          979-845-3731
+        </a>
+        <a title="Site Map" href="http://library.tamu.edu/sitemap.html">
+          Site Map
+        </a>
+        <a title="Accessibility" href="http://library.tamu.edu/accessibility/">
+          Accessibility
+        </a>
+      </footer>
+    </div>
   </html>
