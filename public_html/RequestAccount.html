@@ -45,7 +45,7 @@
     <div class="container">
       <div class="row-fluid">
         <div class="span12 appMain">
-          <form data-toggle="validator" role="form" action="ServerFormValidation.php" method="POST">
+          <form data-toggle="validator" role="form" action="PHP/ServerFormValidation.php" method="POST">
             <div class="form-group">
               <label form="inputName" class="control-label" >
                 First Name
@@ -80,7 +80,7 @@
                   <label>
                     State
                   </label>
-                  <select name="state" class="form-control">
+                  <select name="State" class="form-control" required>
                     <option value="AL">AL</option>
                     <option value="AK">AK</option>
                     <option value="AZ">AZ</option>
@@ -145,13 +145,13 @@
               ID type
             </label>
             <div class="input-group">
-              <input type="text" class="form-control"  required>
+              <input type="text" name="ID_Type" class="form-control"  required>
             </div>
             <label class="control-label">
               ID Number
             </label>
             <div class="input-group">
-              <input type="text" class="form-control" required>
+              <input type="text" name="ID_Number" class="form-control" required>
             </div>
             <label class="control-label">
               Comments
@@ -165,7 +165,7 @@
                 Password
               </label>
               <div class="form-group ">
-                <input type="password" class="form-control" required>
+                <input type="password" name="Password" class="form-control" required>
               </div>
             </div>
             <div class="radio">
