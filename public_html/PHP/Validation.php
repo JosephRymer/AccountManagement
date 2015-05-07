@@ -53,6 +53,7 @@
                      values('".$F_Name."','".$L_Name."','".$E_Mail."','".$ID_Number."','".$ID_Type."','".$username."',PASSWORD('".$Password."'),'".$Street."','".$City."','".$State."','".$Zip_Code."',(UNIX_TIMESTAMP(NOW()))
                          '".$expirationdate."','".$creator."')";
             }else{
+                echo $FormResults;
               
             }
            
@@ -82,6 +83,7 @@
            if($result==1){
                
              header('location:../useraccount.html');
+            
 
         }
       }
