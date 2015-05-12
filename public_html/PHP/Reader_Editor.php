@@ -27,10 +27,10 @@
           }
         }
         
-       function databaseInsert($data){
-           include('Validation.php');
-        $check->CheckFormFields($data);
-        global $FormResults;
+       function databaseInsert($data,$FormResults){
+          // require_once 'Validation.php';
+         //  $check= new FormValidationCheck($conn);
+          // $check->CheckFormFields($data);
         print_r ($FormResults);
             if(empty($FormResults)){
                 $username=$this->generateUsername($data);
@@ -57,18 +57,26 @@
             $sql="SELECT * FROM users where `username`='".$data['username']."' and `password`=PASSWORD('".$data['password']."')";
             $result = $this->conn->query($sql);
             
-           if(empty($result)){
+           if(!empty($result)){
                
              header('location:../useraccount.html');
             
 
         }
+        return $result;
       }
     }
     
    
     $check= new DataHandler($conn);
-    $check->databaseInsert($data);
+   
+    if($_REQUEST["login"]=='1'){
+     $check->login($data);
+    }else{
+     $check->databaseInsert($data);
+    }
+    
+    
 
 
 ?>

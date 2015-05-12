@@ -39,17 +39,20 @@
              if (empty($data["Password"])) {
                 $FormResults['Zip'] = "Password is Required";
             }
-            
+               print_r ($FormResults);
                return $FormResults;
             
-          //  return $data;
+        
         }   
         
     }
     
         
     $check= new FormValidationCheck($conn);
-    $check->CheckFormFields($data);
     
-   //header('location:Reader_Editor.php');
+    $check->CheckFormFields($data);
+    print_r($FormResults);
+    if(empty($FormResults)){
+  // header('location:Reader_Editor.php');
+    }
 ?>
