@@ -42,7 +42,6 @@
              if (empty($data["Password"])) {
                 $this->FormResults['Pass'] = "Password is Required";
             }
-            print_r($this->FormResults);
                return $this->FormResults;
             
         
@@ -58,8 +57,8 @@
         $_SESSION["POSTData"]=$data;
      header("location:Reader_Editor.php");
     }else{
-        $former=$check->FormResults;
-        $_SESSION["FormErrors"]=$former;
-        header("location:../AccountCreation.html?BadData=1");
+        $Former=$check->FormResults;
+        $_SESSION["FormErrors"]="$Former";
+        header("location:../AccountCreation.html");
     }
 ?>

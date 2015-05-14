@@ -74,10 +74,10 @@
           <div class="container">
             <div class="row">
               <div class="col-md-12">
-                  <?php if($_REQUEST["BadData"]=='1'){ ?>
+                  <?php if(!empty($_SESSION["FormErrors"])){ ?>
                   <div class="alert alert-danger" role="alert">
                     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                    <span class="sr-only">Alert Box <?php echo $_SESSION["FormErrors"]; ?></span>
+                    <span class="sr-only">Alert Box <?php print_r($_SESSION["FormErrors"]);?></span>
                   </div><?php }?>
                 <form data-toggle="validator" role="form" action="PHP/Validation.php" method="POST">
                   <div class="form-group">
@@ -191,7 +191,7 @@
                         Comments
                       </label>
                       <div class="input-group">
-                        <input type="text" class="form-control">
+                        <input type="text" name="comments" class="form-control">
                       </div>
                       
                       <div class="form-group">
