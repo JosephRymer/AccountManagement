@@ -57,8 +57,7 @@
         $_SESSION["POSTData"]=$data;
      header("location:Reader_Editor.php");
     }else{
-        $Former=$check->FormResults;
-        $_SESSION["FormErrors"]="$Former";
+         
         header("location:../AccountCreation.html");
     }
 ?>
