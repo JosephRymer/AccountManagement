@@ -4,7 +4,6 @@
     Accounts
   </title>
   <head>
-    <?php session_start();?>
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/bootstrap-theme.css" rel="stylesheet">
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -58,12 +57,12 @@
           <li>
               <a href="#">Accounts</a>
             <ul>
-             <li  href="AccountCreation.html"><a>Create Account</a></li>
+             <li  href="AccountCreation.php"><a>Create Account</a></li>
              <li  href=""><a>Current Accounts</a></li>
             </ul>
           </li>
           <li>
-            <a href="SideBarUsers.html">
+            <a href="SideBarUsers.php">
               Users
             </a>
           </li>
@@ -74,10 +73,11 @@
           <div class="container">
             <div class="row">
               <div class="col-md-12">
+                  <?php if($_GET["baddata"]=="1"){?>
                   <div class="alert alert-danger" role="alert">
                     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                    <span class="sr-only">Alert Box</span>
-                  </div>
+                    <span class="sr-only">Missing field or data was incorrect</span>
+                  </div><?php } ?>
                 <form data-toggle="validator" role="form" action="PHP/Validation.php" method="POST">
                   <div class="form-group">
                     <label form="inputName" class="control-label" >

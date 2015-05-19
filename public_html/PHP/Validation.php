@@ -6,58 +6,58 @@
     class FormValidationCheck {
                 
         public $conn;
-        public $FormResults = array();
+        
         function __construct($conn) {
             $this->conn = $conn;
         }
         
-        function CheckFormFields($data) {
+       public function CheckFormFields($data) {
              
-            
-             //the following checks use rejex to check to make sure their valid before they go to databaseInjection function
+            $FormResults = array();
             if (!preg_match("/^[a-zA-Z ]*$/",$data["F_Name"])) {
-                $this->FormResults['FName'] = "First Name Must Contain only Letters";
+                $FormResults['FName'] = "1";
             }
             if (!preg_match("/^[a-zA-Z ]*$/",$data["L_Name"])) {
-                $this->FormResults['LName'] = "Last Name Must Contain only Letters";
+                $FormResults['LName'] = "1";
             }
-            if (!filter_var($data["E_Mail"],FILTER_VALIDATE_EMAIL)) {
-                $this->FormResults['EMail'] = "Invalid email format";
+            if (!preg_match("/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/",$data["E_Mail"])) {
+                $FormResults['EMail'] = "1";
             }
             if (!preg_match("/^\s*\S+(?:\s+\S+){2}$/",$data["Street"])) {
-                $this->FormResults['S_treet'] = "Street is Required";
+                $FormResults['S_treet'] = "1";
             }
             if (empty($data["City"])){
-                $this->FormResults['C_ity'] = "City is Required";
+                $FormResults['C_ity'] = "1";
             }
             if (!preg_match("/^\d{5}([\-]?\d{4})?$/",$data["Zip_Code"])) {
-                $this->FormResults['Zip'] = "Zipcode must contain 5 digits and no Letters";
+                $FormResults['Zip'] = "1";
             }
              if (empty($data["ID_Type"])) {
-                $this->FormResults['ID'] = "ID Type is Required";
+                $FormResults['ID'] = "1";
             }
             if (empty($data["ID_Number"])) {
-                $this->FormResults['IDN'] = "ID Number is Required";
+                $FormResults['IDN'] = "1";
             }
              if (empty($data["Password"])) {
-                $this->FormResults['Pass'] = "Password is Required";
+                $FormResults['Pass'] = "1";
             }
-               return $this->FormResults;
+              return $FormResults;
             
         
         }   
-        
+         
     }
     
         
     $check= new FormValidationCheck($conn);
     
     $check->CheckFormFields($data);
-    if(empty($check->FormResults)){
-        $_SESSION["POSTData"]=$data;
+    $FormResults=$check->CheckFormFields($data);
+    print_r($FormResults);
+    if(empty($FormResults)){
+     $_SESSION["POSTData"]=$data;
      header("location:Reader_Editor.php");
-    }else{
-         
-        header("location:../AccountCreation.html");
+    }else{  
+     header("location:../AccountCreation.php?baddata=1");
     }
 ?>

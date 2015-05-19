@@ -25,7 +25,7 @@
                 <ul class="breadcrumb">
                   <a href="http://library.tamu.edu/">University Libraries</a>
                   >
-                  <a href="index.html">Welcome Page</a>
+                  <a href="index.php">Welcome Page</a>
                 </ul>
               </div>
             </div>
@@ -37,15 +37,15 @@
                     
                     <ul class="sidebar-nav">
                         <li class="sidebar-brand">
-                        <a href="SideBarDashboard.html">Dashboard</a></li>
-                        <li><a href="userprofile.html">User Profile</a></li>
+                        <a href="SideBarDashboard.php">Dashboard</a></li>
+                        <li><a href="userprofile.php">User Profile</a></li>
                         <li><a href="#">Accounts</a>
                           <ul  class="list-group">
-                           <li class="list-group-item"><a href="AccountCreation.html">Create Account</a></li>
-                           <li class="list-group-item"><a href="CurrentAccounts.html">Current Accounts</a></li>
+                           <li class="list-group-item"><a href="AccountCreation.php">Create Account</a></li>
+                           <li class="list-group-item"><a href="CurrentAccounts.php">Current Accounts</a></li>
                           </ul>
                         </li>
-                        <li><a href="SideBarUsers.html">Users</a></li>
+                        <li><a href="SideBarUsers.php">Users</a></li>
                     </ul>
                 </div>
                 <div id="page-content-wrapper">
