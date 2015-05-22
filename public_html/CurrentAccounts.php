@@ -74,6 +74,21 @@
             <div class="row">
               <div class="col-md-12">
                   <h1>Contains List of Accounts</h1>
+                  <div class="data-container">
+          <table class="table table-bordered">
+            <thead>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Email</th>
+              <th>Phone Number</th>
+              <th>Address</th>
+              <th>City</th>
+              <th>State</th>
+              <th>Zip</th>
+              <th>Status</th>
+              <th>Admin</th>
+            </thead>
+            <tbody>
                 </div>
               </div>
             </div>

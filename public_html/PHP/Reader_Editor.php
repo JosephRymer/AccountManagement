@@ -11,17 +11,15 @@
                 $this->conn = $conn;
             }
             function login(){
-               
-                if(!empty($_POST['username']) && !empty($_POST['password'])){
-                  $sql="SELECT * FROM users where `username`='".$_POST['username']."' and `password`=PASSWORD('".$_POST['password']."')";
+                  $sql="SELECT * FROM `users` where `username`='".$_POST['username']."' and `password`=PASSWORD('".$_POST['password']."')";
                   $result = $this->conn->query($sql);  
+                  $count=mysqli_num_rows($result);
                   $_SESSION['lgnuser']=$_POST['username'];
-                  if(!empty($result)){
-                      $info=$this->UserSelect();
-                      print_r($info);
-                     //header('location:../userprofile.php');
-                }}else{
-                     header("location:../index.php?login=1&badlogin=1");
+                  if($count == 1){
+                    header('location:../userprofile.php');
+                }else{
+                    header("location:../index.php?login=1&badlogin=1");
+                    
                     }
                  
                 }
@@ -53,36 +51,51 @@
                 values('".$data["F_Name"]."','".$data["L_Name"]."','".$data["E_Mail"]."','".$data["ID_Number"]."','".$data["ID_Type"]."','".$username."',PASSWORD('".$data["Password"]."'),'".$data["Street"]."'"
                 . ",'".$data["City"]."','".$data["State"]."','".$data["Zip_Code"]."',(UNIX_TIMESTAMP(NOW())),'".$expirationdate."','".$_SESSION['lgnuser']."','".$data["comments"]."')";
                  $result=  mysqli_query($this->conn, $sql);
-                 header("location:../userprofile.php?bad");
+                 header("location:../userprofile.php");
               
             }
             function databaseSelect() {
                 
-                if($current===1){
+                if($current=="1"){
                 $sql="SELECT * FROM `accounts`";
                $results = mysqli_query($this->conn, $sql);
-                print_r($result);
                return $result; 
-            }else if($search===1){
+            }else if($search=="1"){
                 $sql="SELECT * FROM `accounts` WHERE username=".$_POST['usersearch']."";
                 $results=mysqli_query($this->conn,$sql);
                 return $results;
-            }
-        }
-        function UserSelect(){
-            $sql="SELECT FROM users where `username`='".$_POST['username']."'";
+            }else{
+                  $sql="SELECT * FROM `users` WHERE `username`='".$_SESSION['lgnuser']."'";
             $result=  mysqli_query($this->conn,$sql);
-            return $result;
-        }
-        }
+            $row= mysqli_fetch_assoc($result);
+            print_r($row);
+            }
+
+            $_SESSION['lgnuserinfo']=$row;
+            }
         
+         function databaseUpdate(){
+             $sql="UPDATE `users` SET
+              firstname = '".$_POST['firstname']."',
+              lastname = '".$_POST['lastname']."',
+              email = '".$_POST['email']."',
+              password = PASSWORD('".$_POST['password']."') WHERE username='".$_SESSION[lgnuser]."'";
+             $result= mysqli_query($this->conn, $sql);
+             header("location:../userprofile.php?update=1");
+             
+         }
+        }
 
      $run= new DataHandler($conn); 
-    if($_GET["loginattempt"]==1){
+    if($_GET["attempt"]=="1"){
      $run->login();
-    }else if($_GET["accountinsert"]==1){
-     $run->databaseInsert($data,$lgnuser);
-    }else if($_GET["current"]==1){    
-     $run->databaseInsert();
+     $run->databaseSelect();
+    }else if($_GET["accountinsert"]=="1"){
+    $run->databaseInsert($data,$lgnuser);
+    
+    }
+    if($_GET["lgnupdate"]=="1"){
+        $run->databaseUpdate();
+        $run->databaseSelect();
     }
 ?>

@@ -8,8 +8,8 @@
         <link href="css/bootstrap-theme.min.css" rel="stylesheet">
         <link href="css/stylesheet.css" rel="stylesheet" >
       </head>
-      <?php if($_GET["login"]!=1){ ?>
       <body>
+      <?php if(!($_GET['login']) && !($_GET['badlogin'])){?>
 
         <div class="navbar navbar fixed top">
           <div class="navbar-inner"> 
@@ -26,7 +26,7 @@
                 <ul class="breadcrumb">
                   <a href="http://library.tamu.edu/">University Libraries</a>
                   >
-                  <a href="index.html">Welcome Page</a>
+                  <a href="">Welcome Page</a>
                 </ul>
               </div>
             </div>
@@ -40,7 +40,7 @@
             </div>
           </div>
       
-      <?php }if($_GET["login"]==1){?>
+      <?php }else if(($_GET['login']) || ($_GET['badlogin'])){?>
     <div class="navbar navbar fixed top">
       <div class="navbar-inner">
         
@@ -56,11 +56,11 @@
                 University Libraries
               </a>
               >
-              <a href=#>
+              <a href="index.php">
                 Welcome Page
               </a>
               >
-              <a href=#>
+              <a href=index.php?login>
                 Login
               </a>
             </ul>
@@ -72,14 +72,14 @@
       <div class="row-fluid">
         <div class="span12 appMain">
             
-           <?php if($_GET["badlogin"]==1){?>
+           <?php if(isset($_GET["badlogin"])){?>
             <div class="col-md-1">
                   <div class="alert alert-danger" role="alert">
                     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                     <span class="sr-only">Wrong Username or Password</span>
                   </div>
                </div><?php } ?>
-          <form action="PHP/Reader_Editor.php?loginattempt=1" method="POST" role="form" style="display: block;">
+          <form action="PHP/Reader_Editor.php?attempt=1" method="POST" role="form" style="display: block;">
             <div class="form-group">
               <input type="text" name="username" id="username"  class="form-control" placeholder="Username" value="">
             </div>

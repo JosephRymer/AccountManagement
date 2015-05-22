@@ -56,7 +56,7 @@
     print_r($FormResults);
     if(empty($FormResults)){
      $_SESSION["POSTData"]=$data;
-     header("location:Reader_Editor.php");
+     header("location:Reader_Editor.php?accountinsert=1");
     }else{  
      header("location:../AccountCreation.php?baddata=1");
     }

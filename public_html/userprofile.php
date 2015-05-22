@@ -2,6 +2,7 @@
   <html>
     <title>TAMUAccounts</title>
       <head>
+        <?php session_start(); ?>
         <link href="css/bootstrap.css" rel="stylesheet">
         <link href="css/bootstrap-theme.css" rel="stylesheet">
         <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -33,7 +34,7 @@
         </div>
           <div id="wrapper">
                 <div id="sidebar-wrapper">
-                    <h1>Users Name</h1>
+                    <h1>Welcome <?php echo $_SESSION['lgnuser']; ?></h1>
                     
                     <ul class="sidebar-nav">
                         <li class="sidebar-brand">
@@ -53,7 +54,52 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-12">
-                                  <h1>This Can contains info on the current logged in user</h1>
+                                  <h1>Current User Data</h1>
+                                  <div class="row">
+    <div class="col-md-4 col-md-offset-4">
+      <form class="form-horizontal" role="form" action="PHP/Reader_Editor.php?lgnupdate=1" method="POST">
+          <?php $values=$_SESSION['lgnuserinfo'];?>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="textinput">First Name: </label>
+            <div class="col-sm-10">
+              <input type="text" value="<?php echo $values["firstname"]; ?>" class="form-control" name="firstname">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="textinput">Last Name: </label>
+            <div class="col-sm-10">
+              <input type="text" value="<?php echo $values["lastname"]; ?>" class="form-control" name="lastname">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="textinput">Email: </label>
+            <div class="col-sm-10">
+              <input type="text" value="<?php echo $values["email"]; ?>" class="form-control" name="email">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label" form="textinput" >password: </label>
+            <div class="col-sm-4">
+              <input type="password"  class="form-control" name="password">
+            </div>
+
+           
+
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <div class="pull-right">
+                <button type="reset" class="btn btn-default">Reset</button>
+                <button type="submit" class="btn btn-primary">Save</button>
+              </div>
+            </div>
+          </div>
+
+        </fieldset>
+      </form>
+    </div><!-- /.col-lg-12 -->
                                 </div>
                             </div>
                         </div>
