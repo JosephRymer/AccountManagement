@@ -4,10 +4,9 @@
     Accounts
   </title>
   <head>
+      <?php session_start(); ?>
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/bootstrap-theme.css" rel="stylesheet">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="css/stylesheet.css" rel="stylesheet" >
   </head>
   <body>
@@ -45,12 +44,7 @@
         </h1>
         <ul class="sidebar-nav">
           <li class="sidebar-brand">
-            <a href="SideBarDashboard.html">
-              Dashboard
-            </a>
-          </li>
-          <li>
-            <a href="userprofile.html">
+            <a href="userprofile.php">
               User Profile
             </a>
           </li>
@@ -58,7 +52,7 @@
               <a href="#">Accounts</a>
             <ul>
              <li  href="AccountCreation.php"><a>Create Account</a></li>
-             <li  href=""><a>Current Accounts</a></li>
+             <li  href="PHP/Reader_Editor.php?current=1"><a>Current Accounts</a></li>
             </ul>
           </li>
           <li>
@@ -73,28 +67,65 @@
           <div class="container">
             <div class="row">
               <div class="col-md-12">
-                  <h1>Contains List of Accounts</h1>
-                  <div class="data-container">
+                  <h1 style='text-align: center;'>Current Accounts</h1>
           <table class="table table-bordered">
             <thead>
               <th>First Name</th>
               <th>Last Name</th>
               <th>Email</th>
-              <th>Phone Number</th>
-              <th>Address</th>
+              <th>ID Number</th>
+              <th>ID Type</th>
+              <th>Username</th>
+              <th>Street</th>
               <th>City</th>
               <th>State</th>
-              <th>Zip</th>
-              <th>Status</th>
-              <th>Admin</th>
+              <th>ZIP Code</th>
+              <th>Created On</th>
+              <th>Expire's On</th>
+              <th>Creator</th>
             </thead>
             <tbody>
+                <?php print_r($_SESSION['currentinfo']); while($row = mysqli_fetch_array($_SESSION['currentinfo'],MYSQLI_ASSOC)){?>
+                <td><?php echo $row['firstname']; ?></td>
+                <td><?php echo $row['lastname']; ?></td>
+                <td><?php echo $row['email']; ?></td>
+                <td><?php echo $row['idnumber']; ?></td>
+                <td><?php echo $row['idtype']; ?></td>
+                <td><?php echo $row['username'];$_SESSION['user']=$row['username']; ?></td>
+                <td><?php echo $row['street']; ?></td>
+                <td><?php echo $row['city']; ?></td>
+                <td><?php echo $row['state']; ?></td>
+                <td><?php echo $row['zipcode']; ?></td>
+                <td><?php $timestamp = $row['creationdate']; echo gmdate( "F j, Y, g:i a" , $timestamp); ?></td>
+                <td><?php $timestamp = $row['expireddate']; echo gmdate( "F j, Y, g:i a" , $timestamp);  }?>
+               <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"> Launch demo modal </button>
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Change Expiration Date</h4>
+                      </div>
+                      <div class="modal-body">
+                          <form action="PHP/Reader_Editor.php?updatedate=1" method="POST">
+                        <input  name="startdate" min="2015-01-01" max="2015-12-31" type="date">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <input type="submit" name="login-submit"  tabindex="4" class="btn btn-primary btn-lg">
+                      </form>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+                </td>
+                <td><?php echo $row['createdby']; ?></td>
+            </tbody>
+                
               </div>
             </div>
           </div>
         </div>
-          <!-- Javascript References -->
+          <script src='jquery/jquery-2.1.4.min.js'></script>
+            <script src='js/bootstrap.js'></script>
       </body> 
       <div class="container text-center"> 
         <footer>

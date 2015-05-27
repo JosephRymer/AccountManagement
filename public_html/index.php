@@ -81,10 +81,10 @@
                </div><?php } ?>
           <form action="PHP/Reader_Editor.php?attempt=1" method="POST" role="form" style="display: block;">
             <div class="form-group">
-              <input type="text" name="username" id="username"  class="form-control" placeholder="Username" value="">
+              <input type="text" name="username"  class="form-control" placeholder="Username" value="">
             </div>
             <div class="form-group">
-              <input type="password" name="password" id="password"  class="form-control" placeholder="Password">
+              <input type="password" name="password"  class="form-control" placeholder="Password">
             </div>
             <div class="form-group">
               <div class="row">

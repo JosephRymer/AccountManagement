@@ -56,9 +56,14 @@
             }
             function databaseSelect() {
                 
-                if($current=="1"){
+                if($_GET["current"] == "1"){
                 $sql="SELECT * FROM `accounts`";
-               $results = mysqli_query($this->conn, $sql);
+               $results = mysqli_query($this->conn,$sql);
+               //$row = mysqli_fetch_array($results , MYSQLI_ASSOC);
+               $_SESSION['currentinfo'] = $results;
+             //  print_r($_SESSION['currentinfo']);
+             //  print_r($results);
+               header('location:../CurrentAccounts.php');
                return $result; 
             }else if($search=="1"){
                 $sql="SELECT * FROM `accounts` WHERE username=".$_POST['usersearch']."";
@@ -75,6 +80,12 @@
             }
         
          function databaseUpdate(){
+             if($_GET['updatedate']=='1'){
+                 $formeddate=strtotime($_POST['startdate']);
+                 
+                 $sql="UPDATE `accounts` SET  `expireddate`='".$formeddate."' where `id`='".$_SESSION['user']."'";
+                 echo $sql;
+             }else{
              $sql="UPDATE `users` SET
               firstname = '".$_POST['firstname']."',
               lastname = '".$_POST['lastname']."',
@@ -85,10 +96,12 @@
              
          }
         }
-
+        }
      $run= new DataHandler($conn); 
     if($_GET["attempt"]=="1"){
      $run->login();
+     $run->databaseSelect();
+    }else if($_GET["current"]=="1"){
      $run->databaseSelect();
     }else if($_GET["accountinsert"]=="1"){
     $run->databaseInsert($data,$lgnuser);
@@ -97,5 +110,8 @@
     if($_GET["lgnupdate"]=="1"){
         $run->databaseUpdate();
         $run->databaseSelect();
+    }else if($_GET['updatedate']==1){
+        $run->databaseUpdate();
+        
     }
 ?>

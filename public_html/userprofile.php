@@ -38,12 +38,11 @@
                     
                     <ul class="sidebar-nav">
                         <li class="sidebar-brand">
-                        <a href="SideBarDashboard.php">Dashboard</a></li>
-                        <li><a href="userprofile.php">User Profile</a></li>
+                        <a href="userprofile.php">User Profile</a></li>
                         <li><a href="#">Accounts</a>
                           <ul  class="list-group">
                            <li class="list-group-item"><a href="AccountCreation.php">Create Account</a></li>
-                           <li class="list-group-item"><a href="CurrentAccounts.php">Current Accounts</a></li>
+                           <li class="list-group-item"><a href="PHP/Reader_Editor.php?current=1">Current Accounts</a></li>
                           </ul>
                         </li>
                         <li><a href="SideBarUsers.php">Users</a></li>

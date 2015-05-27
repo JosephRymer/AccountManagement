@@ -45,11 +45,6 @@
         </h1>
         <ul class="sidebar-nav">
           <li class="sidebar-brand">
-            <a href="SideBarDashboard.html">
-              Dashboard
-            </a>
-          </li>
-          <li>
             <a href="userprofile.html">
               User Profile
             </a>
@@ -58,7 +53,7 @@
               <a href="#">Accounts</a>
             <ul>
              <li  href="AccountCreation.php"><a>Create Account</a></li>
-             <li  href=""><a>Current Accounts</a></li>
+             <li  href="PHP/Reader_Editor.php?current=1"><a>Current Accounts</a></li>
             </ul>
           </li>
           <li>
