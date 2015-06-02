@@ -45,7 +45,7 @@
         </h1>
         <ul class="sidebar-nav">
           <li class="sidebar-brand">
-            <a href="userprofile.html">
+            <a href="userprofile.php">
               User Profile
             </a>
           </li>
@@ -70,8 +70,8 @@
               <div class="col-md-12">
                   <?php if($_GET["baddata"]=="1"){?>
                   <div class="alert alert-danger" role="alert">
-                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                    <span class="sr-only">Missing field or data was incorrect</span>
+                    <span class="glyphicon glyphicon glyphicon-alert" aria-hidden="true"></span>
+                    <span class="sr-only"></span>Missing field or data was incorrect
                   </div><?php } ?>
                 <form data-toggle="validator" role="form" action="PHP/Validation.php" method="POST">
                   <div class="form-group">

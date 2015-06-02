@@ -85,7 +85,16 @@
               <th>Creator</th>
             </thead>
             <tbody>
-                <?php print_r($_SESSION['currentinfo']); while($row = mysqli_fetch_array($_SESSION['currentinfo'],MYSQLI_ASSOC)){?>
+                <?php 
+                echo "begin test";
+                 require 'PHP/Reader_Editor.php';
+                 require_once('PHP/dbConnect.php');
+                 $db= new DataHandler();
+                 $response = $db->databaseSelect();
+                echo $response;
+                //$row = $_SESSION['currentinfo'];
+                 echo "end test";
+                 ?>
                 <td><?php echo $row['firstname']; ?></td>
                 <td><?php echo $row['lastname']; ?></td>
                 <td><?php echo $row['email']; ?></td>
@@ -97,7 +106,7 @@
                 <td><?php echo $row['state']; ?></td>
                 <td><?php echo $row['zipcode']; ?></td>
                 <td><?php $timestamp = $row['creationdate']; echo gmdate( "F j, Y, g:i a" , $timestamp); ?></td>
-                <td><?php $timestamp = $row['expireddate']; echo gmdate( "F j, Y, g:i a" , $timestamp);  }?>
+                <td><?php $timestamp = $row['expireddate']; echo gmdate( "F j, Y, g:i a" , $timestamp);  ?>
                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"> Launch demo modal </button>
                 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                   <div class="modal-dialog">

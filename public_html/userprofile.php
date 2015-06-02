@@ -5,8 +5,6 @@
         <?php session_start(); ?>
         <link href="css/bootstrap.css" rel="stylesheet">
         <link href="css/bootstrap-theme.css" rel="stylesheet">
-        <link href="css/bootstrap.min.css" rel="stylesheet">
-        <link href="css/bootstrap-theme.min.css" rel="stylesheet">
         <link href="css/stylesheet.css" rel="stylesheet" >
       </head>
       <body>

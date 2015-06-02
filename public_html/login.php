@@ -1,47 +1,13 @@
   <!DOCTYPE html>
-  <html>
+ <html>
     <title>TAMUAccounts</title>
       <head>
         <link href="css/bootstrap.css" rel="stylesheet">
         <link href="css/bootstrap-theme.css" rel="stylesheet">
-        <link href="css/bootstrap.min.css" rel="stylesheet">
-        <link href="css/bootstrap-theme.min.css" rel="stylesheet">
         <link href="css/stylesheet.css" rel="stylesheet" >
       </head>
       <body>
-      <?php if(!($_GET['login']) && !($_GET['badlogin'])){?>
-
-        <div class="navbar navbar fixed top">
-          <div class="navbar-inner"> 
-              
-            <a class="brand" href="http://library.tamu.edu/">
-             <img src="img/logo.png" alt="Library Logo">
-            </a>
-          </div>
-
-          <div class="color-field">
-            <div class="row-fluid">
-              <div class="span12 pull left breadcrumb">
-                 <a href="index.php?login=1" class="btn btn-info btn pull-right" role="button"> Login</a>
-                <ul class="breadcrumb">
-                  <a href="http://library.tamu.edu/">University Libraries</a>
-                  >
-                  <a href="">Welcome Page</a>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-          <div class="container">
-            <div class="row-fluid">
-              <div class="span12 appMain">
-                <img src="img/TAMU_Logo1.png" alt="Library Logo">
-              </div>
-            </div>
-          </div>
-      
-      <?php }else if(($_GET['login']) || ($_GET['badlogin'])){?>
-    <div class="navbar navbar fixed top">
+<div class="navbar navbar fixed top">
       <div class="navbar-inner">
         
         <a class="brand" href="http://library.tamu.edu/">
@@ -60,7 +26,7 @@
                 Welcome Page
               </a>
               >
-              <a href=index.php?login>
+              <a href=login.php>
                 Login
               </a>
             </ul>
@@ -72,13 +38,12 @@
       <div class="row-fluid">
         <div class="span12 appMain">
             
-           <?php if(isset($_GET["badlogin"])){?>
-            <div class="col-md-1">
+           <?php if($_GET["badlogin"]=='1'){?>
                   <div class="alert alert-danger" role="alert">
-                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                    <span class="sr-only">Wrong Username or Password</span>
+                    <span class="glyphicon glyphicon glyphicon-alert" aria-hidden="true"></span>
+                    <span class="sr-only"></span>Wrong Username or Password
                   </div>
-               </div><?php } ?>
+               <?php } ?>
           <form action="PHP/Reader_Editor.php?attempt=1" method="POST" role="form" style="display: block;">
             <div class="form-group">
               <input type="text" name="username"  class="form-control" placeholder="Username" value="">
@@ -99,9 +64,10 @@
       </div>
     </div>
   </div>
-  <?php } ?>
-  
-  </body>
+   </body>
+      <!-- JavaScript References -->
+      <script src="js/jquery-1.11.3.min.js"></script>
+      <script src="js/bootstrap.js"></script>
       <div class="container text-center"> 
         <footer>
           <a title="Texas A&amp;M University" href="http://www.tamu.edu">Texas A&amp;M University</a>  

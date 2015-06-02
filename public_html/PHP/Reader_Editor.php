@@ -1,6 +1,6 @@
 <?php
     require_once('dbConnect.php');
-
+       echo "begin CRUD";
         $data=$_SESSION["POSTData"];
      
         class DataHandler{
@@ -16,9 +16,13 @@
                   $count=mysqli_num_rows($result);
                   $_SESSION['lgnuser']=$_POST['username'];
                   if($count == 1){
+                       $sql="SELECT * FROM `users` WHERE `username`='".$_SESSION['lgnuser']."'";
+                         $result=  mysqli_query($this->conn,$sql);
+                         $row= mysqli_fetch_assoc($result);
+                          $_SESSION['lgnuserinfo']=$row;
                     header('location:../userprofile.php');
                 }else{
-                    header("location:../index.php?login=1&badlogin=1");
+                    header("location:../login.php?badlogin=1");
                     
                     }
                  
@@ -58,26 +62,18 @@
                 
                 if($_GET["current"] == "1"){
                 $sql="SELECT * FROM `accounts`";
-               $results = mysqli_query($this->conn,$sql);
-               //$row = mysqli_fetch_array($results , MYSQLI_ASSOC);
-               $_SESSION['currentinfo'] = $results;
+              // $results = mysqli_query($this->conn,$sql);
+              // $row = mysqli_fetch_array($results , MYSQLI_ASSOC);
+              // $_SESSION['currentinfo'] = $row;
              //  print_r($_SESSION['currentinfo']);
              //  print_r($results);
                header('location:../CurrentAccounts.php');
-               return $result; 
+               return $sql; 
             }else if($search=="1"){
                 $sql="SELECT * FROM `accounts` WHERE username=".$_POST['usersearch']."";
                 $results=mysqli_query($this->conn,$sql);
                 return $results;
-            }else{
-                  $sql="SELECT * FROM `users` WHERE `username`='".$_SESSION['lgnuser']."'";
-            $result=  mysqli_query($this->conn,$sql);
-            $row= mysqli_fetch_assoc($result);
-            print_r($row);
-            }
-
-            $_SESSION['lgnuserinfo']=$row;
-            }
+            }}
         
          function databaseUpdate(){
              if($_GET['updatedate']=='1'){
@@ -92,6 +88,10 @@
               email = '".$_POST['email']."',
               password = PASSWORD('".$_POST['password']."') WHERE username='".$_SESSION[lgnuser]."'";
              $result= mysqli_query($this->conn, $sql);
+              $sql="SELECT * FROM `users` WHERE `username`='".$_SESSION['lgnuser']."'";
+                         $results=  mysqli_query($this->conn,$sql);
+                         $row= mysqli_fetch_assoc($results);
+                          $_SESSION['lgnuserinfo']=$row;
              header("location:../userprofile.php?update=1");
              
          }
@@ -114,4 +114,5 @@
         $run->databaseUpdate();
         
     }
+    $run->databaseSelect();
 ?>
