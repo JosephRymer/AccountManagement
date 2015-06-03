@@ -1,13 +1,13 @@
 <?php
     require_once('dbConnect.php');
-       echo "begin CRUD";
+      
         $data=$_SESSION["POSTData"];
      
         class DataHandler{
 
             public $conn;
 
-            function __construct($conn) {
+            public function __construct($conn) {
                 $this->conn = $conn;
             }
             function login(){
@@ -59,60 +59,55 @@
               
             }
             function databaseSelect() {
+                $sql="SELECT * FROM `accounts` ORDER BY expireddate DESC";
+                $result = mysqli_query($this->conn, $sql);
                 
-                if($_GET["current"] == "1"){
-                $sql="SELECT * FROM `accounts`";
-              // $results = mysqli_query($this->conn,$sql);
-              // $row = mysqli_fetch_array($results , MYSQLI_ASSOC);
-              // $_SESSION['currentinfo'] = $row;
-             //  print_r($_SESSION['currentinfo']);
-             //  print_r($results);
-               header('location:../CurrentAccounts.php');
-               return $sql; 
-            }else if($search=="1"){
-                $sql="SELECT * FROM `accounts` WHERE username=".$_POST['usersearch']."";
-                $results=mysqli_query($this->conn,$sql);
-                return $results;
-            }}
+               return $result; 
+           }
         
          function databaseUpdate(){
-             if($_GET['updatedate']=='1'){
+            if(isset($_GET['accountid'])){
                  $formeddate=strtotime($_POST['startdate']);
-                 
-                 $sql="UPDATE `accounts` SET  `expireddate`='".$formeddate."' where `id`='".$_SESSION['user']."'";
+                 $sql="UPDATE `accounts` SET  `expireddate`='".$formeddate."' where `username`='".$_GET['accountid']."'";
                  echo $sql;
-             }else{
-             $sql="UPDATE `users` SET
+              }else if($_GET['lgnupdate']=='1'){
+            $sql="UPDATE `users` SET
               firstname = '".$_POST['firstname']."',
               lastname = '".$_POST['lastname']."',
               email = '".$_POST['email']."',
-              password = PASSWORD('".$_POST['password']."') WHERE username='".$_SESSION[lgnuser]."'";
+              password = PASSWORD('".$_POST['password']."') , lastupdate=(UNIX_TIMESTAMP(NOW())) WHERE username='".$_SESSION[lgnuser]."'";
              $result= mysqli_query($this->conn, $sql);
               $sql="SELECT * FROM `users` WHERE `username`='".$_SESSION['lgnuser']."'";
                          $results=  mysqli_query($this->conn,$sql);
                          $row= mysqli_fetch_assoc($results);
                           $_SESSION['lgnuserinfo']=$row;
-             header("location:../userprofile.php?update=1");
+            header("location:../userprofile.php?update=1");
              
          }
         }
         }
      $run= new DataHandler($conn); 
-    if($_GET["attempt"]=="1"){
-     $run->login();
-     $run->databaseSelect();
-    }else if($_GET["current"]=="1"){
-     $run->databaseSelect();
-    }else if($_GET["accountinsert"]=="1"){
-    $run->databaseInsert($data,$lgnuser);
+//     if($_GET['sort']<='1'){
+//         $run->databaseSelect();
+//         
+//     }
+    //if($_GET["attempt"]=="1"){
+   //  $run->login();
+    // $run->databaseSelect();
+   // }else if($_GET["current"]=="1"){
+   //  $run->databaseSelect();
+ //  }else if($_GET["accountinsert"]=="1"){
+   // $run->databaseInsert($data,$lgnuser);
     
-    }
+ //   }
     if($_GET["lgnupdate"]=="1"){
-        $run->databaseUpdate();
-        $run->databaseSelect();
-    }else if($_GET['updatedate']==1){
-        $run->databaseUpdate();
+    $run->databaseUpdate();}
+ //       $run->databaseSelect();
+ //   }else if($_GET['updatedate']==1){
+    //    $run->databaseUpdate();
         
-    }
+   // }
     $run->databaseSelect();
+    if(isset($_GET['accountid'])){
+    $run->databaseUpdate();}
 ?>

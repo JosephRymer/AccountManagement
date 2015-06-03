@@ -4,7 +4,8 @@
     Accounts
   </title>
   <head>
-      <?php session_start(); ?>
+      <?php require 'PHP/Reader_Editor.php';
+                 require_once('PHP/dbConnect.php'); ?>
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/bootstrap-theme.css" rel="stylesheet">
     <link href="css/stylesheet.css" rel="stylesheet" >
@@ -81,34 +82,32 @@
               <th>State</th>
               <th>ZIP Code</th>
               <th>Created On</th>
-              <th>Expire's On</th>
+              <th>Expire's On<span class="glyphicon glyphicon-arrow-down"></span></th>
               <th>Creator</th>
             </thead>
+              
             <tbody>
-                <?php 
-                echo "begin test";
-                 require 'PHP/Reader_Editor.php';
-                 require_once('PHP/dbConnect.php');
-                 $db= new DataHandler();
+                  <?php 
+                 $db= new DataHandler($conn);
                  $response = $db->databaseSelect();
-                echo $response;
-                //$row = $_SESSION['currentinfo'];
-                 echo "end test";
-                 ?>
+                 
+                
+                 while($row=mysqli_fetch_array($response,MYSQLI_ASSOC)){
+                     ?><tr>
                 <td><?php echo $row['firstname']; ?></td>
                 <td><?php echo $row['lastname']; ?></td>
                 <td><?php echo $row['email']; ?></td>
                 <td><?php echo $row['idnumber']; ?></td>
                 <td><?php echo $row['idtype']; ?></td>
-                <td><?php echo $row['username'];$_SESSION['user']=$row['username']; ?></td>
+                <td><?php echo $row['username'];?></td>
                 <td><?php echo $row['street']; ?></td>
                 <td><?php echo $row['city']; ?></td>
                 <td><?php echo $row['state']; ?></td>
                 <td><?php echo $row['zipcode']; ?></td>
                 <td><?php $timestamp = $row['creationdate']; echo gmdate( "F j, Y, g:i a" , $timestamp); ?></td>
-                <td><?php $timestamp = $row['expireddate']; echo gmdate( "F j, Y, g:i a" , $timestamp);  ?>
-               <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"> Launch demo modal </button>
-                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                 <td><?php $timestamp = $row['expireddate']; echo gmdate( "F j, Y, g:i a" , $timestamp);  ?>
+               <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#<?php echo $row['username']; ?>"> Launch demo modal </button>
+                <div class="modal fade" id="<?php echo $row['username'];?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
@@ -116,7 +115,7 @@
                         <h4 class="modal-title" id="myModalLabel">Change Expiration Date</h4>
                       </div>
                       <div class="modal-body">
-                          <form action="PHP/Reader_Editor.php?updatedate=1" method="POST">
+                          <form action="PHP/Reader_Editor.php?accountid=<?php echo $row['username']; ?>" method="POST">
                         <input  name="startdate" min="2015-01-01" max="2015-12-31" type="date">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                         <input type="submit" name="login-submit"  tabindex="4" class="btn btn-primary btn-lg">
@@ -126,10 +125,8 @@
                   </div>
                 </div>
                 </td>
-                <td><?php echo $row['createdby']; ?></td>
+                 <td><?php echo $row['createdby']; }?></td></tr>
             </tbody>
-                
-              </div>
             </div>
           </div>
         </div>
