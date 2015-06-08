@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<?php if(isset($_SESSION['lgnuser'])){ ?>
 <html>
   <title>
     Accounts
@@ -40,29 +41,16 @@
     </div>
     <div id="wrapper">
       <div id="sidebar-wrapper">
-        <h1>
-          Welcome User
-        </h1>
+       <h1>Welcome <?php echo $_SESSION['lgnuser']; ?></h1>
         <ul class="sidebar-nav">
-          <li class="sidebar-brand">
-            <a href="userprofile.php">
-              User Profile
-            </a>
-          </li>
-          <li>
-              <a href="#">Accounts</a>
-            <ul>
-             <li  href="AccountCreation.php"><a>Create Account</a></li>
-             <li  href="PHP/Reader_Editor.php?current=1"><a>Current Accounts</a></li>
-            </ul>
-          </li>
-          <li>
-            <a href="SideBarUsers.php">
-              Users
-            </a>
-          </li>
+         <li class="sidebar-brand">
+          <a href="userprofile.php">User Profile</a>
+          <a href="AccountCreation.php">Create Account</a>
+          <?php if($values['isadmin']=='1'){ ?>
+          <a href="CurrentAccounts.php">Current Accounts</a></li>
+          <?php } ?> 
         </ul>
-      </div>
+       </div>
       <div id="page-content-wrapper">
         <div class="page-content">
           <div class="container">
@@ -73,6 +61,7 @@
                     <span class="glyphicon glyphicon glyphicon-alert" aria-hidden="true"></span>
                     <span class="sr-only"></span>Missing field or data was incorrect
                   </div><?php } ?>
+                  <!-- Instead of passing data straight to Reader_Editor to be inserted it is passed to Validation.php for validation to insure that the data is correct and passes all rejex tests and php tests-->
                 <form data-toggle="validator" role="form" action="PHP/Validation.php" method="POST">
                   <div class="form-group">
                     <label form="inputName" class="control-label" >
@@ -225,6 +214,8 @@
           </div>
         </div>
           <!-- Javascript References -->
+           <script src='jquery/jquery-1.9.1.min.js'></script>
+           <script src='js/bootstrap.js'></script>
       </body> 
       <div class="container text-center"> 
         <footer>
@@ -239,3 +230,6 @@
         </footer>
       </div>
   </html>
+<?php }else{
+header("location:/AccountManagement/public_html/login.php?badlogin=1");   
+} ?>

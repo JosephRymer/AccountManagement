@@ -1,11 +1,12 @@
 <!DOCTYPE html>
+<?php if(isset($_SESSION['lgnuser'])){ ?>
 <html>
   <title>
     Accounts
   </title>
   <head>
       <?php require 'PHP/Reader_Editor.php';
-                 require_once('PHP/dbConnect.php'); ?>
+            require_once('PHP/dbConnect.php'); ?>
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/bootstrap-theme.css" rel="stylesheet">
     <link href="css/stylesheet.css" rel="stylesheet" >
@@ -40,29 +41,16 @@
     </div>
     <div id="wrapper">
       <div id="sidebar-wrapper">
-        <h1>
-          Welcome User
-        </h1>
+       <h1>Welcome <?php echo $_SESSION['lgnuser']; ?></h1>
         <ul class="sidebar-nav">
-          <li class="sidebar-brand">
-            <a href="userprofile.php">
-              User Profile
-            </a>
-          </li>
-          <li>
-              <a href="#">Accounts</a>
-            <ul>
-             <li  href="AccountCreation.php"><a>Create Account</a></li>
-             <li  href="PHP/Reader_Editor.php?current=1"><a>Current Accounts</a></li>
-            </ul>
-          </li>
-          <li>
-            <a href="SideBarUsers.php">
-              Users
-            </a>
-          </li>
+         <li class="sidebar-brand">
+          <a href="userprofile.php">User Profile</a>
+          <a href="AccountCreation.php">Create Account</a>
+          <?php if($values['isadmin']=='1'){ ?>
+          <a href="CurrentAccounts.php">Current Accounts</a></li>
+          <?php } ?> 
         </ul>
-      </div>
+       </div>
       <div id="page-content-wrapper">
         <div class="page-content">
           <div class="container">
@@ -130,7 +118,7 @@
             </div>
           </div>
         </div>
-          <script src='jquery/jquery-2.1.4.min.js'></script>
+          <script src='jquery/jquery-1.9.1.min.js'></script>
             <script src='js/bootstrap.js'></script>
       </body> 
       <div class="container text-center"> 
@@ -146,3 +134,7 @@
         </footer>
       </div>
   </html>
+      <?php }else{
+header("location:/AccountManagement/public_html/login.php?badlogin=1");   
+} ?>
+  

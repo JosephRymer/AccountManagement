@@ -54,6 +54,7 @@
     $check->CheckFormFields($data);
     $FormResults=$check->CheckFormFields($data);
     print_r($FormResults);
+    //If the data is all ok adn there was no errors in the array then it is passed to  Reader_Editor.php for insert else it will send back with a variable which AccountCreation interprets
     if(empty($FormResults)){
      $_SESSION["POSTData"]=$data;
      header("location:Reader_Editor.php?accountinsert=1");

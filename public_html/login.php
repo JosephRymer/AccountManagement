@@ -66,7 +66,7 @@
   </div>
    </body>
       <!-- JavaScript References -->
-      <script src="js/jquery-1.11.3.min.js"></script>
+      <script src="js/jquery-1.9.1.min.js"></script>
       <script src="js/bootstrap.js"></script>
       <div class="container text-center"> 
         <footer>
