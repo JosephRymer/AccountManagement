@@ -19,12 +19,14 @@
                   if($count == 1){
                       //Data that autofills form in userprofile is pulled here form the database 
                     $sql="SELECT * FROM `users` WHERE `username`='".$_SESSION['lgnuser']."'";
+                    
                      $result=  mysqli_query($this->conn,$sql);
                        $row= mysqli_fetch_assoc($result);
+                       $_SESSION['isadmin']=$row['isadmin'];
                         $_SESSION['lgnuserinfo']=$row;
                         header('location:../userprofile.php');
                     }else{
-                     header("location:../login.php?badlogin=1");
+                     header("location:../index.php?badlogin=1");
                     }
             }
             //this function is for building the username then passing to be sent to a mysql query in DatabaseInsert
@@ -56,8 +58,16 @@
             }
             
             function databaseSelect() {
-             $sql="SELECT * FROM `accounts` ORDER BY expireddate DESC";
-             $result = mysqli_query($this->conn, $sql);
+             if(!empty( $_SESSION['searchresult'])){
+               $sql="SELECT * FROM `accounts` where username='". $_SESSION['searchresult']."'";
+               echo $sql;
+                 $result = mysqli_query($this->conn, $sql);
+                 $_SESSION['searchresults']=$result;
+                 echo  $_SESSION['searchresult'];
+                 return $result;
+             }else
+              $sql="SELECT * FROM `accounts` ORDER BY expireddate DESC";
+               $result = mysqli_query($this->conn, $sql);
                 return $result; 
             }
 
@@ -82,6 +92,7 @@
             }
             function logout(){
                  session_unset();
+                 header('location:../index.php');
             }
     }
 $run= new DataHandler($conn); 

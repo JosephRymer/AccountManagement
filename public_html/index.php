@@ -26,7 +26,7 @@
                 Welcome Page
               </a>
               >
-              <a href=login.php>
+              <a href=index.php>
                 Login
               </a>
             </ul>
@@ -66,7 +66,7 @@
   </div>
    </body>
       <!-- JavaScript References -->
-      <script src="js/jquery-1.9.1.min.js"></script>
+      <script src="js/jquery-2.1.4.min.js"></script>
       <script src="js/bootstrap.js"></script>
       <div class="container text-center"> 
         <footer>

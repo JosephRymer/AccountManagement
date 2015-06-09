@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<?php if(isset($_SESSION['lgnuser'])){ ?>
+<?php if(empty($_SESSION['lgnuser'])){ ?>
 <html>
-    <title>TAMUAccounts</title>
+    <title>Dashboard</title>
     <head>
      <?php session_start(); 
       $values=$_SESSION['lgnuserinfo'];?>
@@ -20,14 +20,14 @@
       <div class="color-field">
        <div class="row-fluid">
         <div class="span12 pull left breadcrumb">
-             <a href="PHP/Reader_Editor.php?logout=1" class="btn  btn-danger " role="button">logout</a>
-            </div>
+            
          <ul class="breadcrumb">
           <a href="http://library.tamu.edu/">University Libraries</a>
           >
-          <a href="index.php">Welcome Page</a>
+          <a href="userprofile.php">Dashboard</a>
          </ul>
         </div>
+       </div>
        </div>
       </div>
      </div>
@@ -38,9 +38,10 @@
          <li class="sidebar-brand">
           <a href="userprofile.php">User Profile</a>
           <a href="AccountCreation.php">Create Account</a>
-          <?php if($values['isadmin']=='1'){ ?>
-          <a href="CurrentAccounts.php">Current Accounts</a></li>
-          <?php } ?> 
+          <?php if($_SESSION['isadmin']=='1'){ ?>
+          <a href="CurrentAccounts.php">Current Accounts</a>
+          <?php } ?>
+          <a href="PHP/Reader_Editor.php?logout=1">Logout</a></li>
         </ul>
        </div>
         <div id="page-content-wrapper">
@@ -109,5 +110,5 @@
    </div>
 </html>
 <?php }else{
-header("location:/AccountManagement/public_html/login.php?badlogin=1");   
+header("location:/AccountManagement/public_html/index.php?badlogin=1");   
 } ?>

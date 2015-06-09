@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-<?php if(isset($_SESSION['lgnuser'])){ ?>
+<?php if(empty($_SESSION['lgnuser'])){ 
+    session_start(); ?>
 <html>
   <title>
-    Accounts
+    Create Account
   </title>
   <head>
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/bootstrap-theme.css" rel="stylesheet">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="css/stylesheet.css" rel="stylesheet" >
   </head>
   <body>
@@ -31,9 +30,13 @@
                 University Libraries
               </a>
               >
-              <a href="index.html">
-                Welcome Page
+              <a href="userprofile.php">
+                Dashboard
+              </a>>
+              <a href="AccountCreation.php">
+                 Create Account 
               </a>
+              
             </ul>
           </div>
         </div>
@@ -46,9 +49,10 @@
          <li class="sidebar-brand">
           <a href="userprofile.php">User Profile</a>
           <a href="AccountCreation.php">Create Account</a>
-          <?php if($values['isadmin']=='1'){ ?>
-          <a href="CurrentAccounts.php">Current Accounts</a></li>
-          <?php } ?> 
+          <?php if($_SESSION['isadmin']=='1'){ ?>
+          <a href="CurrentAccounts.php">Current Accounts</a>
+          <?php } ?>
+          <a href="PHP/Reader_Editor.php?logout=1">Logout</a></li>
         </ul>
        </div>
       <div id="page-content-wrapper">
@@ -214,7 +218,7 @@
           </div>
         </div>
           <!-- Javascript References -->
-           <script src='jquery/jquery-1.9.1.min.js'></script>
+          <script src='js/jquery-2.1.4.min.js'></script>
            <script src='js/bootstrap.js'></script>
       </body> 
       <div class="container text-center"> 
@@ -231,5 +235,5 @@
       </div>
   </html>
 <?php }else{
-header("location:/AccountManagement/public_html/login.php?badlogin=1");   
+header("location:/AccountManagement/public_html/index.php?badlogin=1");   
 } ?>

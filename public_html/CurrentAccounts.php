@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<?php if(isset($_SESSION['lgnuser'])){ ?>
+<?php if(empty($_SESSION['lgnuser'])){ ?>
 <html>
   <title>
-    Accounts
+   Create Accounts
   </title>
   <head>
       <?php require 'PHP/Reader_Editor.php';
-            require_once('PHP/dbConnect.php'); ?>
+            require_once('PHP/dbConnect.php');
+            session_start();?>
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/bootstrap-theme.css" rel="stylesheet">
     <link href="css/stylesheet.css" rel="stylesheet" >
@@ -31,9 +32,16 @@
                 University Libraries
               </a>
               >
-              <a href="index.html">
-                Welcome Page
+              <a href="userprofile.php">
+                Dashboard
+              </a>>
+              <a href="CurrentAccounts.php">
+                Current Accounts
               </a>
+              <form action="CurrentAccounts.php" method="GET" class="control form-inline" style="float:right;">
+                 <input type="text" class="form-control" name="search" placeholder="Search">
+                 <input type="submit"  class="btn btn-default">
+             </form>
             </ul>
           </div>
         </div>
@@ -46,7 +54,7 @@
          <li class="sidebar-brand">
           <a href="userprofile.php">User Profile</a>
           <a href="AccountCreation.php">Create Account</a>
-          <?php if($values['isadmin']=='1'){ ?>
+          <?php if($_SESSION['isadmin']=='1'){ ?>
           <a href="CurrentAccounts.php">Current Accounts</a></li>
           <?php } ?> 
         </ul>
@@ -74,25 +82,24 @@
               <th>Creator</th>
             </thead>
               
-            <tbody>
+            <tbody id="accountstable">
                   <?php 
+                  $_SESSION['searchresult'] = $_GET['search'];
                  $db= new DataHandler($conn);
                  $response = $db->databaseSelect();
-                 
-                
                  while($row=mysqli_fetch_array($response,MYSQLI_ASSOC)){
                      ?><tr>
-                <td><?php echo $row['firstname']; ?></td>
+                <td id="rowi"><?php echo $row['firstname']; ?></td>
                 <td><?php echo $row['lastname']; ?></td>
-                <td><?php echo $row['email']; ?></td>
+                <td id="rowi"><?php echo $row['email']; ?></td>
                 <td><?php echo $row['idnumber']; ?></td>
-                <td><?php echo $row['idtype']; ?></td>
+                <td id="rowi"><?php echo $row['idtype']; ?></td>
                 <td><?php echo $row['username'];?></td>
-                <td><?php echo $row['street']; ?></td>
+                <td id="rowi"><?php echo $row['street']; ?></td>
                 <td><?php echo $row['city']; ?></td>
-                <td><?php echo $row['state']; ?></td>
+                <td id="rowi"><?php echo $row['state']; ?></td>
                 <td><?php echo $row['zipcode']; ?></td>
-                <td><?php $timestamp = $row['creationdate']; echo gmdate( "F j, Y, g:i a" , $timestamp); ?></td>
+                <td id="rowi"><?php $timestamp = $row['creationdate']; echo gmdate( "F j, Y, g:i a" , $timestamp); ?></td>
                  <td><?php $timestamp = $row['expireddate']; echo gmdate( "F j, Y, g:i a" , $timestamp);  ?>
                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#<?php echo $row['username']; ?>"> Launch demo modal </button>
                 <div class="modal fade" id="<?php echo $row['username'];?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -113,12 +120,12 @@
                   </div>
                 </div>
                 </td>
-                 <td><?php echo $row['createdby']; }?></td></tr>
+                 <td id="rowi"><?php echo $row['createdby']; }?></td></tr>
             </tbody>
             </div>
           </div>
         </div>
-          <script src='jquery/jquery-1.9.1.min.js'></script>
+          <script src='js/jquery-2.1.4.min.js'></script>
             <script src='js/bootstrap.js'></script>
       </body> 
       <div class="container text-center"> 
@@ -135,6 +142,6 @@
       </div>
   </html>
       <?php }else{
-header("location:/AccountManagement/public_html/login.php?badlogin=1");   
+header("location:/AccountManagement/public_html/index.php?badlogin=1");   
 } ?>
   
