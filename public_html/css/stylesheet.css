@@ -93,7 +93,7 @@ margin-bottom: -10px;
   margin-left: -250px;
   left: 250px;
   width: 250px;
-  background-color: #500000;
+  background-color: #104554;
   position: fixed;
   height: 100%;
   overflow-y: auto;
@@ -124,8 +124,10 @@ margin-bottom: -10px;
     background: rgba(0,0,0,0.5);
 }
 #accountstable{
-  background-color: #D56A6A;
+  background-color: #104554;
+  color: #ffffff;
 }
 #rowi{
-    background-color: #FFA6A6;
+    background-color: #406A76;
+    color: #ffffff;
 }

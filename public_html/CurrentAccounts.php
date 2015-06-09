@@ -122,13 +122,14 @@
                 </td>
                  <td id="rowi"><?php echo $row['createdby']; }?></td></tr>
             </tbody>
+          </table>
             </div>
           </div>
         </div>
           <script src='js/jquery-2.1.4.min.js'></script>
             <script src='js/bootstrap.js'></script>
       </body> 
-      <div class="container text-center"> 
+      <div class="container text-center "> 
         <footer>
           <a title="Texas A&amp;M University" href="http://www.tamu.edu">Texas A&amp;M University</a>  
           <a title="Employment" href="http://library.tamu.edu/about/employment/">Employment</a>  
