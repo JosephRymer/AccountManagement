@@ -65,6 +65,7 @@ footer a{
 
 .navbar{
 border:0px solid transparent;
+margin-bottom: -10px;
 }
 .appMain{
   text-align: center;
@@ -79,6 +80,7 @@ border:0px solid transparent;
 .registaredit{
   text-align: left;
 }
+
 .data-container{
  background-color: #fff;
   min-width: 40%;
@@ -86,4 +88,44 @@ border:0px solid transparent;
   padding: 25px;
   margin-top: 100px;
   box-shadow: 3px 3px 8px -1px #aaa;
+}
+#sidebar-wrapper {
+  margin-left: -250px;
+  left: 250px;
+  width: 250px;
+  background-color: #500000;
+  position: fixed;
+  height: 100%;
+  overflow-y: auto;
+  z-index: 1000;
+  transition: all 0.4s ease 0s;
+  -webkit-box-shadow: 1px 0px 2px #000;
+
+}
+
+#sidebar-wrapper h1{
+    color: #ffffff;
+    font-size: 25px;
+    padding-left: 5px;
+    list-style-type: none;
+}
+
+.sidebar-nav li a{
+    color: #ffffff;
+    display: block;
+    padding-top: 20px;
+    list-style: none;
+    
+    
+}
+.sidebar-nav li a:hover {
+    text-decoration: none;
+    color: #fff;
+    background: rgba(0,0,0,0.5);
+}
+#accountstable{
+  background-color: #D56A6A;
+}
+#rowi{
+    background-color: #FFA6A6;
 }
