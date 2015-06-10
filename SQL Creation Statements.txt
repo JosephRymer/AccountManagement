@@ -1,0 +1,31 @@
+CREATE TABLE `users` (
+  `firstname` varchar(45) NOT NULL,
+  `lastname` varchar(45) NOT NULL,
+  `email` varchar(65) DEFAULT NULL,
+  `username` varchar(45) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `lastupdate` int(255) DEFAULT NULL,
+  `isadmin` tinyint(1) NOT NULL,
+  UNIQUE KEY `username_UNIQUE` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+CREATE TABLE `accounts` (
+  `firstname` varchar(45) NOT NULL,
+  `lastname` varchar(45) NOT NULL,
+  `email` varchar(65) DEFAULT NULL,
+  `idnumber` varchar(45) NOT NULL,
+  `idtype` varchar(45) NOT NULL,
+  `username` varchar(45) NOT NULL,
+  `password` varchar(45) NOT NULL,
+  `street` varchar(45) NOT NULL,
+  `city` varchar(45) NOT NULL,
+  `state` varchar(2) NOT NULL,
+  `zipcode` varchar(10) NOT NULL,
+  `creationdate` int(255) DEFAULT NULL,
+  `expireddate` int(255) DEFAULT NULL,
+  `createdby` varchar(45) NOT NULL,
+  `comments` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
