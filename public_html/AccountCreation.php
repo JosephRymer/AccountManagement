@@ -55,39 +55,40 @@
           <a href="PHP/Reader_Editor.php?logout=1">Logout</a></li>
         </ul>
        </div>
-      <div id="page-content-wrapper">
         <div class="page-content">
           <div class="container">
             <div class="row">
-              <div class="col-md-12">
+              <div id="accountcreateform" class="col-lg-6">
                   <?php if($_GET["baddata"]=="1"){?>
                   <div class="alert alert-danger" role="alert">
                     <span class="glyphicon glyphicon glyphicon-alert" aria-hidden="true"></span>
                     <span class="sr-only"></span>Missing field or data was incorrect
                   </div><?php } ?>
+                  
                   <!-- Instead of passing data straight to Reader_Editor to be inserted it is passed to Validation.php for validation to insure that the data is correct and passes all rejex tests and php tests-->
+                 
                 <form data-toggle="validator" role="form" action="PHP/Validation.php" method="POST">
-                  <div class="form-group">
-                    <label form="inputName" class="control-label" >
+                  
+                    <label  form="inputName" class="control-label" >
                       First Name
                     </label>
                     <input type="text" class="form-control" id="inputName" name="F_Name" required>
-                  </div>
-                  <div class="form-group">
+                  
+                 
                     <label class="control-label">
                       Last Name
                     </label>
-                    <div class="input-group">
+                    
                       <input type="text" class="form-control" name="L_Name"  required>
-                    </div>
-                  </div>
-                  <div class="form-group">
+                    
+                  
+                 
                     <label form="inputEmail" class="control-label">
                       Email
                     </label>
                     <input type="email" class="form-control" name="E_Mail" required>
-                  </div>
-                  <div class="input-group" id="Address">
+                  
+                 
                     <label form="inputStreet" class="control-label">
                       Street
                       <input type="text" class="form-control" name="Street" required>
@@ -152,43 +153,40 @@
                             <option value="WI">WI</option>
                             <option value="WY">WY</option>
                          </select>
-                        </div>
+                        
                       </label>
                       <label form="inputEmail" class="control-label">
-                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                      
                         
                         <label form="inputEmail" class="control-label">
                           Zip Code
                           <input type="text" class="form-control" data-minlength="5" name="Zip_Code" required>
                         </label>
-                      </div>
+                      
                       <label class="control-label">
                         ID type
                       </label>
-                      <div class="input-group">
+                      
                         <input type="text" name="ID_Type" class="form-control" >
-                      </div>
+                      
                       <label class="control-label">
                         ID Number
                       </label>
-                      <div class="input-group">
+                      
                         <input type="text" name="ID_Number" class="form-control">
-                      </div>
+                      
                       <label class="control-label">
                         Comments
                       </label>
-                      <div class="input-group">
-                        <input type="text" name="comments" class="form-control">
-                      </div>
                       
-                      <div class="form-group">
+                        <input type="text" name="comments" class="form-control">                                              
                         <label form="inputPassword" class="control-label">
                           Password
                         </label>
-                        <div class="form-group ">
+                      
                           <input type="password" name="Password" class="form-control" required>
-                        </div>
-                      </div>
+                        
+                          
                       <div class="radio">
                         <label>
                           <input type="radio" name="numdays" value="30">
@@ -215,8 +213,6 @@
                 </div>
               </div>
             </div>
-          </div>
-        </div>
           <!-- Javascript References -->
           <script src='js/jquery-2.1.4.min.js'></script>
            <script src='js/bootstrap.js'></script>
