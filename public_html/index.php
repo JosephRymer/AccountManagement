@@ -36,7 +36,7 @@
     </div>
     <div class="container">
       <div class="row-fluid">
-        <div class="span12 appMain">
+        <div id="loginform" class="span12  col-md-6">
             
            <?php if($_GET["badlogin"]=='1'){?>
                   <div class="alert alert-danger" role="alert">
@@ -44,7 +44,8 @@
                     <span class="sr-only"></span>Wrong Username or Password
                   </div>
                <?php } ?>
-          <form action="PHP/Reader_Editor.php?attempt=1" method="POST" role="form" style="display: block;">
+            
+          <form  action="PHP/Reader_Editor.php?attempt=1"  method="POST" role="form" >
             <div class="form-group">
               <input type="text" name="username"  class="form-control" placeholder="Username" value="">
             </div>
@@ -54,12 +55,13 @@
             <div class="form-group">
               <div class="row">
                 <div class="col-sm-6 col-sm-offset-3">
-                  <input type="submit" name="login-submit"  tabindex="4" class="form-control btn btn-login" value="Log In">
+                  <input type="submit" name="login-submit"  tabindex="4" class="form-control btn-login" value="Log In">
                 </div>
               </div>
             </div>
-          </div>
-        </form>
+          </form>
+        </div>
+        
         
       </div>
     </div>

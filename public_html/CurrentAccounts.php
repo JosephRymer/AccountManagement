@@ -26,7 +26,10 @@
       <div class="color-field">
         <div class="row-fluid">
           <div class="span12 pull left breadcrumb">
-            
+              <form action="CurrentAccounts.php" method="GET" class="control form-inline" style="float:right;">
+                 <input type="text" class="form-control" name="search" placeholder="Search">
+                 <input type="submit"  class="btn btn-default">
+             </form>
             <ul class="breadcrumb">
               <a href="http://library.tamu.edu/">
                 University Libraries
@@ -38,10 +41,7 @@
               <a href="CurrentAccounts.php">
                 Current Accounts
               </a>
-              <form action="CurrentAccounts.php" method="GET" class="control form-inline" style="float:right;">
-                 <input type="text" class="form-control" name="search" placeholder="Search">
-                 <input type="submit"  class="btn btn-default">
-             </form>
+             
             </ul>
           </div>
         </div>
@@ -55,8 +55,9 @@
           <a href="userprofile.php">User Profile</a>
           <a href="AccountCreation.php">Create Account</a>
           <?php if($_SESSION['isadmin']=='1'){ ?>
-          <a href="CurrentAccounts.php">Current Accounts</a></li>
+          <a href="CurrentAccounts.php">Current Accounts</a>
           <?php } ?> 
+         <a href="PHP/Reader_Editor.php?logout=1">Logout</a></li>
         </ul>
        </div>
       <div id="page-content-wrapper">
@@ -103,8 +104,8 @@
                  <td><?php $timestamp = $row['expireddate']; echo gmdate( "F j, Y, g:i a" , $timestamp);  ?>
                <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#<?php echo $row['username']; ?>"> Launch demo modal </button>
                 <div class="modal fade" id="<?php echo $row['username'];?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
+                    <div class="modal-dialog" style=" margin: 300px auto;">
+                        <div class="modal-content" style="color:#000">
                       <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title" id="myModalLabel">Change Expiration Date</h4>
