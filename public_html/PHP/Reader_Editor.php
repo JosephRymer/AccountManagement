@@ -54,7 +54,7 @@
              values('".$data["F_Name"]."','".$data["L_Name"]."','".$data["E_Mail"]."','".$data["ID_Number"]."','".$data["ID_Type"]."','".$username."',PASSWORD('".$data["Password"]."'),'".$data["Street"]."'"
              . ",'".$data["City"]."','".$data["State"]."','".$data["Zip_Code"]."',(UNIX_TIMESTAMP(NOW())),'".$expirationdate."','".$_SESSION['lgnuser']."','".$data["comments"]."')";
               $result=  mysqli_query($this->conn, $sql);
-                header("location:../userprofile.php");
+                header("location:../userprofile.php?success=".$username."");
             }
             
             function databaseSelect() {

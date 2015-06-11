@@ -33,7 +33,7 @@
     </div>
       <!-- Side Bar -->
         <div id="sidebar-wrapper">
-            <h1>Welcome <?php echo $_SESSION['lgnuser']; ?></h1>
+            <h1 style="text-align: center;">Welcome <?php echo $_SESSION['lgnuser']; ?></h1>
             <ul class="sidebar-nav">
              <li class="sidebar-brand">
               <a href="userprofile.php">User Profile</a>
@@ -49,7 +49,13 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                         <h1>Current User Data</h1>
+                         <h1 style="text-align: center;">Current User Data</h1>
+                          <?php if(!empty($_GET["success"])){?>
+                            <div class="alert alert-success" role="alert" style="margin-left: 18%; width:200px;">
+                             <span class="glyphicon glyphicon-saved" aria-hidden="true"></span>
+                             <span class="sr-only"></span>Account Created Username:<?php echo $_GET['success']; ?>
+                            </div>
+                          <?php } ?>
                           <div class="row">
                             <div class="col-md-4 col-md-offset-4">
                              <form class="form-horizontal" role="form" action="PHP/Reader_Editor.php?lgnupdate=1" method="POST">

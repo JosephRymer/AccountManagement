@@ -23,7 +23,7 @@
             if (!preg_match("/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/",$data["E_Mail"])) {
                 $FormResults['EMail'] = "1";
             }
-            if (!preg_match("/^\s*\S+(?:\s+\S+){2}$/",$data["Street"])) {
+            if (empty($data["Street"])) {
                 $FormResults['S_treet'] = "1";
             }
             if (empty($data["City"])){

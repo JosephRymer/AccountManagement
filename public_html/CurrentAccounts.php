@@ -39,7 +39,7 @@
         </div>
         <!-- Side Bar -->
         <div id="sidebar-wrapper">
-         <h1>Welcome <?php echo $_SESSION['lgnuser']; ?></h1>
+         <h1 style="text-align: center;">Welcome <?php echo $_SESSION['lgnuser']; ?></h1>
          <ul class="sidebar-nav">
           <li class="sidebar-brand">
             <a href="userprofile.php">User Profile</a>
@@ -53,7 +53,7 @@
         <!-- Page Content -->
         <div class="container">
             <div class="row">
-                <div class="col-md-12">
+                <div id="currenttable" class="col-md-12">
                  <h1 style='text-align: center;'>Current Accounts</h1>
                  <table class="table table-bordered">
                   <thead>

@@ -33,7 +33,7 @@
         </div>
          <!-- Side Bar -->
             <div id="sidebar-wrapper">
-             <h1>Welcome <?php echo $_SESSION['lgnuser']; ?></h1>
+             <h1 style="text-align: center;">Welcome <?php echo $_SESSION['lgnuser']; ?></h1>
              <ul class="sidebar-nav">
               <li class="sidebar-brand">
                <a href="userprofile.php">User Profile</a>
@@ -48,7 +48,7 @@
             <div class="page-content">
                 <div class="container">
                     <div class="row">
-                        <div id="accountcreateform" class="col-lg-6">
+                        <div id="accountcreateform" class="col-md-6">
                          <?php if($_GET["baddata"]=="1"){?>
                           <div class="alert alert-danger" role="alert">
                            <span class="glyphicon glyphicon glyphicon-alert" aria-hidden="true"></span>
