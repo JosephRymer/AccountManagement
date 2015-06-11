@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
- <?php if(empty($_SESSION['lgnuser'])){ 
- session_start(); ?>     
+ <?php session_start(); 
+       if(!empty($_SESSION['lgnuser'])){ 
+ ?> 
     <title> Create Account </title>
     <head>
      <link href="css/bootstrap.css" rel="stylesheet">

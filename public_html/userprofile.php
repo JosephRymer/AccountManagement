@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<?php if(empty($_SESSION['lgnuser'])){ ?>
 <html>
+    <?php session_start(); 
+      if(!empty($_SESSION['lgnuser'])){ 
+      $values=$_SESSION['lgnuserinfo'];
+    ?>
+
     <title>Dashboard</title>
     <head>
-     <?php session_start(); 
-      $values=$_SESSION['lgnuserinfo'];?>
       <link href="css/bootstrap.css" rel="stylesheet">
       <link href="css/bootstrap-theme.css" rel="stylesheet">
       <link href="css/stylesheet.css" rel="stylesheet" >

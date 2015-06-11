@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <?php  session_start();
-           if(empty($_SESSION['lgnuser'])){ 
+           if(!empty($_SESSION['lgnuser'])){ 
             require 'PHP/Reader_Editor.php';
             require_once('PHP/dbConnect.php');   
     ?>
