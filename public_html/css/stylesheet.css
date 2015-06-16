@@ -93,40 +93,7 @@ margin-bottom: -10px;
   margin-top: 100px;
   box-shadow: 3px 3px 8px -1px #aaa;
 }
-#sidebar-wrapper {
-  margin-left: -250px;
-  left: 250px;
-  width: 250px;
-  background-color: #104554;
-  position: fixed;
-  height: 100%;
-  overflow-y: auto;
-  z-index: 1000;
-  transition: all 0.4s ease 0s;
-  -webkit-box-shadow: 1px 0px 2px #000;
 
-}
-
-#sidebar-wrapper h1{
-    color: #ffffff;
-    font-size: 25px;
-    padding-left: 5px;
-    list-style-type: none;
-}
-
-.sidebar-nav li a{
-    color: #ffffff;
-    display: block;
-    padding-top: 20px;
-    list-style: none;
-    
-    
-}
-.sidebar-nav li a:hover {
-    text-decoration: none;
-    color: #fff;
-    background: rgba(0,0,0,0.5);
-}
 #accountstable{
   background-color: #104554;
   color: #ffffff;
@@ -144,3 +111,11 @@ margin-bottom: -10px;
 #currenttable{
     margin-left:18%;
 }
+#tab-group{
+float:right;    
+}
+#active-tab{
+  background-color: #500000;
+
+}
+

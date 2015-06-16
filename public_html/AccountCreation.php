@@ -16,6 +16,17 @@
              <a class="brand" href="http://library.tamu.edu/">
               <img src="img/logo.png" alt="Library Logo">
              </a>
+                 <ul id="tab-group" class="nav nav-pills" >
+                    <li  role="presentation" ><a href="userprofile.php">Profile</a></li>
+                    <li role="presentation" class="dropdown">
+                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false" > Accounts <span class="caret"></span></a>
+                     <ul class="dropdown-menu" role="menu">
+                        <li role="presentation"><a href="AccountCreation.php" >Create Account</a></li>
+                        <li role="presentation"><a href="CurrentAccounts.php">Current Accounts</a></li> 
+                     </ul>
+                    </li>      
+                    <li role="presentation"><a href="PHP/Reader_Editor.php?logout=1">Logout</a></li>
+                 </ul>
             </div>
             <div class="color-field">
                 <div class="row-fluid">
@@ -31,24 +42,11 @@
                 </div>
             </div>
         </div>
-         <!-- Side Bar -->
-            <div id="sidebar-wrapper">
-             <h1 style="text-align: center;">Welcome <?php echo $_SESSION['lgnuser']; ?></h1>
-             <ul class="sidebar-nav">
-              <li class="sidebar-brand">
-               <a href="userprofile.php">User Profile</a>
-               <a href="AccountCreation.php">Create Account</a>
-                <?php if($_SESSION['isadmin']=='1'){ ?>
-                 <a href="CurrentAccounts.php">Current Accounts</a>
-                <?php } ?>
-                <a href="PHP/Reader_Editor.php?logout=1">Logout</a></li>
-             </ul>
-            </div>
              <!-- Page Content -->
             <div class="page-content">
                 <div class="container">
                     <div class="row">
-                        <div id="accountcreateform" class="col-md-6">
+                        <div id="accountcreateform" class="col-lg-4 col-md-6 col-sm-2">
                          <?php if($_GET["baddata"]=="1"){?>
                           <div class="alert alert-danger" role="alert">
                            <span class="glyphicon glyphicon glyphicon-alert" aria-hidden="true"></span>
