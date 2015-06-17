@@ -1,103 +1,108 @@
 <!DOCTYPE html>
-<?php if(empty($_SESSION['lgnuser'])){ ?>
 <html>
+    <?php session_start(); 
+      if(!empty($_SESSION['lgnuser'])){ 
+      $values=$_SESSION['lgnuserinfo'];
+    ?>
+
     <title>Dashboard</title>
     <head>
-     <?php session_start(); 
-      $values=$_SESSION['lgnuserinfo'];?>
-     <link href="css/bootstrap.css" rel="stylesheet">
-     <link href="css/bootstrap-theme.css" rel="stylesheet">
-     <link href="css/stylesheet.css" rel="stylesheet" >
+      <link href="css/bootstrap.css" rel="stylesheet">
+      <link href="css/bootstrap-theme.css" rel="stylesheet">
+      <link href="css/stylesheet.css" rel="stylesheet" >
     </head>
-    
-    <body>
+  <body>
+     <!-- Header -->
      <div class="navbar navbar fixed top">
-      <div class="navbar-inner"> 
-       <a class="brand" href="http://library.tamu.edu/">
-        <img src="img/logo.png" alt="Library Logo">
-       </a>
-      </div>
-      <div class="color-field">
-       <div class="row-fluid">
-        <div class="span12 pull left breadcrumb">
-            
-         <ul class="breadcrumb">
-          <a href="http://library.tamu.edu/">University Libraries</a>
-          >
-          <a href="userprofile.php">Dashboard</a>
-         </ul>
-        </div>
-       </div>
-       </div>
-      </div>
-     </div>
-     <div id="wrapper">
-      <div id="sidebar-wrapper">
-       <h1>Welcome <?php echo $_SESSION['lgnuser']; ?></h1>
-        <ul class="sidebar-nav">
-         <li class="sidebar-brand">
-          <a href="userprofile.php">User Profile</a>
-          <a href="AccountCreation.php">Create Account</a>
-          <?php if($_SESSION['isadmin']=='1'){ ?>
-          <a href="CurrentAccounts.php">Current Accounts</a>
-          <?php } ?>
-          <a href="PHP/Reader_Editor.php?logout=1">Logout</a></li>
-        </ul>
-       </div>
-        <div id="page-content-wrapper">
-         <div class="page-content">
-          <div class="container">
-           <div class="row">
-            <div class="col-md-12">
-             <h1>Current User Data</h1>
-              <div class="row">
-               <div class="col-md-4 col-md-offset-4">
-                <form class="form-horizontal" role="form" action="PHP/Reader_Editor.php?lgnupdate=1" method="POST">
-                  <div class="form-group">
-                   <label class="col-sm-2 control-label" for="textinput">First Name: </label>
-                    <div class="col-sm-10">
-                     <input type="text" value="<?php echo $values["firstname"]; ?>" class="form-control" name="firstname">
-                    </div>
-                  </div>
-                   <div class="form-group">
-                    <label class="col-sm-2 control-label" for="textinput">Last Name: </label>
-                     <div class="col-sm-10">
-                      <input type="text" value="<?php echo $values["lastname"]; ?>" class="form-control" name="lastname">
-                     </div>
-                   </div>
-                   <div class="form-group">
-                    <label class="col-sm-2 control-label" for="textinput">Email: </label>
-                     <div class="col-sm-10">
-                      <input type="text" value="<?php echo $values["email"]; ?>" class="form-control" name="email">
-                     </div>
-                   </div>
-                      <div class="form-group">
-                        <label class="col-sm-2 control-label" form="textinput" >password: </label>
-                         <div class="col-sm-4">
-                           <input type="password"  class="form-control" name="password">
-                         </div>
-                         <div class="form-group">
-                          <div class="col-sm-offset-2 col-sm-10">
-                           <div class="pull-right">
-                            <button type="reset" class="btn btn-default">Reset</button>
-                            <button type="submit" class="btn btn-primary">Save</button>
-                           </div>
-                          </div>
-                         </div>
-                       </div>  
-                </form>
-               </div>
-              </div>
-            </div>
+        <div class="navbar-inner"> 
+         <a class="brand" href="http://library.tamu.edu/">
+          <img src="img/logo.png" alt="Library Logo">
+         </a>
+           <div class="hidden-xs">
+            <ul id="tab-group" class="nav nav-pills" >
+             <li  role="presentation" class="active" ><a id="active-tab" href="userprofile.php">Profile</a></li>
+             <li role="presentation" class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown"  role="button" aria-expanded="false">
+               Accounts <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="AccountCreation.php">Create Account</a></li>
+                <li><a href="CurrentAccounts.php">Current Accounts</a></li> 
+              </ul>
+             </li>      
+             <li role="presentation"><a href="PHP/Reader_Editor.php?logout=1">Logout</a></li>
+            </ul>
            </div>
-          </div>
-         </div>
-      <!-- Javascript References -->
-        <script src='js/jquery-2.1.4.min.js'></script>
-        <script src='js/bootstrap.js'></script>
-    </body> 
-    <div class="container text-center"> 
-     <footer>
+        </div>
+        <div class="color-field">
+            <div class="row-fluid">
+                <div class="span12 pull left breadcrumb"> 
+                 <div class="visible-xs">
+                   <div class="btn-group" style="float:right;">
+                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <span class="glyphicon glyphicon-align-justify"></span>
+                     </button>
+                     <ul class="dropdown-menu dropdown-menu-right">
+                      <!-- <li><a href="userprofile.php">Profile</a></li> -->
+                      <li><a href="AccountCreation.php">Create Account</a></li>
+                      <li><a href="CurrentAccounts.php">Current Accounts</a></li>
+                      <li role="separator" class="divider"></li>
+                      <li><a href="PHP/Reader_Editor.php?logout=1">Logout</a></li>
+                     </ul>
+                   </div>  
+                 </div>
+                    <p style="text-align: center;">Current User Data</p>
+                    <ul class="breadcrumb">
+                     <a href="http://library.tamu.edu/">University Libraries</a>
+                     >
+                     <a href="userprofile.php">Profile</a>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+            <!-- Page Content -->
+            <div class="page-content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6 col-lg-offset-3 col-md-6  col-sm-offset-3 col-sm-12 col-xs-offset-4 col-xs-4">
+                          <?php if(!empty($_GET["success"])){?>
+                            <div class="alert alert-success" role="alert" style="margin-left: 18%; width:200px;">
+                             <span class="glyphicon glyphicon-saved" aria-hidden="true"></span>
+                             <span class="sr-only"></span>Account Created Username:<?php echo $_GET['success']; ?>
+                            </div>
+                          <?php } ?>
+                          <div class="row">
+                            <div class="col-lg-offset-3 col-lg-6 col-md-offset-3 col-md-6 col-sm-offset-1 col-sm-4 col-xs-offset-2 col-xs-9">
+                             <form class="form-horizontal" role="form" action="PHP/Reader_Editor.php?lgnupdate=1" method="POST">
+                                <div class="form-group">
+                                      <label  for="textinput">First Name: </label>
+                                    <input type="text" value="<?php echo $values["firstname"]; ?>" class="form-control" name="firstname" required>                        
+                                      <label  for="textinput">Last Name: </label>
+                                    <input type="text" value="<?php echo $values["lastname"]; ?>" class="form-control" name="lastname" required>
+                                      <label for="textinput">Email: </label>
+                                      <input type="email" value="<?php echo $values["email"]; ?>" class="form-control" name="email" required>
+                                      <label  form="textinput" >password: </label>
+                                    <input type="password"  class="form-control" name="password">
+                                     <button type="reset" class="btn btn-danger">Reset</button>
+                                     <button type="submit" class="btn btn-primary">Save</button>
+                                </div>
+                                    </div>
+                                  </div>
+                                </div>  
+                             </form>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Javascript References -->
+            <script src='js/jquery-2.1.4.min.js'></script>
+            <script src='js/bootstrap.js'></script>
+  </body> 
+   <div class="container text-center"> 
+    <footer>
         <a title="Texas A&amp;M University" href="http://www.tamu.edu">Texas A&amp;M University</a>  
         <a title="Employment" href="http://library.tamu.edu/about/employment/">Employment</a>  
         <a title="Webmaster" href="http://library.tamu.edu/services/forms/contact-info.html">Webmaster</a>  
