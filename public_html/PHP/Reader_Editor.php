@@ -87,7 +87,7 @@
                     $results=  mysqli_query($this->conn,$sql);
                      $row= mysqli_fetch_assoc($results);
                       $_SESSION['lgnuserinfo']=$row;
-                   header("location:../userprofile.php");
+                   header("location:../userprofile.php?update");
               }
             }
             function logout(){

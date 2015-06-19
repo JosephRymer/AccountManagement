@@ -14,11 +14,9 @@
   <body>
      <!-- Header -->
      <div class="navbar navbar fixed top">
+         
         <div class="navbar-inner"> 
-         <a class="brand" href="http://library.tamu.edu/">
-          <img src="img/logo.png" alt="Library Logo">
-         </a>
-           <div class="hidden-xs">
+             <div class="hidden-xs">
             <ul id="tab-group" class="nav nav-pills" >
              <li  role="presentation" class="active" ><a id="active-tab" href="userprofile.php">Profile</a></li>
              <li role="presentation" class="dropdown">
@@ -33,13 +31,17 @@
              <li role="presentation"><a href="PHP/Reader_Editor.php?logout=1">Logout</a></li>
             </ul>
            </div>
+            
+         <a class="brand" href="http://library.tamu.edu/">
+          <img src="img/logo.png" alt="Library Logo">
+         </a>
         </div>
         <div class="color-field">
             <div class="row-fluid">
-                <div class="span12 pull left breadcrumb"> 
-                 <div class="visible-xs">
+                <div class="span12 pull left breadcrumb">
+                    <div class="visible-xs">
                    <div class="btn-group" style="float:right;">
-                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                     <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <span class="glyphicon glyphicon-align-justify"></span>
                      </button>
                      <ul class="dropdown-menu dropdown-menu-right">
@@ -51,31 +53,40 @@
                      </ul>
                    </div>  
                  </div>
-                    <p style="text-align: center;">Current User Data</p>
                     <ul class="breadcrumb">
                      <a href="http://library.tamu.edu/">University Libraries</a>
                      >
                      <a href="userprofile.php">Profile</a>
-                    </ul>
+                    </ul>  
                 </div>
             </div>
         </div>
     </div>
+  </div>
             <!-- Page Content -->
             <div class="page-content">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-6 col-lg-offset-3 col-md-6  col-sm-offset-3 col-sm-12 col-xs-offset-4 col-xs-4">
+                            <h1 style="text-align: center;" class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-3 col-sm-6 col-xs-12">Current User Data</h1>
                           <?php if(!empty($_GET["success"])){?>
                             <div class="alert alert-success" role="alert" style="margin-left: 18%; width:200px;">
                              <span class="glyphicon glyphicon-saved" aria-hidden="true"></span>
                              <span class="sr-only"></span>Account Created Username:<?php echo $_GET['success']; ?>
                             </div>
                           <?php } ?>
-                          <div class="row">
-                            <div class="col-lg-offset-3 col-lg-6 col-md-offset-3 col-md-6 col-sm-offset-1 col-sm-4 col-xs-offset-2 col-xs-9">
-                             <form class="form-horizontal" role="form" action="PHP/Reader_Editor.php?lgnupdate=1" method="POST">
-                                <div class="form-group">
+                            <?php if(isset($_GET["update"])){?>
+                            <div class="alert alert-success col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-3  col-sm-8 col-xs-12" role="alert" >
+                             <span class="glyphicon glyphicon-saved" aria-hidden="true"></span>
+                             <span class="sr-only"></span>Data Updated Successfully
+                            </div>
+                          <?php } ?>
+                         
+                           <div class="col-lg-offset-3 col-lg-6 col-md-offset-3 col-md-6 col-sm-offset-1 col-sm-4 col-xs-offset-2 col-xs-9">
+                               <duv class="form-group">
+                             <form role="form" data-toggle="validator" action="PHP/Reader_Editor.php?lgnupdate=1" method="POST"> 
+                                 
+                            
                                       <label  for="textinput">First Name: </label>
                                     <input type="text" value="<?php echo $values["firstname"]; ?>" class="form-control" name="firstname" required>                        
                                       <label  for="textinput">Last Name: </label>
@@ -83,14 +94,16 @@
                                       <label for="textinput">Email: </label>
                                       <input type="email" value="<?php echo $values["email"]; ?>" class="form-control" name="email" required>
                                       <label  form="textinput" >password: </label>
-                                    <input type="password"  class="form-control" name="password">
+                                    <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" >
+                                    <input type="password" class="form-control" id="inputPasswordConfirm" data-match="#inputPassword" data-match-error="Whoops, these don't match" placeholder="Confirm Password">
                                      <button type="reset" class="btn btn-danger">Reset</button>
                                      <button type="submit" class="btn btn-primary">Save</button>
-                                </div>
-                                    </div>
-                                  </div>
-                                </div>  
-                             </form>
+                                 
+                                 
+                                    
+                                
+                               
+                             </form>  </div></div>
                             </div>
                           </div>
                         </div>
