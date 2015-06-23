@@ -11,50 +11,57 @@
     <link href="css/stylesheet.css" rel="stylesheet" >
   </head>
   <body>
-    
     <div class="navbar navbar fixed top">
-      <div class="navbar-inner">
-        
-        
-        <a class="brand" href="http://library.tamu.edu/">
-          <img src="img/logo.png" alt="Library Logo">
-        </a>
-      </div>
-      
-      <div class="color-field">
-        <div class="row-fluid">
-          <div class="span12 pull left breadcrumb">
-            
-            <ul class="breadcrumb">
-              <a href="http://library.tamu.edu/">
-                University Libraries
+         
+        <div class="navbar-inner"> 
+             <div class="hidden-xs">
+            <ul id="tab-group" class="nav nav-pills" >
+             <li  role="presentation"><a href="userprofile.php">Profile</a></li>
+             <li role="presentation" class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown"  role="button" aria-expanded="false">
+               Accounts <span class="caret"></span>
               </a>
-              >
-              <a href="userprofile.php">
-                Dashboard
-              </a>>
-              <a href="AccountCreation.php">
-                 Create Account 
-              </a>
-              
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="AccountCreation.php">Create Account</a></li>
+                <li><a href="CurrentAccounts.php">Current Accounts</a></li> 
+              </ul>
+             </li>      
+             <li role="presentation"><a href="PHP/Reader_Editor.php?logout=1">Logout</a></li>
             </ul>
-          </div>
+           </div>
+            
+         <a class="brand" href="http://library.tamu.edu/">
+          <img src="img/logo.png" alt="Library Logo">
+         </a>
         </div>
-      </div>
+        <div class="color-field">
+            <div class="row-fluid">
+                <div class="span12 pull left breadcrumb">
+                    <div class="visible-xs">
+                   <div class="btn-group" style="float:right;">
+                     <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <span class="glyphicon glyphicon-align-justify"></span>
+                     </button>
+                     <ul class="dropdown-menu dropdown-menu-right">
+                      <li><a href="userprofile.php">Profile</a></li>
+                      <li><a href="AccountCreation.php">Create Account</a></li>
+                      <li><a href="CurrentAccounts.php">Current Accounts</a></li>
+                      <li role="separator" class="divider"></li>
+                      <li><a href="PHP/Reader_Editor.php?logout=1">Logout</a></li>
+                     </ul>
+                   </div>  
+                 </div>
+                    <ul class="breadcrumb">
+                     <a href="http://library.tamu.edu/">University Libraries</a>
+                     >
+                     <a href="userprofile.php">Profile</a>
+                     >
+                     <a href="AccountCreation.php">Create Account</a>
+                    </ul>  
+                </div>
+            </div>
+        </div>
     </div>
-    <div id="wrapper">
-      <div id="sidebar-wrapper">
-       <h1>Welcome <?php echo $_SESSION['lgnuser']; ?></h1>
-        <ul class="sidebar-nav">
-         <li class="sidebar-brand">
-          <a href="userprofile.php">User Profile</a>
-          <a href="AccountCreation.php">Create Account</a>
-          <?php if($_SESSION['isadmin']=='1'){ ?>
-          <a href="CurrentAccounts.php">Current Accounts</a>
-          <?php } ?>
-          <a href="PHP/Reader_Editor.php?logout=1">Logout</a></li>
-        </ul>
-       </div>
         <div class="page-content">
           <div class="container">
             <div class="row">
@@ -68,34 +75,26 @@
                   <!-- Instead of passing data straight to Reader_Editor to be inserted it is passed to Validation.php for validation to insure that the data is correct and passes all rejex tests and php tests-->
                  
                 <form data-toggle="validator" role="form" action="PHP/Validation.php" method="POST">
-                  
+                     <?php $data=$_SESSION['data']; ?>
                     <label  form="inputName" class="control-label" >
                       First Name
-                    </label>
-                    <input type="text" class="form-control" id="inputName" name="F_Name" required>
-                  
-                 
+                      <input type="text" class="form-control" id="inputName" name="F_Name" value="<?php echo $data['F_Name']; ?>" required>       
+                    </label>         
                     <label class="control-label">
                       Last Name
-                    </label>
-                    
-                      <input type="text" class="form-control" name="L_Name"  required>
-                    
-                  
-                 
+                      <input type="text" class="form-control" name="L_Name" value="<?php echo $data['L_Name']; ?>" required>
+                    </label>  
                     <label form="inputEmail" class="control-label">
-                      Email
+                      Email 
+                      <input type="email" class="form-control" name="E_Mail" value="<?php echo $data['E_Mail']; ?>" required>
                     </label>
-                    <input type="email" class="form-control" name="E_Mail" required>
-                  
-                 
                     <label form="inputStreet" class="control-label">
                       Street
-                      <input type="text" class="form-control" name="Street" required>
+                      <input type="text" class="form-control" name="Street" value="<?php echo $data['Street']; ?>" required>
                     </label>
                     <label form="inputCity" class="control-label">
                       City
-                      <input type="text" class="form-control" name="City" required>
+                      <input type="text" class="form-control" name="City" value="<?php echo $data['City']; ?>" required>
                     </label>
                       <label>
                      State
@@ -156,37 +155,26 @@
                         
                       </label>
                       <label form="inputEmail" class="control-label">
-                      
-                        
-                        <label form="inputEmail" class="control-label">
-                          Zip Code
-                          <input type="text" class="form-control" data-minlength="5" name="Zip_Code" required>
-                        </label>
-                      
+                        Zip Code
+                        <input type="text" class="form-control" data-minlength="5" name="Zip_Code" value="<?php echo $data['Zip_Code']; ?>" required>
+                      </label>
                       <label class="control-label">
                         ID type
+                        <input type="text" name="ID_Type" class="form-control" value="<?php echo $data['ID_Type']; ?>" >
                       </label>
-                      
-                        <input type="text" name="ID_Type" class="form-control" >
-                      
                       <label class="control-label">
-                        ID Number
-                      </label>
-                      
-                        <input type="text" name="ID_Number" class="form-control">
-                      
+                        ID Number 
+                        <input type="text" name="ID_Number" class="form-control" value="<?php echo $data['ID_Number']; ?>">
+                      </label>    
                       <label class="control-label">
                         Comments
-                      </label>
-                      
-                        <input type="text" name="comments" class="form-control">                                              
+                        <input type="text" name="Comments" class="form-control" value="<?php echo $data['Comments']; ?>">   
+                      </label>                                       
                         <label form="inputPassword" class="control-label">
                           Password
+                          <input type="password" name="Password" class="form-control" placeholder="Password" required>
+                          <input type="password" name="Confirm_Password" class="form-control" placeholder="Confirm Password" required>
                         </label>
-                      
-                          <input type="password" name="Password" class="form-control" required>
-                        
-                          
                       <div class="radio">
                         <label>
                           <input type="radio" name="numdays" value="30">

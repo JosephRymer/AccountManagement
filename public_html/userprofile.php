@@ -62,28 +62,33 @@
             </div>
         </div>
     </div>
-  </div>
             <!-- Page Content -->
             <div class="page-content">
                 <div class="container">
                     <div class="row">
-                        <div class="col-lg-6 col-lg-offset-3 col-md-6  col-sm-offset-3 col-sm-12 col-xs-offset-4 col-xs-4">
-                            <h1 style="text-align: center;" class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-3 col-sm-6 col-xs-12">Current User Data</h1>
+                        <div class="col-lg-6 col-lg-offset-3 col-md-6  col-sm-offset-3 col-sm-12 col-xs-offset-3 col-xs-6">
+                            <h1 class="col-lg-7 col-lg-offset-3 col-md-8 col-md-offset-3 col-sm-12 col-xs-12">Current User Data</h1>
                           <?php if(!empty($_GET["success"])){?>
-                            <div class="alert alert-success" role="alert" style="margin-left: 18%; width:200px;">
+                            <div class="alert alert-success col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-3 col-sm-8 col-xs-12" role="alert" >
                              <span class="glyphicon glyphicon-saved" aria-hidden="true"></span>
                              <span class="sr-only"></span>Account Created Username:<?php echo $_GET['success']; ?>
                             </div>
                           <?php } ?>
                             <?php if(isset($_GET["update"])){?>
-                            <div class="alert alert-success col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-3  col-sm-8 col-xs-12" role="alert" >
+                            <div class="alert alert-success col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-3 col-sm-8 col-xs-12" role="alert">
                              <span class="glyphicon glyphicon-saved" aria-hidden="true"></span>
                              <span class="sr-only"></span>Data Updated Successfully
                             </div>
                           <?php } ?>
+                            <?php if(isset($_GET["failupdate"])){?>
+                            <div class="alert alert-danger col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-3  col-sm-8 col-xs-12" role="alert" >
+                             <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                             <span class="sr-only"></span>Passwords Do Not Match
+                            </div>
+                          <?php } ?>
                          
-                           <div class="col-lg-offset-3 col-lg-6 col-md-offset-3 col-md-6 col-sm-offset-1 col-sm-4 col-xs-offset-2 col-xs-9">
-                               <duv class="form-group">
+                           <div class="col-lg-offset-3 col-lg-6 col-md-offset-3 col-md-6 col-sm-offset-1 col-sm-4 col-xs-12">
+                               <div class="form-group">
                              <form role="form" data-toggle="validator" action="PHP/Reader_Editor.php?lgnupdate=1" method="POST"> 
                                  
                             
@@ -94,15 +99,10 @@
                                       <label for="textinput">Email: </label>
                                       <input type="email" value="<?php echo $values["email"]; ?>" class="form-control" name="email" required>
                                       <label  form="textinput" >password: </label>
-                                    <input type="password" id="inputPassword" class="form-control" name="password" placeholder="Password" >
-                                    <input type="password" class="form-control" id="inputPasswordConfirm" data-match="#inputPassword" data-match-error="Whoops, these don't match" placeholder="Confirm Password">
+                                    <input type="password"  class="form-control" name="password" placeholder="Password" >
+                                    <input type="password" class="form-control" id="inputPasswordConfirm" name="confirmpassword" placeholder="Confirm Password">
                                      <button type="reset" class="btn btn-danger">Reset</button>
                                      <button type="submit" class="btn btn-primary">Save</button>
-                                 
-                                 
-                                    
-                                
-                               
                              </form>  </div></div>
                             </div>
                           </div>

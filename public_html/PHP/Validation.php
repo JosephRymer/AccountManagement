@@ -39,7 +39,9 @@
                 $FormResults['IDN'] = "1";
             }
              if (empty($data["Password"])) {
-                $FormResults['Pass'] = "1";
+                $FormResults['Pass'] = "Password is Empty";
+            }else if($data["Password"]===$data["Confirm_Password"]){
+                $FormResults['Pass']="Passwords do NOT match";
             }
               return $FormResults;
             
@@ -58,7 +60,10 @@
     if(empty($FormResults)){
      $_SESSION["POSTData"]=$data;
      header("location:Reader_Editor.php?accountinsert=1");
-    }else{  
+    }else{ 
+        $_SESSION['data']=$data;
+        $_SESSION['formerrors']=$FormResults;
+        print_r ($_SESSION['data']);
      header("location:../AccountCreation.php?baddata=1");
     }
 ?>

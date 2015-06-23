@@ -76,7 +76,8 @@
                $formeddate=strtotime($_POST['startdate']);
                $sql="UPDATE `accounts` SET  `expireddate`='".$formeddate."' where `username`='".$_GET['accountid']."'";
                 $result=mysqli_query($this->conn,$sql);
-              }else if($_GET['lgnupdate']=='1'){
+              } if($_GET['lgnupdate']=='1'){
+                  if($_POST['password']===$_POST['confirmpassword']){
                 $sql="UPDATE `users` SET
                 firstname = '".$_POST['firstname']."',
                 lastname = '".$_POST['lastname']."',
@@ -88,6 +89,9 @@
                      $row= mysqli_fetch_assoc($results);
                       $_SESSION['lgnuserinfo']=$row;
                    header("location:../userprofile.php?update");
+              }else{
+                  header("location:../userprofile.php?failupdate");
+              }
               }
             }
             function logout(){
