@@ -1,8 +1,6 @@
 <?php
     require_once('dbConnect.php');
-    
-    $data=$_SESSION["POSTData"];
-
+    $data=$_SESSION["ValidData"];
     class DataHandler{
 
         public $conn;
@@ -19,7 +17,6 @@
                   if($count == 1){
                       //Data that autofills form in userprofile is pulled here form the database 
                     $sql="SELECT * FROM `users` WHERE `username`='".$_SESSION['lgnuser']."'";
-                    
                      $result=  mysqli_query($this->conn,$sql);
                        $row= mysqli_fetch_assoc($result);
                        $_SESSION['isadmin']=$row['isadmin'];
@@ -30,12 +27,12 @@
                     }
             }
             //this function is for building the username then passing to be sent to a mysql query in DatabaseInsert
-            public function generateUsername($data){
+            private function generateUsername($data){
               $username=substr($data['F_Name'],0,1).$data['L_Name'].rand(1000,9999);          
                 return $username;
             }   
               //this function is fordetermining expiration data then that data is passed to a mysql query in DatabaseInsert
-            public function generateExpirationDate($data){
+            private function generateExpirationDate($data){
               $startDate=time();
               if($data ['numdays']=='30'){
                 $expirationdate = strtotime('+1 month',$startDate); 
@@ -54,16 +51,14 @@
              values('".$data["F_Name"]."','".$data["L_Name"]."','".$data["E_Mail"]."','".$data["ID_Number"]."','".$data["ID_Type"]."','".$username."',PASSWORD('".$data["Password"]."'),'".$data["Street"]."'"
              . ",'".$data["City"]."','".$data["State"]."','".$data["Zip_Code"]."',(UNIX_TIMESTAMP(NOW())),'".$expirationdate."','".$_SESSION['lgnuser']."','".$data["comments"]."')";
               $result=  mysqli_query($this->conn, $sql);
-                header("location:../userprofile.php");
+                header("location:../userprofile.php?success=".$username."");
             }
             
             function databaseSelect() {
              if(!empty( $_SESSION['searchresult'])){
-               $sql="SELECT * FROM `accounts` where username='". $_SESSION['searchresult']."'";
-               echo $sql;
+               $sql="SELECT * FROM `accounts` where `username`='". $_SESSION['searchresult']."' or `firstname`='". $_SESSION['searchresult']."' or `lastname`='". $_SESSION['searchresult']."' or `createdby`='". $_SESSION['searchresult']."'";
                  $result = mysqli_query($this->conn, $sql);
                  $_SESSION['searchresults']=$result;
-                 echo  $_SESSION['searchresult'];
                  return $result;
              }else
               $sql="SELECT * FROM `accounts` ORDER BY expireddate DESC";
@@ -76,6 +71,12 @@
                $formeddate=strtotime($_POST['startdate']);
                $sql="UPDATE `accounts` SET  `expireddate`='".$formeddate."' where `username`='".$_GET['accountid']."'";
                 $result=mysqli_query($this->conn,$sql);
+                header("location:../CurrentAccounts.php");
+              } 
+              if(isset($_GET['username'])){
+               $sql="UPDATE `accounts` SET  `username`='".$_POST['username']."' where `username`='".$_GET['username']."'";
+                $result=mysqli_query($this->conn,$sql);
+               header("location:../CurrentAccounts.php");
               } if($_GET['lgnupdate']=='1'){
                   if($_POST['password']===$_POST['confirmpassword']){
                 $sql="UPDATE `users` SET
@@ -104,7 +105,7 @@ $run= new DataHandler($conn);
 if($_GET["attempt"]=="1"){
 $run->login();
 }
-if($_GET["accountinsert"]=="1"){
+if(isset($_SESSION['ValidData'])){
 $run->databaseInsert($data,$lgnuser);
 }else if($_GET["lgnupdate"]=="1"){
 $run->databaseUpdate();
@@ -112,8 +113,12 @@ $run->databaseUpdate();
 $run->databaseSelect();
 if(isset($_GET['accountid'])){
 $run->databaseUpdate();
-}
+}else if(isset($_GET['username'])){
+$run->databaseUpdate(); }
 if($_GET['logout']=='1'){
 $run->logout();    
 }
+
+    
+
 ?>

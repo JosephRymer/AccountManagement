@@ -100,7 +100,7 @@
                                       <input type="email" value="<?php echo $values["email"]; ?>" class="form-control" name="email" required>
                                       <label  form="textinput" >password: </label>
                                     <input type="password"  class="form-control" name="password" placeholder="Password" >
-                                    <input type="password" class="form-control" id="inputPasswordConfirm" name="confirmpassword" placeholder="Confirm Password">
+                                    <input type="password" class="form-control"  name="confirmpassword" placeholder="Confirm Password">
                                      <button type="reset" class="btn btn-danger">Reset</button>
                                      <button type="submit" class="btn btn-primary">Save</button>
                              </form>  </div></div>

@@ -6,8 +6,7 @@
   </title>
   <head>
       <?php require 'PHP/Reader_Editor.php';
-            require_once('PHP/dbConnect.php');
-            session_start();?>
+            require_once('PHP/dbConnect.php'); ?>
     <link href="css/bootstrap.css" rel="stylesheet">
     <link href="css/bootstrap-theme.css" rel="stylesheet">
     <link href="css/stylesheet.css" rel="stylesheet" >
@@ -16,7 +15,22 @@
     
     <div class="navbar navbar fixed top">
       <div class="navbar-inner">
-        
+        <div class="hidden-xs">
+            <ul id="tab-group" class="nav nav-pills" >
+             <li  role="presentation" class="active" ><a id="active-tab" href="userprofile.php">Profile</a></li>
+             <li role="presentation" class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown"  role="button" aria-expanded="false">
+               Accounts <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="AccountCreation.php">Create Account</a></li>
+                <li><a href="CurrentAccounts.php">Current Accounts</a></li> 
+              </ul>
+             </li>      
+             <li role="presentation"><a href="PHP/Reader_Editor.php?logout=1">Logout</a></li>
+            </ul>
+           </div>
+            
         
         <a class="brand" href="http://library.tamu.edu/">
           <img src="img/logo.png" alt="Library Logo">
@@ -25,10 +39,23 @@
       
       <div class="color-field">
         <div class="row-fluid">
-          <div class="span12 pull left breadcrumb">
+          <div class="span12 pull left breadcrumb"> 
+              <div class="visible-xs">
+                   <div class="btn-group" style="float:right;">
+                     <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <span class="glyphicon glyphicon-align-justify"></span>
+                     </button>
+                     <ul class="dropdown-menu dropdown-menu-right">
+                      <li><a href="userprofile.php">Profile</a></li>
+                      <li><a href="AccountCreation.php">Create Account</a></li>
+                      <li><a href="CurrentAccounts.php">Current Accounts</a></li>
+                      <li role="separator" class="divider"></li>
+                      <li><a href="PHP/Reader_Editor.php?logout=1">Logout</a></li>
+                     </ul>
+                   </div>  
+                 </div>
               <form action="CurrentAccounts.php" method="GET" class="control form-inline" style="float:right;">
                  <input type="text" class="form-control" name="search" placeholder="Search">
-                 <input type="submit"  class="btn btn-default">
              </form>
             <ul class="breadcrumb">
               <a href="http://library.tamu.edu/">
@@ -36,73 +63,71 @@
               </a>
               >
               <a href="userprofile.php">
-                Dashboard
+                Profile
               </a>>
               <a href="CurrentAccounts.php">
                 Current Accounts
               </a>
              
             </ul>
+             
           </div>
         </div>
       </div>
     </div>
-    <div id="wrapper">
-      <div id="sidebar-wrapper">
-       <h1>Welcome <?php echo $_SESSION['lgnuser']; ?></h1>
-        <ul class="sidebar-nav">
-         <li class="sidebar-brand">
-          <a href="userprofile.php">User Profile</a>
-          <a href="AccountCreation.php">Create Account</a>
-          <?php if($_SESSION['isadmin']=='1'){ ?>
-          <a href="CurrentAccounts.php">Current Accounts</a>
-          <?php } ?> 
-         <a href="PHP/Reader_Editor.php?logout=1">Logout</a></li>
-        </ul>
-       </div>
+    
       <div id="page-content-wrapper">
         <div class="page-content">
           <div class="container">
             <div class="row">
               <div class="col-md-12">
                   <h1 style='text-align: center;'>Current Accounts</h1>
-          <table class="table table-bordered">
+          <table class="table table-bordered table table-striped">
             <thead>
               <th>First Name</th>
               <th>Last Name</th>
               <th>Email</th>
-              <th>ID Number</th>
-              <th>ID Type</th>
               <th>Username</th>
-              <th>Street</th>
-              <th>City</th>
-              <th>State</th>
-              <th>ZIP Code</th>
               <th>Created On</th>
               <th>Expire's On<span class="glyphicon glyphicon-arrow-down"></span></th>
               <th>Creator</th>
             </thead>
               
-            <tbody id="accountstable">
+            <tbody>
                   <?php 
                   $_SESSION['searchresult'] = $_GET['search'];
                  $db= new DataHandler($conn);
                  $response = $db->databaseSelect();
                  while($row=mysqli_fetch_array($response,MYSQLI_ASSOC)){
                      ?><tr>
-                <td id="rowi"><?php echo $row['firstname']; ?></td>
+                <td><?php echo $row['firstname']; ?></td>
                 <td><?php echo $row['lastname']; ?></td>
-                <td id="rowi"><?php echo $row['email']; ?></td>
-                <td><?php echo $row['idnumber']; ?></td>
-                <td id="rowi"><?php echo $row['idtype']; ?></td>
-                <td><?php echo $row['username'];?></td>
-                <td id="rowi"><?php echo $row['street']; ?></td>
-                <td><?php echo $row['city']; ?></td>
-                <td id="rowi"><?php echo $row['state']; ?></td>
-                <td><?php echo $row['zipcode']; ?></td>
-                <td id="rowi"><?php $timestamp = $row['creationdate']; echo gmdate( "F j, Y, g:i a" , $timestamp); ?></td>
+                <td><?php echo $row['email']; ?></td>
+                <td><?php echo $row['username'];?>
+                    
+                    <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#<?php echo $row['username']; ?>"> Edit UserName </button>
+                <div class="modal fade" id="<?php echo $row['username'];?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" style=" margin: 300px auto;">
+                        <div class="modal-content" style="color:#000">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Change UserName</h4>
+                      </div>
+                      <div class="modal-body">
+                          <form action="PHP/Reader_Editor.php?username=<?php echo $row['username']; ?>" method="POST">
+                             <input type="text"class="form-control" name="username" required>
+                        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary btn-sm">
+                      </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                    
+                </td>
+                <td><?php $timestamp = $row['creationdate']; echo gmdate( "F j, Y, g:i a" , $timestamp); ?></td>
                  <td><?php $timestamp = $row['expireddate']; echo gmdate( "F j, Y, g:i a" , $timestamp);  ?>
-               <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#<?php echo $row['username']; ?>"> Launch demo modal </button>
+               <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#<?php echo $row['username']; ?>"> Edit Expiration Date </button>
                 <div class="modal fade" id="<?php echo $row['username'];?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog" style=" margin: 300px auto;">
                         <div class="modal-content" style="color:#000">
@@ -113,15 +138,15 @@
                       <div class="modal-body">
                           <form action="PHP/Reader_Editor.php?accountid=<?php echo $row['username']; ?>" method="POST">
                         <input  name="startdate" min="2015-01-01" max="2015-12-31" type="date">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <input type="submit" name="login-submit"  tabindex="4" class="btn btn-primary btn-lg">
+                        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary btn-sm">
                       </form>
                       </div>
                     </div>
                   </div>
                 </div>
                 </td>
-                 <td id="rowi"><?php echo $row['createdby']; }?></td></tr>
+                 <td><?php echo $row['createdby']; }?></td></tr>
             </tbody>
           </table>
             </div>
