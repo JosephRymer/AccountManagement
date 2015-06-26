@@ -66,7 +66,7 @@
                      </ul>
                    </div>  
                  </div>
-              <form action="CurrentAccounts.php" method="GET" class="control form-inline" style="float:right;">
+              <form action="CurrentUsers.php" method="GET" class="control form-inline" style="float:right;">
                  <input type="text" class="form-control" name="search" placeholder="Search">
              </form>
             <ul class="breadcrumb">
@@ -77,8 +77,8 @@
               <a href="profile.php">
                 Profile
               </a>>
-              <a href="CurrentAccounts.php">
-                Current Accounts
+              <a href="CurrentUsers.php">
+                Current Users
               </a>
              
             </ul>
@@ -100,16 +100,15 @@
               <th>Last Name</th>
               <th>Email</th>
               <th>Username</th>
-              <th>Created On</th>
-              <th>Expire's On<span class="glyphicon glyphicon-arrow-down"></span></th>
-              <th>Creator</th>
+              <th>Last Update<span class="glyphicon glyphicon-arrow-down"></span></th>
+              <th>Created By</th>
             </thead>
               
             <tbody>
                   <?php 
-                  $_SESSION['searchresult'] = $_GET['search'];
+                  $_SESSION['usersearchresult'] = $_GET['search'];
                  $db= new DataHandler($conn);
-                 $response = $db->databaseSelect();
+                 $response = $db->databaseUserselect();
                  while($row=mysqli_fetch_array($response,MYSQLI_ASSOC)){
                      ?><tr>
                 <td><?php echo $row['firstname']; ?></td>
@@ -138,27 +137,8 @@
                     
                 </td>
                 <td><?php $timestamp = $row['creationdate']; echo gmdate( "F j, Y, g:i a" , $timestamp); ?></td>
-                 <td><?php $timestamp = $row['expireddate']; echo gmdate( "F j, Y, g:i a" , $timestamp);  ?>
-               <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#<?php echo $row['username']; ?>"> Edit Expiration Date </button>
-                <div class="modal fade" id="<?php echo $row['username'];?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" style=" margin: 300px auto;">
-                        <div class="modal-content" style="color:#000">
-                      <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Change Expiration Date</h4>
-                      </div>
-                      <div class="modal-body">
-                          <form action="PHP/Reader_Editor.php?accountid=<?php echo $row['username']; ?>" method="POST">
-                        <input  name="startdate" min="2015-01-01" max="2015-12-31" type="date">
-                        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-primary btn-sm">
-                      </form>
-                      </div>
-                    </div>
-                  </div>
-                </div>
                 </td>
-                 <td><?php echo $row['createdby']; }?></td></tr>
+                 <td><?php echo $row['creator']; }?></td></tr>
             </tbody>
           </table>
             </div>

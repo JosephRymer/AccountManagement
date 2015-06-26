@@ -5,7 +5,7 @@
       $values=$_SESSION['lgnuserinfo'];
     ?>
 
-    <title>Dashboard</title>
+    <title>Profile</title>
     <head>
       <link href="css/bootstrap.css" rel="stylesheet">
       <link href="css/bootstrap-theme.css" rel="stylesheet">
@@ -18,7 +18,7 @@
         <div class="navbar-inner"> 
              <div class="hidden-xs">
             <ul id="tab-group" class="nav nav-pills" >
-             <li  role="presentation" class="active" ><a id="active-tab" href="userprofile.php">Profile</a></li>
+             <li  role="presentation" class="active" ><a id="active-tab" href="profile.php">Profile</a></li>
              <li role="presentation" class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown"  role="button" aria-expanded="false">
                Accounts <span class="caret"></span>
@@ -26,6 +26,15 @@
               <ul class="dropdown-menu" role="menu">
                 <li><a href="AccountCreation.php">Create Account</a></li>
                 <li><a href="CurrentAccounts.php">Current Accounts</a></li> 
+              </ul>
+             </li>
+             <li role="presentation" class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown"  role="button" aria-expanded="false">
+               Users <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu" role="menu">
+                  <li><a href="UserCreation.php">Create User</a></li>
+                  <li><a href="CurrentUsers.php">Current Users</a></li> 
               </ul>
              </li>      
              <li role="presentation"><a href="PHP/Reader_Editor.php?logout=1">Logout</a></li>
@@ -45,9 +54,11 @@
                       <span class="glyphicon glyphicon-align-justify"></span>
                      </button>
                      <ul class="dropdown-menu dropdown-menu-right">
-                      <!-- <li><a href="userprofile.php">Profile</a></li> -->
                       <li><a href="AccountCreation.php">Create Account</a></li>
                       <li><a href="CurrentAccounts.php">Current Accounts</a></li>
+                      <li role="separator" class="divider"></li>
+                      <li><a href="UserCreation.php">Create User</a></li>
+                      <li><a href="CurrentUsers.php">Current Users</a></li>
                       <li role="separator" class="divider"></li>
                       <li><a href="PHP/Reader_Editor.php?logout=1">Logout</a></li>
                      </ul>
@@ -56,7 +67,7 @@
                     <ul class="breadcrumb">
                      <a href="http://library.tamu.edu/">University Libraries</a>
                      >
-                     <a href="userprofile.php">Profile</a>
+                     <a href="profile.php">Profile</a>
                     </ul>  
                 </div>
             </div>
@@ -69,6 +80,12 @@
                         <div class="col-lg-6 col-lg-offset-3 col-md-6  col-sm-offset-3 col-sm-12 col-xs-offset-3 col-xs-6">
                             <h1 class="col-lg-7 col-lg-offset-3 col-md-8 col-md-offset-3 col-sm-12 col-xs-12">Current User Data</h1>
                           <?php if(!empty($_GET["success"])){?>
+                            <div class="alert alert-success col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-3 col-sm-8 col-xs-12" role="alert" >
+                             <span class="glyphicon glyphicon-saved" aria-hidden="true"></span>
+                             <span class="sr-only"></span>Account Created Username:<?php echo $_GET['success']; ?>
+                            </div>
+                          <?php } ?>
+                            <?php if(!empty($_GET["usersuccess"])){?>
                             <div class="alert alert-success col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-3 col-sm-8 col-xs-12" role="alert" >
                              <span class="glyphicon glyphicon-saved" aria-hidden="true"></span>
                              <span class="sr-only"></span>Account Created Username:<?php echo $_GET['success']; ?>

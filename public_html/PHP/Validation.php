@@ -11,7 +11,7 @@
             $this->conn = $conn;
         }
         
-       public function CheckFormFields($data) {
+        function CheckFormFields($data) {
              
             $FormResults = array();
             if (!preg_match("/^[a-zA-Z ]*$/",$data["F_Name"])) {
@@ -38,23 +38,59 @@
             if (empty($data["ID_Number"])) {
                 $FormResults['IDN'] = "ID Number";
             }
-             if (empty($data["Password"])) {
-                $FormResults['Pass'] = "Password";
-          //  }else if($data["Password"] === $data["confirmpassword"]){
-              //  $FormResults['Pass']="Passwords do NOT match";
+             if ($data["Password"] !== $data["confirmpassword"]) {
+                $FormResults['Pass'] = "Passwords do NOT match";
             }
               return $FormResults;
             
         
-        }   
+        } 
+         function CheckUserFormFields($data){
+            if (!preg_match("/^[a-zA-Z ]*$/",$data["F_Name"])) {
+                $UserFormResults['FName'] = "First Name";
+            }
+            if (!preg_match("/^[a-zA-Z ]*$/",$data["L_Name"])) {
+                $UserFormResults['LName'] = "Last Name";
+            }
+            if (!preg_match("/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/",$data["E_Mail"])) {
+                $UserFormResults['EMail'] = "Email";
+            }
+            if ($data["Password"] !== $data["confirmpassword"]) {
+                $UserFormResults['Pass'] = "Passwords do NOT match";
+            }
+             return $UserFormResults;
+         }
          
     }
     
         
     $check= new FormValidationCheck($conn);
-    
-    $check->CheckFormFields($data);
+    if(isset($_GET['userform'])){
+    $check->CheckUserFormFields($data);
+
+$UserFormResults=$check->CheckUserFormFields($data);
+if(empty($UserFormResults)){
+     $_SESSION["ValidUserData"]=$data;
+     unset($_SESSION['formerrors']);
+     unset($_SESSION['formdata']);
+     unset($_SESSION['userformdata']);
+     unset($_SESSION['userformerrors']);        
+     header("location:Reader_Editor.php");
+    }else{ 
+        unset($_SESSION['formerrors']);
+        unset($_SESSION['formdata']);
+        $_SESSION['userformdata']=$data;
+        $_SESSION['userformerrors']=$UserFormResults;
+        
+     header("location:../UserCreation.php");
+    }
+    }else{
+$check->CheckFormFields($data);
     $FormResults=$check->CheckFormFields($data);
+    
+
+    
+    
     //If the data is all ok adn there was no errors in the array then it is passed to  Reader_Editor.php for insert else it will send back with a variable which AccountCreation interprets
     if(empty($FormResults)){
      $_SESSION["ValidData"]=$data;
@@ -66,5 +102,6 @@
         $_SESSION['formerrors']=$FormResults;
         
      header("location:../AccountCreation.php?baddata=1");
+    }
     }
 ?>
