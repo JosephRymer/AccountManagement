@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<?php if(empty($_SESSION['lgnuser'])){ 
+<?php if(empty($_SESSION['lgnuser'])){
+     if($_SESSION['admin']=='1'){ 
     session_start(); ?>
 <html>
   <title>
@@ -133,6 +134,8 @@
         </footer>
       </div>
   </html>
-<?php }else{
+<?php  }else if($_SESSION['admin']!='1'){
+         header("location:/AccountManagement/public_html/profile.php");   
+      }else{
 header("location:/AccountManagement/public_html/index.php?badlogin=1");   
-} ?>
+} } ?>

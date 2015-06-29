@@ -1,8 +1,11 @@
 <!DOCTYPE html>
-<?php if(empty($_SESSION['lgnuser'])){ ?>
+<?php if(empty($_SESSION['lgnuser'])){
+     if($_SESSION['admin']=='1'){    
+         session_start();
+    ?>
 <html>
   <title>
-   Create Accounts
+   Current Users
   </title>
   <head>
       <?php require 'PHP/Reader_Editor.php';
@@ -93,7 +96,7 @@
           <div class="container">
             <div class="row">
               <div class="col-md-12">
-                  <h1 style='text-align: center;'>Current Accounts</h1>
+                  <h1 style='text-align: center;'>Current Users</h1>
           <table class="table table-bordered table table-striped">
             <thead>
               <th>First Name</th>
@@ -102,6 +105,7 @@
               <th>Username</th>
               <th>Last Update<span class="glyphicon glyphicon-arrow-down"></span></th>
               <th>Created By</th>
+              <th>Admin</th>
             </thead>
               
             <tbody>
@@ -125,7 +129,7 @@
                         <h4 class="modal-title" id="myModalLabel">Change UserName</h4>
                       </div>
                       <div class="modal-body">
-                          <form action="PHP/Reader_Editor.php?username=<?php echo $row['username']; ?>" method="POST">
+                          <form action="PHP/Reader_Editor.php?user&username=<?php echo $row['username']; ?>" method="POST">
                              <input type="text"class="form-control" name="username" required>
                         <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
                         <input type="submit" class="btn btn-primary btn-sm">
@@ -138,7 +142,11 @@
                 </td>
                 <td><?php $timestamp = $row['creationdate']; echo gmdate( "F j, Y, g:i a" , $timestamp); ?></td>
                 </td>
-                 <td><?php echo $row['creator']; }?></td></tr>
+                 <td><?php echo $row['creator']; ?></td>
+            <td><?php echo $row['isadmin']; ?>
+                <a href='PHP/Reader_Editor.php?user&Admin=1&uusername=<?php  echo $row['username']; ?>' class='btn btn-primary btn-xs' role='button'>Admin </a>
+                <a href='PHP/Reader_Editor.php?user&Admin=0&uusername=<?php  echo $row['username']; ?>' class='btn btn-primary btn-xs' role='button'>Non-Admin</a>
+                 </td></tr><?php } ?>
             </tbody>
           </table>
             </div>
@@ -160,7 +168,9 @@
         </footer>
       </div>
   </html>
-      <?php }else{
+      <?php }else if($_SESSION['admin']!='1'){
+         header("location:/AccountManagement/public_html/profile.php");   
+      }else{
 header("location:/AccountManagement/public_html/index.php?badlogin=1");   
-} ?>
+} }?>
   

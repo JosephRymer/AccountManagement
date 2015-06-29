@@ -26,7 +26,7 @@
                     $sql="SELECT * FROM `users` WHERE `username`='".$_SESSION['lgnuser']."'";
                      $result=  mysqli_query($this->conn,$sql);
                        $row= mysqli_fetch_assoc($result);
-                       $_SESSION['isadmin']=$row['isadmin'];
+                       $_SESSION['admin']=$row['isadmin'];
                         $_SESSION['lgnuserinfo']=$row;
                         header('location:../profile.php');
                     }else{
@@ -51,14 +51,14 @@
                return $expirationdate;
             }
              //Runs sql query only when all data is given the ok from validation.php
-            function databaseInsert($data, $lgnuser){
+            function databaseInsert($data){
                 if(isset($_SESSION['ValidUserData'])){
                     $username=$this->generateUsername($data);
-                    $sql="INSERT INTO `users`(firstname,lastname,email,username,password)values('".$data["F_Name"]."','".$data["L_Name"]."','".$data["E_Mail"]."','".$username."',PASSWORD('".$data["Password"]."','".$lgnuser."'))";
+                    $sql="INSERT INTO `users`(`firstname`,`lastname`,`email`,`username`,`password`,`creator`,`lastupdate`)values('".$data["F_Name"]."','".$data["L_Name"]."','".$data["E_Mail"]."','".$username."',PASSWORD('".$data["Password"]."'),'".$_SESSION['lgnuser']."',(UNIX_TIMESTAMP(NOW())))";
                     $result= mysqli_query($this->conn, $sql);
                   header("location:../profile.php?success=".$username."");
                 }else if(isset($_SESSION['ValidData'])){
-             $username=$this->generateUsername($data , $lgnuser);
+             $username=$this->generateUsername($data);
              $expirationdate=$this->generateExpirationDate($data);
              $sql="INSERT INTO `accounts`(`firstname`,`lastname`,`email`,`idnumber`,`idtype`,`username`,`password`,`street`,`city`,`state`,`zipcode`,`creationdate`,`expireddate`,`createdby`,`comments`)
              values('".$data["F_Name"]."','".$data["L_Name"]."','".$data["E_Mail"]."','".$data["ID_Number"]."','".$data["ID_Type"]."','".$username."',PASSWORD('".$data["Password"]."'),'".$data["Street"]."'"
@@ -97,7 +97,12 @@
             
 
             function databaseUpdate(){
-             if(isset($_GET['accountid'])){
+                if(isset($_GET['user'])){
+                    $sql="UPDATE `users` SET  `username`='".$_POST['username']."' ,`lastupdate`=(UNIX_TIMESTAMP(NOW())) , `isadmin`='".$_GET['Admin']."' where `username`='".$_GET['uusername']."'";
+                $result=mysqli_query($this->conn,$sql);   
+                echo $sql;
+                //header("location:../CurrentUsers.php");
+                }else if(isset($_GET['accountid'])){
                $formeddate=strtotime($_POST['startdate']);
                $sql="UPDATE `accounts` SET  `expireddate`='".$formeddate."' where `username`='".$_GET['accountid']."'";
                 $result=mysqli_query($this->conn,$sql);
@@ -141,6 +146,8 @@ $run->databaseInsert($data,$lgnuser);
     $run->databaseInsert($data,$lgnuser);
 }else if($_GET["lgnupdate"]=="1"){
 $run->databaseUpdate();
+}else if(isset($_GET['user'])){
+    $run->databaseupdate();
 }
 $run->databaseSelect();
 
