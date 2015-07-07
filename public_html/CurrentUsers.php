@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <?php if(empty($_SESSION['lgnuser'])){
      if($_SESSION['admin']=='1'){    
          session_start();

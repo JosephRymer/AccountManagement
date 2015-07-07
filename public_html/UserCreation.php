@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 <?php if(empty($_SESSION['lgnuser'])){
-     if($_SESSION['admin']=='1'){ 
-    session_start(); ?>
+      session_start(); 
+      if($_SERVER['REQUEST_METHOD']=='POST'){ 
+          include('PHP/Validation.php');
+          include('PHP/dbConnect.php');
+          $check = new FormValidationCheck($conn);
+          $check->CheckUserFormFields($_POST);
+      }
+      ?>
 <html>
   <title>
     Create Account
@@ -81,7 +87,7 @@
                
                 <div id="accountcreateform" class="col-lg-6"> 
                     <h1 style="text-align: center;"> Create User </h1>
-                  <?php if(isset($_SESSION['userformerrors'])){ $errorresults=implode(",",$_SESSION['userformerrors']); ?>
+                  <?php if(isset($errors)){ $errorresults=implode(",",$errors); ?>
                   <div class="alert alert-danger" role="alert">
                     <span class="glyphicon glyphicon glyphicon-alert" aria-hidden="true"></span>
                     <span class="sr-only"></span>The following Fields where incorrect or missing <?php  print_r($errorresults);?>
@@ -89,19 +95,19 @@
                   
                   <!-- Instead of passing data straight to Reader_Editor to be inserted it is passed to Validation.php for validation to insure that the data is correct and passes all rejex tests and php tests-->
                  
-                    <form data-toggle="validator" role="form" action="PHP/Validation.php?userform" method="POST">
-                        <?php $data=$_SESSION['userformdata']; ?>
+                  <form data-toggle="validator" role="form" action="UserCreation.php" method="POST">
+                        
                             <label   class="control-label" >
                              First Name
-                             <input type="text" class="form-control" id="inputName" name="F_Name" value="<?php echo $data['F_Name']; ?>" required>       
+                             <input type="text" class="form-control" id="inputName" name="F_Name" value="<?php echo $_POST['F_Name']; ?>" required>       
                             </label>  
                             <label class="control-label">
                              Last Name
-                             <input type="text" class="form-control" name="L_Name" value="<?php echo $data['L_Name']; ?>" required>
+                             <input type="text" class="form-control" name="L_Name" value="<?php echo $_POST['L_Name']; ?>" required>
                             </label>   
                             <label  class="control-label">
                              Email 
-                             <input type="email" class="form-control" name="E_Mail" value="<?php echo $data['E_Mail']; ?>" required>
+                             <input type="email" class="form-control" name="E_Mail" value="<?php echo $_POST['E_Mail']; ?>" required>
                             </label>
                             <label  class="control-label">
                              Password
@@ -134,8 +140,7 @@
         </footer>
       </div>
   </html>
-<?php  }else if($_SESSION['admin']!='1'){
-         header("location:/AccountManagement/public_html/profile.php");   
+<?php  
       }else{
 header("location:/AccountManagement/public_html/index.php?badlogin=1");   
-} } ?>
+ } ?>

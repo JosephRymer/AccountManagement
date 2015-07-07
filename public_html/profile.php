@@ -120,7 +120,10 @@
                                     <input type="password" class="form-control"  name="confirmpassword" placeholder="Confirm Password">
                                      <button type="reset" class="btn btn-danger">Reset</button>
                                      <button type="submit" class="btn btn-primary">Save</button>
-                             </form>  </div></div>
+                                     <?php  print_r($_SESSION);?>
+                             </form>  
+                               </div>
+                           </div>
                             </div>
                           </div>
                         </div>
