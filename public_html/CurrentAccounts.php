@@ -140,8 +140,8 @@ while($row=mysqli_fetch_array($response,MYSQLI_ASSOC)){
 </td>
 <td><?php $timestamp = $row['creationdate']; echo gmdate( "F j, Y, g:i a" , $timestamp); ?></td>
 <td><?php $timestamp = $row['expireddate']; echo gmdate( "F j, Y, g:i a" , $timestamp);  ?>
-<button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#<?php echo $row['username']; ?>"> Edit Expiration Date </button>
-<div class="modal fade" id="<?php echo $row['username'];?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#E<?php echo $row['username']; ?>"> Edit Expiration Date </button>
+<div class="modal fade" id="E<?php echo $row['username'];?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 <div class="modal-dialog" style=" margin: 300px auto;">
 <div class="modal-content" style="color:#000">
 <div class="modal-header">
