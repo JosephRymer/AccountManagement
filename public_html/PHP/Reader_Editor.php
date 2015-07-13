@@ -90,19 +90,21 @@ include('dbConnect.php');
     //Update for users and account requests 
     function databaseUpdate(){
         if(isset($_GET['user'])){
-            $sql="UPDATE `users` SET  `username`='".$_POST['username']."' ,`lastupdate`=(UNIX_TIMESTAMP(NOW())) , `isadmin`='".$_GET['Admin']."' where `username`='".$_GET['uusername']."'";
-            $result=mysqli_query($this->conn,$sql);   
-            header("location:../CurrentUsers.php");
+            $sql="UPDATE `users` SET  `username`='".$_POST['username']."' ,`lastupdate`=(UNIX_TIMESTAMP(NOW())) , `isadmin`='".$_GET['Admin']."' where `username`='".$_GET['username']."'";
+             echo $sql;
+            $result=mysqli_query($this->conn,$sql);  
+            //header("location:../CurrentUsers.php");
         }else if(isset($_GET['accountid'])){
             $formeddate=strtotime($_POST['startdate']);
             $sql="UPDATE `accounts` SET  `expireddate`='".$formeddate."' where `username`='".$_GET['accountid']."'";
             $result=mysqli_query($this->conn,$sql);
-            header("location:../CurrentAccounts.php");
+            echo $sql;
+           // header("location:../CurrentAccounts.php");
         } 
         if(isset($_GET['username'])){
             $sql="UPDATE `accounts` SET  `username`='".$_POST['username']."' where `username`='".$_GET['username']."'";
             $result=mysqli_query($this->conn,$sql);
-            header("location:../CurrentAccounts.php");
+          //  header("location:../CurrentAccounts.php");
         }if($_GET['lgnupdate']=='1'){
             if($_POST['password']===$_POST['confirmpassword']){
                 $sql="UPDATE `users` SET
@@ -115,9 +117,9 @@ include('dbConnect.php');
                 $results=  mysqli_query($this->conn,$sql);
                 $row= mysqli_fetch_assoc($results);
                 $_SESSION['lgnuserinfo']=$row;
-                header("location:../profile.php?update");
+               // header("location:../profile.php?update");
             }else{
-                header("location:../profile.php?failupdate");
+              //  header("location:../profile.php?failupdate");
             }
         }
     }
