@@ -8,7 +8,7 @@ if(!empty($_SESSION['lgnuser'])){
         $check->CheckUserFormFields($_POST);
             if(empty($usererrors)){
                 $run = new DataHandler($conn);
-                $run->DatabaseUserInsert($_POST);            
+                $run->createUser($_POST);            
             }
         }
 ?>

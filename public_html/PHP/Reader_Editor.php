@@ -9,29 +9,23 @@ include('dbConnect.php');
     public function __construct($conn) {
         $this->conn = $conn;
     }
-    //Function for logging in 
     function login(){
-        $sql="SELECT * FROM `users` where `username`='".$_POST['username']."' and `password`=PASSWORD('".$_POST['password']."')";
-        $result = $this->conn->query($sql);  
-        $count=mysqli_num_rows($result);
-        $_SESSION['lgnuser']=$_POST['username'];
-        if($count == 1){
-            $sql="SELECT * FROM `users` WHERE `username`='".$_SESSION['lgnuser']."'";
-            $result=  mysqli_query($this->conn,$sql);
-            $row= mysqli_fetch_assoc($result);
-            $_SESSION['admin']=$row['isadmin'];
+         $sql="SELECT * FROM `users` where `username`='".$_POST['username']."' and `password`=PASSWORD('".$_POST['password']."')";
+         $result = $this->conn->query($sql);  
+         $count=mysqli_num_rows($result);
+         $row= mysqli_fetch_assoc($result);
+         if($count == 1){ 
+            $_SESSION['lgnuser']=$_POST['username'];
             $_SESSION['lgnuserinfo']=$row;
             header('location:../profile.php');
-            }else{
+         }else{
             header("location:../index.php?badlogin=1");
-            }
+         }
         }
-    // function is for building the username
     private function generateUsername(){
         $username=substr($_POST['F_Name'],0,1).$_POST['L_Name'].rand(1000,9999);          
         return $username;
     }   
-    //function is fordetermining expiration data then that data is passed to a mysql query in DatabaseInsert
     private function generateExpirationDate($data){
         $startDate=time();
         if($_POST ['numdays']=='30'){
@@ -43,15 +37,13 @@ include('dbConnect.php');
         }
         return $expirationdate;
     }
-    //User Insert for Creation of User
-    function databaseUserInsert($data){
+    function createUser($data){
         $username=$this->generateUsername($data);
         $sql="INSERT INTO `users`(`firstname`,`lastname`,`email`,`username`,`password`,`creator`,`lastupdate`)values('".$data["F_Name"]."','".$data["L_Name"]."','".$data["E_Mail"]."','".$username."',PASSWORD('".$data["Password"]."'),'".$_SESSION['lgnuser']."',(UNIX_TIMESTAMP(NOW())))";
         $result= mysqli_query($this->conn, $sql);
         header("location:profile.php?usersuccess=".$username."");
     }
-    //Account Request Insert for Creating account request
-    function databaseAccountInsert($data){
+    function createAccount($data){
         $username=$this->generateUsername($data);
         $expirationdate=$this->generateExpirationDate($data);
         $sql="INSERT INTO `accounts`(`firstname`,`lastname`,`email`,`idnumber`,`idtype`,`username`,`password`,`street`,`city`,`state`,`zipcode`,`creationdate`,`expireddate`,`createdby`,`comments`)
@@ -60,53 +52,51 @@ include('dbConnect.php');
         $result=  mysqli_query($this->conn, $sql);
         header("location:profile.php?accountsuccess=".$username."");
     }
-    //Select for Current Account Requests
-    function databaseSelect(){
-        if(isset( $_SESSION['searchresult'])){
-            $sql="SELECT * FROM `accounts` where `username`='". $_SESSION['searchresult']."' or `firstname`='". $_SESSION['searchresult']."' or `lastname`='". $_SESSION['searchresult']."' or `createdby`='". $_SESSION['searchresult']."'";
-            $result = mysqli_query($this->conn, $sql);
-            $_SESSION['searchresults']=$result;
-            return $result;
-        }else{
+    function getAccount(){
             $sql="SELECT * FROM `accounts` ORDER BY `expireddate` DESC";
             $result = mysqli_query($this->conn, $sql);
         return $result;
         }
-    }
-    //Select for User Accounts
-    function databaseUserselect(){
-        if(isset($_SESSION['usersearchresult'])){
-            $sql="SELECT * FROM `users` where `username`='". $_SESSION['usersearchresult']."' or `firstname`='". $_SESSION['usersearchresult']."' or `lastname`='". $_SESSION['usersearchresult']."'";
+    function searchAccount($accountsearch){
+         $sql="SELECT * FROM `accounts` where `username`='". $accountsearch['searchresult']."' or `firstname`='". $accountsearch['searchresult']."' or `lastname`='". $accountsearch['searchresult']."' or `createdby`='". $accountsearch['searchresult']."'";
             $result = mysqli_query($this->conn, $sql);
-            $_SESSION['usersearchresults']=$result;
-            return $result;
-        }else{
+             return $result;
+       }
+    function getUser(){
             $sql="SELECT * FROM `users` ORDER BY `lastupdate` DESC";
             $result = mysqli_query($this->conn, $sql);
             return $result; 
-        }   
+        }  
+    function searchUser($usersearchdata){
+        $sql="SELECT * FROM `users` where `username`='". $usersearchdata['searchresult']."' or `firstname`='". $usersearchdata['searchresult']."' or `lastname`='". $usersearchdata['searchresult']."'";
+            $result = mysqli_query($this->conn, $sql);
+            return $result;
     }
-
-    //Update for users and account requests 
-    function databaseUpdate(){
-        if(isset($_GET['user'])){
-            $sql="UPDATE `users` SET  `username`='".$_POST['username']."' ,`lastupdate`=(UNIX_TIMESTAMP(NOW())) , `isadmin`='".$_GET['Admin']."' where `username`='".$_GET['username']."'";
-             echo $sql;
-            $result=mysqli_query($this->conn,$sql);  
-            //header("location:../CurrentUsers.php");
-        }else if(isset($_GET['accountid'])){
-            $formeddate=strtotime($_POST['startdate']);
-            $sql="UPDATE `accounts` SET  `expireddate`='".$formeddate."' where `username`='".$_GET['accountid']."'";
-            $result=mysqli_query($this->conn,$sql);
+    function updateUser($data){
+         if(isset($_GET['user'])){
+            $sql="UPDATE `users` SET  `firstname`='".$data['firstname']."',`lastname`='".$data['lastname']."',`email`='".$data['email']."',`username`='".$data['username']."' ,`isadmin`='".$data['admin']."' ,`lastupdate`= UNIX_TIMESTAMP(NOW()) ,  WHERE `username`='".$_GET['username']."'";        
+            $result=mysqli_query($this->conn,$sql); 
             echo $sql;
-           // header("location:../CurrentAccounts.php");
-        } 
-        if(isset($_GET['username'])){
+     }
+     }
+    function updateAccount($data,$accountid){
+         if(isset($accountid)){
+            $formeddate=strtotime($data['startdate']);
+            $sql="UPDATE `accounts` SET  `expireddate`='".$formeddate."' where `username`='".$accountid."'";
+            $result=mysqli_query($this->conn,$sql);
+         }else{
             $sql="UPDATE `accounts` SET  `username`='".$_POST['username']."' where `username`='".$_GET['username']."'";
             $result=mysqli_query($this->conn,$sql);
           //  header("location:../CurrentAccounts.php");
-        }if($_GET['lgnupdate']=='1'){
-            if($_POST['password']===$_POST['confirmpassword']){
+           // header("location:../CurrentAccounts.php");
+        } 
+     }
+    function updateProfile(){
+        
+       
+        
+             
+           // if($_POST['password']===$_POST['confirmpassword']){
                 $sql="UPDATE `users` SET
                 firstname = '".$_POST['firstname']."',
                 lastname = '".$_POST['lastname']."',
@@ -117,34 +107,23 @@ include('dbConnect.php');
                 $results=  mysqli_query($this->conn,$sql);
                 $row= mysqli_fetch_assoc($results);
                 $_SESSION['lgnuserinfo']=$row;
-               // header("location:../profile.php?update");
-            }else{
-              //  header("location:../profile.php?failupdate");
+                header("location:../profile.php?update");
+           // }else{ 
+                header("location:../profile.php?failupdate");
             }
-        }
-    }
     function logout(){
         session_unset();
         header('location:../index.php');
     }
 }
+    
 $run= new DataHandler($conn); 
-
+if(($_GET['lgnupdate'])){
+$run->updateProfile();    
+}
 if($_GET["attempt"]=="1"){
 $run->login();
-}else if($_GET["lgnupdate"]=="1"){
-$run->databaseUpdate();
-}else if(isset($_GET['user'])){
-$run->databaseupdate();
 }
-$run->databaseSelect();
-
-$run->databaseUserSelect(); 
-
-if(isset($_GET['accountid'])){
-$run->databaseUpdate();
-}else if(isset($_GET['username'])){
-$run->databaseUpdate(); }
 if($_GET['logout']=='1'){
 $run->logout();    
 }

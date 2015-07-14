@@ -55,8 +55,8 @@ if(!empty($_SESSION['lgnuser'])){ ?>
                                  </ul>
                                 </div>  
                             </div>
-                            <form action="CurrentAccounts.php" method="GET" class="control form-inline" style="float:right;">
-                             <input type="text" class="form-control" name="search" placeholder="Search">
+                            <form action="CurrentAccounts.php?accountsearch" method="POST" class="control form-inline" style="float:right;">
+                             <input type="text" class="form-control" name="searchresult" placeholder="Search">
                             </form>
                             <ul class="breadcrumb">
                              <a href="http://library.tamu.edu/">
@@ -92,17 +92,27 @@ if(!empty($_SESSION['lgnuser'])){ ?>
                                 <th>Creator</th>
                               </thead>
                               <tbody>
-                                <?php 
-                                    $_SESSION['searchresult'] = $_GET['search'];
-                                    $db= new DataHandler($conn);
-                                    $response = $db->databaseSelect();
+                                <?php   
+                                $db= new DataHandler($conn);
+                               if(isset($_GET['accountid'])){
+                                  $db->updateAccount($_POST,$_GET['accountid']); 
+                               }else{
+                                   $db->updateAccount($_POST);
+                               }
+                                if(isset($_GET['accountsearch'])){
+                                    $repsonse = $db->searchAccount($_POST);
+                                }else{
+                                         $response = $db->getAccount();
+                                    }
+                                
+                                      
                                     while($row=mysqli_fetch_array($response,MYSQLI_ASSOC)){
                                 ?><tr>
                                    <td><?php echo $row['firstname']; ?></td>
                                    <td><?php echo $row['lastname']; ?></td>
                                    <td><?php echo $row['email']; ?></td>
                                    <td><?php echo $row['username'];?>
-                                    <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#<?php echo $row['username']; ?>"> Edit UserName </button>
+                                    <button type="button" class="btn btn-primary btn-xs pull-right" data-toggle="modal" data-target="#<?php echo $row['username']; ?>"><span class="glyphicon glyphicon-pencil"></span></button>
                                     <div class="modal fade" id="<?php echo $row['username'];?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" style=" margin: 300px auto;">
                                             <div class="modal-content" style="color:#000">
@@ -111,7 +121,7 @@ if(!empty($_SESSION['lgnuser'])){ ?>
                                                     <h4 class="modal-title" id="myModalLabel">Change UserName</h4>
                                                 </div>
                                                 <div class="modal-body">
-                                                 <form action="PHP/Reader_Editor.php?username=<?php echo $row['username']; ?>" method="POST">
+                                                    <form action="CurrentAccounts.php?username=<?php echo $row['username']; ?>" method="POST">
                                                     <input type="text"class="form-control" name="username" required>
                                                     <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
                                                     <input type="submit" class="btn btn-primary btn-sm">
@@ -132,7 +142,7 @@ if(!empty($_SESSION['lgnuser'])){ ?>
                                                     <h4 class="modal-title" id="myModalLabel">Change Expiration Date</h4>
                                                 </div>
                                                 <div class="modal-body">
-                                                 <form action="PHP/Reader_Editor.php?accountid=<?php echo $row['username']; ?>" method="POST">
+                                                    <form action="CurrentAccounts.php?accountid=<?php echo $row['username']; ?>" method="POST">
                                                    <input  name="startdate" min="2015-01-01" max="2015-12-31" type="date">
                                                    <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
                                                    <input type="submit" class="btn btn-primary btn-sm">

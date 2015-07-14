@@ -8,7 +8,7 @@ if(!empty($_SESSION['lgnuser'])){
             $check->CheckAccountFormFields($_POST);
             if(empty($accounterrors)){
              $run = new DataHandler($conn);
-             $run->DatabaseAccountInsert($_POST);            
+             $run->createAccount($_POST);            
             }
         }
 ?>

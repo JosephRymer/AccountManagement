@@ -6,7 +6,7 @@ if(!empty($_SESSION['lgnuser'])){
     <title> Current Users </title>
     <head>
      <?php require 'PHP/Reader_Editor.php';
-           require 'PHP/dbConnect.php'; ?>
+      ?>
      <link href="css/bootstrap.css" rel="stylesheet">
      <link href="css/bootstrap-theme.css" rel="stylesheet">
      <link href="css/stylesheet.css" rel="stylesheet" >
@@ -56,8 +56,8 @@ if(!empty($_SESSION['lgnuser'])){
                              </ul>
                             </div>  
                         </div>
-                        <form action="CurrentUsers.php" method="GET" class="control form-inline" style="float:right;">
-                            <input type="text" class="form-control" name="search" placeholder="Search">
+                        <form action="CurrentUsers.php?search" method="POST" class="control form-inline" style="float:right;">
+                            <input type="text" class="form-control" name="searchresult" placeholder="Search">
                         </form>
                         <ul class="breadcrumb">
                          <a href="http://library.tamu.edu/">
@@ -94,16 +94,25 @@ if(!empty($_SESSION['lgnuser'])){
                              </thead>
                              <tbody>
                               <?php 
-                                 $_SESSION['usersearchresult'] = $_GET['search'];
-                                 $db= new DataHandler($conn);
-                                    $response = $db->databaseUserselect();
+                              $db= new DataHandler($conn);
+                              if(isset($_GET['user'])){
+                               $db->updateUser($_POST);   
+                              }
+                                 if(isset($_GET['search'])){
+                                   $response = $db->searchUser($_POST);  
+                                 }else{
+                                   $response = $db->getUser();
+                                 }
                                     while($row=mysqli_fetch_array($response,MYSQLI_ASSOC)){
                               ?><tr>
                              <td><?php echo $row['firstname']; ?></td>
                              <td><?php echo $row['lastname']; ?></td>
                              <td><?php echo $row['email']; ?></td>
-                              <td><?php echo $row['username'];?>
-                               <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#<?php echo $row['username']; ?>"> Edit UserName </button>
+                              <td><?php echo $row['username'];?></td>
+                               <td><?php echo gmdate( "F j, Y, g:i a" , $row['lastupdate']); ?></td>
+                               <td><?php echo $row['creator']; ?></td>
+                               <td><?php echo $row['isadmin']; ?>
+                                 <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#<?php echo $row['username']; ?>"> Edit Info</button>
                                 <div class="modal fade" id="<?php echo $row['username'];?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" style=" margin: 300px auto;">
                                         <div class="modal-content" style="color:#000">
@@ -111,22 +120,23 @@ if(!empty($_SESSION['lgnuser'])){
                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                              <h4 class="modal-title" id="myModalLabel">Change UserName</h4>
                                             </div>
-                                            <div class="modal-body">
-                                              <form action="PHP/Reader_Editor.php?user&username=<?php echo $row['username']; ?>" method="POST">
-                                                <input type="text"class="form-control" name="username" required>
-                                                <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
-                                                <input type="submit" class="btn btn-primary btn-sm">
-                                              </form>
+                                            <div class="modal-body">                                             
+                                                <form role="form" data-toggle="validator" action="CurrentUsers.php?user&username=<?php echo $row['username']; ?>" method="POST"> 
+                                                    <label  for="textinput">First Name: </label>
+                                                     <input type="text" value="<?php echo $row["firstname"]; ?>" class="form-control" name="firstname" >                        
+                                                    <label  for="textinput">Last Name: </label>
+                                                     <input type="text" value="<?php echo $row["lastname"]; ?>" class="form-control" name="lastname" >
+                                                    <label for="textinput">Email: </label>
+                                                     <input type="email" value="<?php echo $row["email"]; ?>" class="form-control" name="email" >
+                                                    <label for="textinput">Admin: </label>
+                                                    <input type="text" value="<?php echo $row["isadmin"]; ?>" class="form-control" name="email" min="1" max="1" >
+                                                     <button type="reset" class="btn btn-danger">Reset</button>
+                                                     <button type="submit" class="btn btn-primary">Save</button>
+                                                </form>  
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                              </td>
-                               <td><?php $timestamp = $row['creationdate']; echo gmdate( "F j, Y, g:i a" , $timestamp); ?></td>
-                               <td><?php echo $row['creator']; ?></td>
-                               <td><?php echo $row['isadmin']; ?>
-                                 <a href='PHP/Reader_Editor.php?user&Admin=1&uusername=<?php  echo $row['username']; ?>' class='btn btn-primary btn-xs' role='button'>Admin </a>
-                                 <a href='PHP/Reader_Editor.php?user&Admin=0&uusername=<?php  echo $row['username']; ?>' class='btn btn-primary btn-xs' role='button'>Non-Admin</a>
                               </td>
                               </tr><?php } ?>
                              </tbody>
