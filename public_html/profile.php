@@ -3,6 +3,16 @@
     <?php session_start(); 
         if(!empty($_SESSION['lgnuser'])){ 
             $values=$_SESSION['lgnuserinfo'];
+            include ('PHP/Validation.php');
+            include ('PHP/Reader_Editor.php');
+            if($_SERVER['REQUEST_METHOD']=='POST'){
+                $check =new FormValidationCheck($conn);
+                $check->CheckProfileFields($_POST);
+                if(empty($profileerrors)){
+                   $run = new DataHandler($conn);
+                   $run->updateProfile($_POST);
+                }
+            }
     ?>
 
     <title> Profile </title>
@@ -87,15 +97,15 @@
                          <span class="sr-only"></span>Data Updated Successfully
                         </div>
                         <?php } ?>
-                        <?php if(isset($_GET["failupdate"])){?>
+                        <?php if(isset($profileerrors)){?>
                         <div class="alert alert-danger col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-3  col-sm-8 col-xs-12" role="alert" >
                          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                         <span class="sr-only"></span>Passwords Do Not Match
+                         <span class="sr-only"></span>The following Fields where incorrect or missing <?php  print_r(implode(",",$profileerrors));?>
                         </div>
                         <?php } ?>
                         <div class="col-lg-offset-3 col-lg-6 col-md-offset-3 col-md-6 col-sm-offset-1 col-sm-4 col-xs-12">
                             <div class="form-group">
-                             <form role="form" data-toggle="validator" action="PHP/Reader_Editor.php?lgnupdate=1" method="POST"> 
+                                <form role="form" data-toggle="validator" action="profile.php" method="POST"> 
                               <label  for="textinput">First Name: </label>
                                 <input type="text" value="<?php echo $values["firstname"]; ?>" class="form-control" name="firstname" required>                        
                               <label  for="textinput">Last Name: </label>

@@ -73,12 +73,10 @@ include('dbConnect.php');
             return $result;
     }
     function updateUser($data){
-         if(isset($_GET['user'])){
-            $sql="UPDATE `users` SET  `firstname`='".$data['firstname']."',`lastname`='".$data['lastname']."',`email`='".$data['email']."',`username`='".$data['username']."' ,`isadmin`='".$data['admin']."' ,`lastupdate`= UNIX_TIMESTAMP(NOW()) ,  WHERE `username`='".$_GET['username']."'";        
+            $sql="UPDATE `users` SET  `firstname`='".$data['firstname']."',`lastname`='".$data['lastname']."',`email`='".$data['email']."',`username`='".$data['username']."' ,`isadmin`='".$data['admin']."' ,`lastupdate`=(UNIX_TIMESTAMP(NOW())) ,  WHERE `username`='".$_GET['username']."'";        
             $result=mysqli_query($this->conn,$sql); 
-            echo $sql;
      }
-     }
+     
     function updateAccount($data,$accountid){
          if(isset($accountid)){
             $formeddate=strtotime($data['startdate']);
@@ -91,25 +89,18 @@ include('dbConnect.php');
            // header("location:../CurrentAccounts.php");
         } 
      }
-    function updateProfile(){
-        
-       
-        
-             
-           // if($_POST['password']===$_POST['confirmpassword']){
+    function updateProfile($data){  
                 $sql="UPDATE `users` SET
-                firstname = '".$_POST['firstname']."',
-                lastname = '".$_POST['lastname']."',
-                email = '".$_POST['email']."',
-                password = PASSWORD('".$_POST['password']."') , lastupdate=(UNIX_TIMESTAMP(NOW())) WHERE username='".$_SESSION['lgnuser']."'";
+                `firstname` = '".$data['firstname']."',
+                `lastname` = '".$data['lastname']."',
+                `email` = '".$data['email']."',
+                `password` = PASSWORD('".$data['password']."') , lastupdate=(UNIX_TIMESTAMP(NOW())) WHERE username='".$_SESSION['lgnuser']."'";
                 $result= mysqli_query($this->conn, $sql);
                 $sql="SELECT * FROM `users` WHERE `username`='".$_SESSION['lgnuser']."'";
                 $results=  mysqli_query($this->conn,$sql);
                 $row= mysqli_fetch_assoc($results);
                 $_SESSION['lgnuserinfo']=$row;
-                header("location:../profile.php?update");
-           // }else{ 
-                header("location:../profile.php?failupdate");
+                
             }
     function logout(){
         session_unset();
@@ -117,10 +108,8 @@ include('dbConnect.php');
     }
 }
     
-$run= new DataHandler($conn); 
-if(($_GET['lgnupdate'])){
-$run->updateProfile();    
-}
+    
+$run= new DataHandler($conn);   
 if($_GET["attempt"]=="1"){
 $run->login();
 }

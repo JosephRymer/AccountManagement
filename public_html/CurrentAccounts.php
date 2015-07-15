@@ -5,7 +5,7 @@ if(!empty($_SESSION['lgnuser'])){ ?>
         <title> Create Accounts </title>
         <head>
             <?php require 'PHP/Reader_Editor.php';
-                  require 'PHP/dbConnect.php'; ?>
+                  require 'PHP/Validation.php'; ?>
          <link href="css/bootstrap.css" rel="stylesheet">
          <link href="css/bootstrap-theme.css" rel="stylesheet">
          <link href="css/stylesheet.css" rel="stylesheet" >
@@ -133,7 +133,7 @@ if(!empty($_SESSION['lgnuser'])){ ?>
                                    </td>
                                     <td><?php $timestamp = $row['creationdate']; echo gmdate( "F j, Y, g:i a" , $timestamp); ?></td>
                                     <td><?php $timestamp = $row['expireddate']; echo gmdate( "F j, Y, g:i a" , $timestamp);  ?>
-                                     <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#E<?php echo $row['username']; ?>"> Edit Expiration Date </button>
+                                     <button type="button" class="btn btn-primary btn-xs pull-right" data-toggle="modal" data-target="#E<?php echo $row['username']; ?>"><span class="glyphicon glyphicon-pencil"></span></button>
                                      <div class="modal fade" id="E<?php echo $row['username'];?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                         <div class="modal-dialog" style=" margin: 300px auto;">
                                             <div class="modal-content" style="color:#000">

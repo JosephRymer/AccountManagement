@@ -5,7 +5,24 @@ if(!empty($_SESSION['lgnuser'])){
 <html>
     <title> Current Users </title>
     <head>
-     <?php require 'PHP/Reader_Editor.php';
+     <?php 
+     if($_SERVER['REQUEST_METHOD']=='POST'){
+        include 'PHP/Validation.php';
+        $check = new FormValidationCheck($conn);
+        $check-CheckUserUpdateFields($_POST);
+        }
+        include 'PHP/Reader_Editor.php';
+        
+         
+       $run= new DataHandler($conn);
+          if(isset($_GET['user'])){
+           $run->updateUser($_POST);   
+          }
+             if(isset($_GET['search'])){
+               $response = $run->searchUser($_POST);  
+             }else{
+               $response = $run->getUser();
+             }
       ?>
      <link href="css/bootstrap.css" rel="stylesheet">
      <link href="css/bootstrap-theme.css" rel="stylesheet">
@@ -94,16 +111,7 @@ if(!empty($_SESSION['lgnuser'])){
                              </thead>
                              <tbody>
                               <?php 
-                              $db= new DataHandler($conn);
-                              if(isset($_GET['user'])){
-                               $db->updateUser($_POST);   
-                              }
-                                 if(isset($_GET['search'])){
-                                   $response = $db->searchUser($_POST);  
-                                 }else{
-                                   $response = $db->getUser();
-                                 }
-                                    while($row=mysqli_fetch_array($response,MYSQLI_ASSOC)){
+                                 while($row=mysqli_fetch_array($response,MYSQLI_ASSOC)){
                               ?><tr>
                              <td><?php echo $row['firstname']; ?></td>
                              <td><?php echo $row['lastname']; ?></td>
@@ -111,8 +119,12 @@ if(!empty($_SESSION['lgnuser'])){
                               <td><?php echo $row['username'];?></td>
                                <td><?php echo gmdate( "F j, Y, g:i a" , $row['lastupdate']); ?></td>
                                <td><?php echo $row['creator']; ?></td>
-                               <td><?php echo $row['isadmin']; ?>
-                                 <button type="button" class="btn btn-primary btn-xs" data-toggle="modal" data-target="#<?php echo $row['username']; ?>"> Edit Info</button>
+                               <td><?php if($row['isadmin']==='1'){
+                                   echo "Yes";
+                               }else{
+                                   echo "No";
+                               } ?>
+                                 <button type="button" class="btn btn-primary btn-xs pull-right" data-toggle="modal" data-target="#<?php echo $row['username']; ?>"><span class="glyphicon glyphicon-pencil"></span></button>
                                 <div class="modal fade" id="<?php echo $row['username'];?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" style=" margin: 300px auto;">
                                         <div class="modal-content" style="color:#000">
@@ -121,7 +133,7 @@ if(!empty($_SESSION['lgnuser'])){
                                              <h4 class="modal-title" id="myModalLabel">Change UserName</h4>
                                             </div>
                                             <div class="modal-body">                                             
-                                                <form role="form" data-toggle="validator" action="CurrentUsers.php?user&username=<?php echo $row['username']; ?>" method="POST"> 
+                                                <form role="form" data-toggle="validator" action="CurrentUsers.php?username=<?php echo $row['username']; ?>" method="POST"> 
                                                     <label  for="textinput">First Name: </label>
                                                      <input type="text" value="<?php echo $row["firstname"]; ?>" class="form-control" name="firstname" >                        
                                                     <label  for="textinput">Last Name: </label>
@@ -129,7 +141,10 @@ if(!empty($_SESSION['lgnuser'])){
                                                     <label for="textinput">Email: </label>
                                                      <input type="email" value="<?php echo $row["email"]; ?>" class="form-control" name="email" >
                                                     <label for="textinput">Admin: </label>
-                                                    <input type="text" value="<?php echo $row["isadmin"]; ?>" class="form-control" name="email" min="1" max="1" >
+                                                    <input type="text" value="<?php if($row['isadmin']==='1'){
+                                                                                        echo "Yes";
+                                                                                    }else{
+                                                                                         echo "No"; } ?>" class="form-control" name="admin" min="2" max="3" >
                                                      <button type="reset" class="btn btn-danger">Reset</button>
                                                      <button type="submit" class="btn btn-primary">Save</button>
                                                 </form>  
