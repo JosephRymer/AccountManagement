@@ -72,8 +72,13 @@ include('dbConnect.php');
             $result = mysqli_query($this->conn, $sql);
             return $result;
     }
-    function updateUser($data){
-            $sql="UPDATE `users` SET  `firstname`='".$data['firstname']."',`lastname`='".$data['lastname']."',`email`='".$data['email']."',`username`='".$data['username']."' ,`isadmin`='".$data['admin']."' ,`lastupdate`=(UNIX_TIMESTAMP(NOW())) ,  WHERE `username`='".$_GET['username']."'";        
+    function updateUser($data,$username){
+            if($data['adminp']=='1'){
+                $admin=true;
+            }else if(isset($data['adminp'])){
+                $admin=false;
+            }
+            $sql="UPDATE `users` SET  `firstname`='".$data['firstname']."',`lastname`='".$data['lastname']."',`email`='".$data['email']."',`username`='".$username."' ,`isadmin`='".$admin."' ,`lastupdate`=(UNIX_TIMESTAMP(NOW()))   WHERE `username`='".$username."'";        
             $result=mysqli_query($this->conn,$sql); 
      }
      

@@ -5,24 +5,23 @@ if(!empty($_SESSION['lgnuser'])){
 <html>
     <title> Current Users </title>
     <head>
-     <?php 
-     if($_SERVER['REQUEST_METHOD']=='POST'){
-        include 'PHP/Validation.php';
-        $check = new FormValidationCheck($conn);
-        $check-CheckUserUpdateFields($_POST);
+    <?php
+        if(isset($_GET['username'])){
+            if($_SERVER['REQUEST_METHOD']=='POST'){
+                include 'PHP/Validation.php';
+                $check = new FormValidationCheck($conn);
+                $check->CheckUserUpdateFields($_POST);
+            }
         }
-        include 'PHP/Reader_Editor.php';
-        
-         
-       $run= new DataHandler($conn);
-          if(isset($_GET['user'])){
-           $run->updateUser($_POST);   
-          }
-             if(isset($_GET['search'])){
-               $response = $run->searchUser($_POST);  
-             }else{
-               $response = $run->getUser();
-             }
+        if(empty($userUpdateErrors)){ 
+            include 'PHP/Reader_Editor.php';       
+            $run= new DataHandler($conn);
+            $run->updateUser($_POST,$_GET['username']);   
+        }if(isset($_GET['search'])){
+            $response = $run->searchUser($_POST);  
+        }else{
+            $response = $run->getUser();
+        }
       ?>
      <link href="css/bootstrap.css" rel="stylesheet">
      <link href="css/bootstrap-theme.css" rel="stylesheet">
@@ -140,11 +139,10 @@ if(!empty($_SESSION['lgnuser'])){
                                                      <input type="text" value="<?php echo $row["lastname"]; ?>" class="form-control" name="lastname" >
                                                     <label for="textinput">Email: </label>
                                                      <input type="email" value="<?php echo $row["email"]; ?>" class="form-control" name="email" >
-                                                    <label for="textinput">Admin: </label>
-                                                    <input type="text" value="<?php if($row['isadmin']==='1'){
-                                                                                        echo "Yes";
-                                                                                    }else{
-                                                                                         echo "No"; } ?>" class="form-control" name="admin" min="2" max="3" >
+                                                    <label for="textinput">Admin Privileges </label>
+                                                     <div class="checkbox">
+                                                      <label><input type="checkbox" name="adminp"  value="1">Yes</label>
+                                                     </div>
                                                      <button type="reset" class="btn btn-danger">Reset</button>
                                                      <button type="submit" class="btn btn-primary">Save</button>
                                                 </form>  

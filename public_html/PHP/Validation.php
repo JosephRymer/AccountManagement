@@ -77,20 +77,17 @@ class FormValidationCheck {
         return $profileerrors;
     }
     function CheckUserUpdateFields($data) {
-        global $profileerrors;
+        global $userUpdateErrors;
         if (!preg_match("/^[a-z ,.'-]+$/i", $data['firstname'])) {
-            $profileerrors['FName'] = "First Name";
+            $userUpdateErrors['FName'] = "First Name";
         }
         if (!preg_match("/^[a-z ,.'-]+$/i", $data['lastname'])) {
-            $profileerrors['LName'] = "Last Name";
+            $userUpdateErrors['LName'] = "Last Name";
         }
         if (!preg_match("/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/", $data["email"])) {
-            $profileerrors['Email'] = "Email";
+            $userUpdateErrors['Email'] = "Email";
         }
-        if($data['admin']){
-            
-        } 
-        return $profileerrors;
+        return $userUpdateErrors;
     }
 
 
