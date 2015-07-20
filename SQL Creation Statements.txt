@@ -16,9 +16,7 @@ CREATE TABLE `accounts` (
   `comments` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-
-
+SELECT * FROM management.users;
 
 CREATE TABLE `users` (
   `firstname` varchar(45) NOT NULL,
@@ -27,8 +25,8 @@ CREATE TABLE `users` (
   `username` varchar(45) NOT NULL,
   `password` varchar(255) NOT NULL,
   `lastupdate` int(255) DEFAULT NULL,
-  `isadmin` tinyint(1) NOT NULL,
+  `admin` bit(1) DEFAULT NULL,
   `creator` varchar(45) NOT NULL DEFAULT 'DEFAULT  ''0''',
+  PRIMARY KEY (`username`),
   UNIQUE KEY `username_UNIQUE` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
