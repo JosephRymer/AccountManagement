@@ -222,4 +222,5 @@ if(!empty($_SESSION['lgnuser'])){
 </html>
 <?php }else{
 header("location:/AccountManagement/public_html/index.php?badlogin=1");   
-} ?>
+} 
+?>

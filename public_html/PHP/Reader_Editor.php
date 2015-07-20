@@ -122,7 +122,4 @@ $run->login();
 if($_GET['logout']=='1'){
 $run->logout();    
 }
-
-
-
 ?>
