@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <?php session_start();
-if(!empty($_SESSION['lgnuser'])){   
+if(!empty($_SESSION['lgnuser'])){
+    if($_SESSION['admin']==='1'){
 ?>
 <html>
     <title> Current Users </title>
@@ -176,6 +177,10 @@ if(!empty($_SESSION['lgnuser'])){
     </div>
 </html>
 <?php 
+}else{
+    header("location:/AccountManagement/public_html/profile.php?falseadmin");
+}
+
 }else{
 header("location:/AccountManagement/public_html/index.php?badlogin=1");   
 }?>

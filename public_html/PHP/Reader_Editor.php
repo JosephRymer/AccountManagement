@@ -14,6 +14,9 @@ include('dbConnect.php');
          $result = $this->conn->query($sql);  
          $count=mysqli_num_rows($result);
          $row= mysqli_fetch_assoc($result);
+         if($row['admin']=='1'){
+             $_SESSION['admin'] = '1';
+         }
          if($count == 1){ 
             $_SESSION['lgnuser']=$_POST['username'];
             $_SESSION['lgnuserinfo']=$row;
@@ -82,16 +85,14 @@ include('dbConnect.php');
             $result=mysqli_query($this->conn,$sql); 
      }
      
-    function updateAccount($data,$accountid){
-         if(isset($accountid)){
-            $formeddate=strtotime($data['startdate']);
-            $sql="UPDATE `accounts` SET  `expireddate`='".$formeddate."' where `username`='".$accountid."'";
+    function updateAccount($data,$accountid){         
+            if(isset($data['startdate'])){
+             $formeddate=strtotime($data['startdate']);
+             $sql="UPDATE `accounts` SET  `expireddate`='".$formeddate."' where `username`='".$accountid."'";
+             $result=mysqli_query($this->conn,$sql);
+            }else{
+            $sql="UPDATE `accounts` SET  `username`='".$data['username']."' where `username`='".$accountid."'";
             $result=mysqli_query($this->conn,$sql);
-         }else{
-            $sql="UPDATE `accounts` SET  `username`='".$_POST['username']."' where `username`='".$_GET['username']."'";
-            $result=mysqli_query($this->conn,$sql);
-          //  header("location:../CurrentAccounts.php");
-           // header("location:../CurrentAccounts.php");
         } 
      }
     function updateProfile($data){  

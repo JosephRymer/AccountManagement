@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <?php session_start();
 if(!empty($_SESSION['lgnuser'])){
+    if($_SESSION['admin']==='1'){
     if($_SERVER['REQUEST_METHOD']=='POST'){ 
         include('PHP/Validation.php');
         include('PHP/Reader_Editor.php');
@@ -130,5 +131,10 @@ if(!empty($_SESSION['lgnuser'])){
 </html>
 <?php  
 }else{
+    header("location:/AccountManagement/public_html/profile.php?falseadmin");
+}
+
+}else{
 header("location:/AccountManagement/public_html/index.php?badlogin=1");   
-} ?>
+}
+ ?>

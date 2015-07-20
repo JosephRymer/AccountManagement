@@ -12,7 +12,7 @@
                    $run = new DataHandler($conn);
                    $run->updateProfile($_POST);
                 }
-            }
+            }  
     ?>
 
     <title> Profile </title>
@@ -101,6 +101,12 @@
                         <div class="alert alert-danger col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-3  col-sm-8 col-xs-12" role="alert" >
                          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                          <span class="sr-only"></span>The following Fields where incorrect or missing <?php  print_r(implode(",",$profileerrors));?>
+                        </div>
+                        <?php } ?>
+                        <?php if(isset($_GET['falseadmin'])){?>
+                        <div class="alert alert-danger col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-3  col-sm-8 col-xs-12" role="alert" >
+                         <span class="glyphicon glyphicon-alert" aria-hidden="true"></span>
+                         <span class="sr-only"></span>Insufficient permissions
                         </div>
                         <?php } ?>
                         <div class="col-lg-offset-3 col-lg-6 col-md-offset-3 col-md-6 col-sm-offset-1 col-sm-4 col-xs-12">

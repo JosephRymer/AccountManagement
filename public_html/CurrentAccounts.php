@@ -5,7 +5,25 @@ if(!empty($_SESSION['lgnuser'])){ ?>
         <title> Create Accounts </title>
         <head>
             <?php require 'PHP/Reader_Editor.php';
-                  require 'PHP/Validation.php'; ?>
+                  require 'PHP/Validation.php';
+                  $db= new DataHandler($conn);
+                  if(isset($_GET['accountid'])){
+                     $db->updateAccount($_POST,$_GET['accountid']); 
+                  }else{
+                     $db->updateAccount($_POST,$_GET['accountid']);
+                  }
+                  if(isset($_GET['accountsearch'])){
+                     $repsonse = $db->searchAccount($_POST);
+                  }else{
+                     $response = $db->getAccount();
+                  }
+                  if(isset($_GET['accountsearch'])){
+                     $repsonse = $db->searchAccount($_POST);
+                  }else{
+                     $response = $db->getAccount();
+                  }
+                                
+                  ?>
          <link href="css/bootstrap.css" rel="stylesheet">
          <link href="css/bootstrap-theme.css" rel="stylesheet">
          <link href="css/stylesheet.css" rel="stylesheet" >
@@ -93,20 +111,7 @@ if(!empty($_SESSION['lgnuser'])){ ?>
                               </thead>
                               <tbody>
                                 <?php   
-                                $db= new DataHandler($conn);
-                               if(isset($_GET['accountid'])){
-                                  $db->updateAccount($_POST,$_GET['accountid']); 
-                               }else{
-                                   $db->updateAccount($_POST);
-                               }
-                                if(isset($_GET['accountsearch'])){
-                                    $repsonse = $db->searchAccount($_POST);
-                                }else{
-                                         $response = $db->getAccount();
-                                    }
-                                
-                                      
-                                    while($row=mysqli_fetch_array($response,MYSQLI_ASSOC)){
+                                 while($row=mysqli_fetch_array($response,MYSQLI_ASSOC)){
                                 ?><tr>
                                    <td><?php echo $row['firstname']; ?></td>
                                    <td><?php echo $row['lastname']; ?></td>
@@ -121,7 +126,7 @@ if(!empty($_SESSION['lgnuser'])){ ?>
                                                     <h4 class="modal-title" id="myModalLabel">Change UserName</h4>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form action="CurrentAccounts.php?username=<?php echo $row['username']; ?>" method="POST">
+                                                    <form action="CurrentAccounts.php?accountid=<?php echo $row['username']; ?>" method="POST">
                                                     <input type="text"class="form-control" name="username" required>
                                                     <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
                                                     <input type="submit" class="btn btn-primary btn-sm">
