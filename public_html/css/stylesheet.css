@@ -1,57 +1,48 @@
 body .container .row-fluid .appMain {
-  background-color: #fff;
-  min-width: 40%;
-  min-height: 250px;
-  padding: 25px;
-  margin-top: 100px;
-  box-shadow: 3px 3px 8px -1px #aaa;
+    background-color: #fff;
+    min-width: 40%;
+    min-height: 250px;
+    padding: 25px;
+    margin-top: 100px;
+    box-shadow: 3px 3px 8px -1px #aaa;
 }
 .navbar-inner {
-   /* background color will be black for all browsers */
-  background: url("../img/debut_dark.png") repeat scroll  0 0 transparent;
-  border: none;
-  border-radius: 0px;
-  font-family: Arial, sans-serif;
-line-height: 24px;
-font-size: 11px;
-width: 100%;
-padding-top: 20px;
-padding-bottom: 20px;
-padding-left: 20px;
+    /* background color will be black for all browsers */
+    background: url("../img/debut_dark.png") repeat scroll  0 0 transparent;
+    border: none;
+    border-radius: 0px;
+    font-family: Arial, sans-serif;
+    line-height: 24px;
+    font-size: 11px;
+    width: 100%;
+    padding-top: 20px;  
+    padding-bottom: 20px;
+    padding-left: 20px;
 
-
-/* opacity: 0.9; */
-text-transform: uppercase;
-z-index: 9999;
-position: relative;
--moz-box-shadow: 1px 0px 2px #000;
--webkit-box-shadow: 1px 0px 2px #000;
-
+    /* opacity: 0.9; */
+    text-transform: uppercase;
+    z-index: 9999;
+    position: relative;
+    -moz-box-shadow: 1px 0px 2px #000;
+    -webkit-box-shadow: 1px 0px 2px #000;
 }
-
-
 .breadcrumb {
- padding: 5px 10px 1px;
-margin: 0 0 10px 0px;
- list-style: none;
- background-color: #500000;
- -webkit-border-radius: 0px;
- -moz-border-radius: 0px;
- border-radius: 0px;
-  color: #ffffff
-  
+    padding: 5px 10px 1px;
+    margin: 0 0 10px 0px;
+    list-style: none;
+    background-color: #500000;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    color: #ffffff
 }
-
-
-
 .color-field a {
- color: #ffffff
+    color: #ffffff
 }
-
 #accountcreateform{
-      padding-top: 50px;
-  width: 30%;
-  margin-left: 245px;
+    padding-top: 50px;
+    width: 30%;
+    margin-left: 245px;
 }
 body {
     background:transparent url('../img/background-texture.gif');
@@ -64,45 +55,32 @@ body {
     padding-right: 0px;
 }
 footer a{
-  margin-right: 20px;
+    margin-right: 20px;
 }
-
 .navbar{
-border:0px solid transparent;
-margin-bottom: -10px;
+    border:0px solid transparent;
+    margin-bottom: -10px;
 }
 .appMain{
-  text-align: center;
+    text-align: center;
 }
 .accountheader{
-  text-align: center;
-
+    text-align: center;
 }
 .formedit{
-  text-align: left;
+    text-align: left;
 }
 .registaredit{
-  text-align: left;
+    text-align: left;
 }
-
 .data-container{
- background-color: #fff;
-  min-width: 40%;
-  min-height: 250px;
-  padding: 25px;
-  margin-top: 100px;
-  box-shadow: 3px 3px 8px -1px #aaa;
+    background-color: #fff;
+    min-width: 40%;
+    min-height: 250px;
+    padding: 25px;
+    margin-top: 100px;
+    box-shadow: 3px 3px 8px -1px #aaa;
 }
-
-#accountstable{
-  background-color: #104554;
-  color: #ffffff;
-}
-#rowi{
-    background-color: #406A76;
-    color: #ffffff;
-}
-
 #loginform{
     margin-left:256px;;
     margin-right:100px;
@@ -112,10 +90,12 @@ margin-bottom: -10px;
     margin-left:18%;
 }
 #tab-group{
-float:right;    
+    float:right;    
 }
 #active-tab{
-  background-color: #500000;
-
+    background-color: #500000;
+}
+.table-striped{
+    background-color: #a77f7f;
 }
 

@@ -1,64 +1,96 @@
 <?php
-    require_once("dbConnect.php");
-     $data = ($_POST);
-     
-    //This class is created to keep everything grouped for the checking of the Form
-    class FormValidationCheck {
-                
-        public $conn;
-        
-        function __construct($conn) {
-            $this->conn = $conn;
+
+
+class FormValidationCheck {
+
+    public $conn;
+
+    function __construct($conn) {
+        $this->conn = $conn;
+    }
+
+    function CheckAccountFormFields() {
+
+        global $accounterrors;
+        if (!preg_match("/^[a-z ,.'-]+$/i", $_POST["F_Name"])) {
+            $accounterrors['FName'] = "First Name";
         }
-        
-       public function CheckFormFields($data) {
-             
-            $FormResults = array();
-            if (!preg_match("/^[a-zA-Z ]*$/",$data["F_Name"])) {
-                $FormResults['FName'] = "1";
-            }
-            if (!preg_match("/^[a-zA-Z ]*$/",$data["L_Name"])) {
-                $FormResults['LName'] = "1";
-            }
-            if (!preg_match("/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/",$data["E_Mail"])) {
-                $FormResults['EMail'] = "1";
-            }
-            if (empty($data["Street"])) {
-                $FormResults['S_treet'] = "1";
-            }
-            if (empty($data["City"])){
-                $FormResults['C_ity'] = "1";
-            }
-            if (!preg_match("/^\d{5}([\-]?\d{4})?$/",$data["Zip_Code"])) {
-                $FormResults['Zip'] = "1";
-            }
-             if (empty($data["ID_Type"])) {
-                $FormResults['ID'] = "1";
-            }
-            if (empty($data["ID_Number"])) {
-                $FormResults['IDN'] = "1";
-            }
-             if (empty($data["Password"])) {
-                $FormResults['Pass'] = "1";
-            }
-              return $FormResults;
-            
-        
-        }   
-         
+        if (!preg_match("/^[a-zA-Z ]*$/", $_POST["L_Name"])) {
+            $accounterrors['LName'] = "Last Name";
+        }
+        if (!preg_match("/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/", $_POST["E_Mail"])) {
+            $accounterrors['EMail'] = "Email";
+        }
+        if (empty($_POST["Street"])) {
+            $accounterrors['S_treet'] = "Street";
+        }
+        if (empty($_POST["City"])) {
+            $accounterrors['C_ity'] = "City";
+        }
+        if (!preg_match("/^\d{5}([\-]?\d{4})?$/", $_POST["Zip_Code"])) {
+            $accounterrors['Zip'] = "ZipCode";
+        }
+        if (empty($_POST["ID_Type"])) {
+            $accounterrors['ID'] = "ID Type";
+        }
+        if (empty($_POST["ID_Number"])) {
+            $accounterrors['IDN'] = "ID Number";
+        }
+        if (strcasecmp($_POST["Password"], $_POST["confirmpassword"])) {
+            $accounterrors['Pass'] = "Passwords do NOT match";
+        }
+        return $accounterrors;
     }
-    
-        
-    $check= new FormValidationCheck($conn);
-    
-    $check->CheckFormFields($data);
-    $FormResults=$check->CheckFormFields($data);
-    print_r($FormResults);
-    //If the data is all ok adn there was no errors in the array then it is passed to  Reader_Editor.php for insert else it will send back with a variable which AccountCreation interprets
-    if(empty($FormResults)){
-     $_SESSION["POSTData"]=$data;
-     header("location:Reader_Editor.php?accountinsert=1");
-    }else{  
-     header("location:../AccountCreation.php?baddata=1");
+
+    function CheckUserFormFields() {
+        global $usererrors;
+        if (!preg_match("/^[a-z ,.'-]+$/i", $_POST["F_Name"])) {
+            $usererrors['FName'] = "First Name";
+        }
+        if (!preg_match("/^[a-zA-Z ]*$/", $_POST["L_Name"])) {
+            $usererrors['LName'] = "Last Name";
+        }
+        if (!preg_match("/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/", $_POST["E_Mail"])) {
+            $usererrors['EMail'] = "Email";
+        }
+        if (strcasecmp($_POST["Password"], $_POST["confirmpassword"])) {
+            $usererrors['Pass'] = "Passwords do NOT match";
+        }
+        return $usererrors;
     }
+
+    function CheckProfileFields($data) {
+        global $profileerrors;
+        if (!preg_match("/^[a-z ,.'-]+$/i", $data['firstname'])) {
+            $profileerrors['FName'] = "First Name";
+        }
+        if (!preg_match("/^[a-z ,.'-]+$/i", $data['lastname'])) {
+            $profileerrors['LName'] = "Last Name";
+        }
+        if (!preg_match("/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/", $data["email"])) {
+            $profileerrors['Email'] = "Email";
+        }
+        if (strcasecmp($data["password"], $data["confirmpassword"])) {
+            $profileerrors['Passwords'] = "Passwords do NOT Match";
+        }
+        return $profileerrors;
+    }
+    function CheckUserUpdateFields($data) {
+        global $userUpdateErrors;
+        if (!preg_match("/^[a-z ,.'-]+$/i", $data['firstname'])) {
+            $userUpdateErrors['FName'] = "First Name";
+        }
+        if (!preg_match("/^[a-z ,.'-]+$/i", $data['lastname'])) {
+            $userUpdateErrors['LName'] = "Last Name";
+        }
+        if (!preg_match("/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/", $data["email"])) {
+            $userUpdateErrors['Email'] = "Email";
+        }
+        return $userUpdateErrors;
+    }
+
+
+}
+
+
 ?>
