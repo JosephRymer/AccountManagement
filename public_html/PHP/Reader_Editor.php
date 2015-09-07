@@ -61,7 +61,10 @@ include('dbConnect.php');
         return $result;
         }
     function searchAccount($accountsearch){
+      $accountsearch['searchresult']= $searchdata;
          $sql="SELECT * FROM `accounts` where `username`='". $accountsearch['searchresult']."' or `firstname`='". $accountsearch['searchresult']."' or `lastname`='". $accountsearch['searchresult']."' or `createdby`='". $accountsearch['searchresult']."'";
+      //    $sql="SELECT * FROM `accounts` WHERE `username` LIKE %$searchdata%";
+          //echo $sql;
             $result = mysqli_query($this->conn, $sql);
              return $result;
        }
