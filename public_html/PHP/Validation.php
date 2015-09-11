@@ -86,6 +86,11 @@ class FormValidationCheck {
         if (!preg_match("/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/", $data["email"])) {
             $userUpdateErrors['Email'] = "Email";
         }
+        if(!empty($_POST["Password"])){
+          if (strcasecmp($_POST["Password"], $_POST["confirmpassword"])) {
+            $userUpdateErrors['Pass'] = "Passwords do NOT match";
+          }
+        }
         return $userUpdateErrors;
     }
 
