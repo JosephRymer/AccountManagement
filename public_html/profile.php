@@ -107,7 +107,11 @@
                         <div class="alert alert-danger col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-3  col-sm-8 col-xs-12" role="alert" >
                          <span class="glyphicon glyphicon-alert" aria-hidden="true"></span>
 <<<<<<< HEAD
+<<<<<<< HEAD
                          <span class="sr-only"></span>Insufficient Permissions<?php  print_r(implode(",",$profileerrors));?>
+=======
+                         <span class="sr-only"></span>Insufficient permissions
+>>>>>>> parent of ef40bf9... Issue #7 fix
 =======
                          <span class="sr-only"></span>Insufficient permissions
 >>>>>>> parent of ef40bf9... Issue #7 fix
@@ -152,4 +156,8 @@
 </html>
 <?php }else{
 header("location:/AccountManagement/public_html/index.php?badlogin=1");   
+<<<<<<< HEAD
 } ?>
+=======
+} ?>
+>>>>>>> parent of ef40bf9... Issue #7 fix
