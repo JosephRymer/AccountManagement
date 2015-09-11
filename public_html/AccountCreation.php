@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<?php session_start();
+<?php session_start(); 
 if(!empty($_SESSION['lgnuser'])){
-    if($_SERVER['REQUEST_METHOD']=='POST'){
+    if($_SERVER['REQUEST_METHOD']=='POST'){ 
         include('PHP/Validation.php');
         include('PHP/Reader_Editor.php');
             $check = new FormValidationCheck($conn);
             $check->CheckAccountFormFields($_POST);
             if(empty($accounterrors)){
              $run = new DataHandler($conn);
-             $run->createAccount($_POST);
+             $run->createAccount($_POST);            
             }
         }
 ?>
@@ -21,7 +21,7 @@ if(!empty($_SESSION['lgnuser'])){
         </head>
         <body>
         <div class="navbar navbar fixed top">
-            <div class="navbar-inner">
+            <div class="navbar-inner"> 
                 <div class="hidden-xs">
                  <ul id="tab-group" class="nav nav-pills" >
                   <li  role="presentation"><a href="profile.php">Profile</a></li>
@@ -29,17 +29,16 @@ if(!empty($_SESSION['lgnuser'])){
                    <a class="dropdown-toggle" data-toggle="dropdown"  role="button" aria-expanded="false"> Accounts <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                      <li><a href="AccountCreation.php">Create Account</a></li>
-                     <li><a href="CurrentAccounts.php">Current Accounts</a></li>
+                     <li><a href="CurrentAccounts.php">Current Accounts</a></li> 
                     </ul>
-                  </li>
-                  <?php if($_SESSION['admin']==='1'){ ?>
+                  </li> 
                   <li role="presentation" class="dropdown">
                    <a class="dropdown-toggle" data-toggle="dropdown"  role="button" aria-expanded="false"> Users <span class="caret"></span></a>
                    <ul class="dropdown-menu" role="menu">
                     <li><a href="UserCreation.php">Create User</a></li>
-                    <li><a href="CurrentUsers.php">Current Users</a></li>
+                    <li><a href="CurrentUsers.php">Current Users</a></li> 
                    </ul>
-                 </li><?php } ?>
+                  </li>      
                   <li role="presentation"><a href="PHP/Reader_Editor.php?logout=1">Logout</a></li>
                  </ul>
                 </div>
@@ -57,14 +56,13 @@ if(!empty($_SESSION['lgnuser'])){
                               <li><a href="profile.php">Profile</a></li>
                               <li><a href="AccountCreation.php">Create Account</a></li>
                               <li><a href="CurrentAccounts.php">Current Accounts</a></li>
-                              <?php  if($_SESSION['admin']==='1'){ ?>
                               <li role="separator" class="divider"></li>
                               <li><a href="UserCreation.php">Create User</a></li>
-                              <li><a href="CurrentUsers.php">Current Users</a></li> <?php } ?>
+                              <li><a href="CurrentUsers.php">Current Users</a></li>
                               <li role="separator" class="divider"></li>
                               <li><a href="PHP/Reader_Editor.php?logout=1">Logout</a></li>
                              </ul>
-                            </div>
+                            </div>  
                         </div>
                          <ul class="breadcrumb">
                           <a href="http://library.tamu.edu/">University Libraries</a>
@@ -72,7 +70,7 @@ if(!empty($_SESSION['lgnuser'])){
                           <a href="profile.php">Profile</a>
                           >
                           <a href="AccountCreation.php">Create Account</a>
-                         </ul>
+                         </ul>  
                     </div>
                 </div>
             </div>
@@ -80,7 +78,7 @@ if(!empty($_SESSION['lgnuser'])){
         <div class="page-content">
             <div class="container">
                 <div class="row">
-                    <div id="accountcreateform" class="col-lg-6">
+                    <div id="accountcreateform" class="col-lg-6"> 
                      <h1 style="text-align: center;"> Create Account Request </h1>
                      <?php if(isset($accounterrors)){?>
                         <div class="alert alert-danger" role="alert">
@@ -90,14 +88,14 @@ if(!empty($_SESSION['lgnuser'])){
                         <form data-toggle="validator" role="form" action="AccountCreation.php" method="POST">
                          <label   class="control-label" >
                           First Name
-                          <input type="text" class="form-control" id="inputName" name="F_Name" value="<?php echo $_POST['F_Name']; ?>" required>
-                         </label>
+                          <input type="text" class="form-control" id="inputName" name="F_Name" value="<?php echo $_POST['F_Name']; ?>" required>       
+                         </label>  
                          <label class="control-label">
                           Last Name
                           <input type="text" class="form-control" name="L_Name" value="<?php echo $_POST['L_Name']; ?>" required>
-                         </label>
+                         </label>   
                          <label  class="control-label">
-                          Email
+                          Email 
                           <input type="email" class="form-control" name="E_Mail" value="<?php echo $_POST['E_Mail']; ?>" required>
                          </label>
                          <label  class="control-label">
@@ -163,7 +161,7 @@ if(!empty($_SESSION['lgnuser'])){
                                 <option value="WI">WI</option>
                                 <option value="WY">WY</option>
                             </select>
-                         </div>
+                         </div>  
                          <label  class="control-label">
                           Zip Code
                           <input type="text" class="form-control" data-minlength="5" name="Zip_Code" value="<?php echo $_POST['Zip_Code']; ?>" required>
@@ -173,13 +171,13 @@ if(!empty($_SESSION['lgnuser'])){
                           <input type="text" name="ID_Type" class="form-control" value="<?php echo $_POST['ID_Type']; ?>" >
                          </label>
                          <label class="control-label">
-                          ID Number
+                          ID Number 
                           <input type="text" name="ID_Number" class="form-control" value="<?php echo $_POST['ID_Number']; ?>">
                          </label>
                          <label class="control-label">
                           Comments
-                          <input type="text" name="Comments" class="form-control" value="<?php echo $_POST['Comments']; ?>">
-                         </label>
+                          <input type="text" name="Comments" class="form-control" value="<?php echo $_POST['Comments']; ?>">   
+                         </label> 
                          <label  class="control-label">
                           Password
                           <input type="password" name="Password" class="form-control" placeholder="Password" required>
@@ -208,14 +206,14 @@ if(!empty($_SESSION['lgnuser'])){
         </div>
         <script src='js/jquery-2.1.4.min.js'></script>
         <script src='js/bootstrap.js'></script>
-    </body>
-    <div class="container text-center">
+    </body> 
+    <div class="container text-center"> 
         <footer>
-            <a title="Texas A&amp;M University" href="http://www.tamu.edu">Texas A&amp;M University</a>
-            <a title="Employment" href="http://library.tamu.edu/about/employment/">Employment</a>
-            <a title="Webmaster" href="http://library.tamu.edu/services/forms/contact-info.html">Webmaster</a>
-            <a title="Legal" href="http://library.tamu.edu/about/general-information/legal-notices.html">Legal</a>
-            <a title="Comments" href="http://guides.library.tamu.edu/AskTheLibraries">Comments</a>
+            <a title="Texas A&amp;M University" href="http://www.tamu.edu">Texas A&amp;M University</a>  
+            <a title="Employment" href="http://library.tamu.edu/about/employment/">Employment</a>  
+            <a title="Webmaster" href="http://library.tamu.edu/services/forms/contact-info.html">Webmaster</a>  
+            <a title="Legal" href="http://library.tamu.edu/about/general-information/legal-notices.html">Legal</a>  
+            <a title="Comments" href="http://guides.library.tamu.edu/AskTheLibraries">Comments</a>  
             <a title="979-845-3731" href="http://library.tamu.edu/about/phone/">979-845-3731</a>
             <a title="Site Map" href="http://library.tamu.edu/sitemap.html">Site Map</a>
             <a title="Accessibility" href="http://library.tamu.edu/accessibility/">Accessibility</a>
@@ -223,6 +221,6 @@ if(!empty($_SESSION['lgnuser'])){
     </div>
 </html>
 <?php }else{
-header("location:/AccountManagement/public_html/index.php?badlogin=1");
-}
+header("location:/AccountManagement/public_html/index.php?badlogin=1");   
+} 
 ?>

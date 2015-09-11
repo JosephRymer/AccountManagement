@@ -7,8 +7,6 @@ if(!empty($_SESSION['lgnuser'])){
     <title> Current Users </title>
     <head>
     <?php
-    include 'PHP/Reader_Editor.php';
-    $run= new DataHandler($conn);
         if(isset($_GET['username'])){
             if($_SERVER['REQUEST_METHOD']=='POST'){
                 include 'PHP/Validation.php';
@@ -16,14 +14,15 @@ if(!empty($_SESSION['lgnuser'])){
                 $check->CheckUserUpdateFields($_POST);
             }
         }
-        if(empty($userUpdateErrors)){
-            $run->updateUser($_POST,$_GET['username']);
+        if(empty($userUpdateErrors)){ 
+            include 'PHP/Reader_Editor.php';       
+            $run= new DataHandler($conn);
+            $run->updateUser($_POST,$_GET['username']);   
         }if(isset($_GET['search'])){
-            $response = $run->searchUser($_POST);
+            $response = $run->searchUser($_POST);  
         }else{
             $response = $run->getUser();
         }
-
       ?>
      <link href="css/bootstrap.css" rel="stylesheet">
      <link href="css/bootstrap-theme.css" rel="stylesheet">
@@ -39,17 +38,16 @@ if(!empty($_SESSION['lgnuser'])){
                    <a class="dropdown-toggle" data-toggle="dropdown"  role="button" aria-expanded="false"> Accounts <span class="caret"></span></a>
                    <ul class="dropdown-menu" role="menu">
                     <li><a href="AccountCreation.php">Create Account</a></li>
-                    <li><a href="CurrentAccounts.php">Current Accounts</a></li>
+                    <li><a href="CurrentAccounts.php">Current Accounts</a></li> 
                    </ul>
                   </li>
-                  <?php   if($_SESSION['admin']==='1'){ ?>
                   <li role="presentation" class="dropdown">
                       <a class="dropdown-toggle" data-toggle="dropdown"  role="button" aria-expanded="false"> Users <span class="caret"></span></a>
                       <ul class="dropdown-menu" role="menu">
                         <li><a href="UserCreation.php">Create User</a></li>
-                        <li><a href="CurrentUsers.php">Current Users</a></li>
+                        <li><a href="CurrentUsers.php">Current Users</a></li> 
                       </ul>
-                  </li><?php  } ?>
+                  </li>      
                   <li role="presentation"><a href="PHP/Reader_Editor.php?logout=1">Logout</a></li>
                  </ul>
                 </div>
@@ -59,7 +57,7 @@ if(!empty($_SESSION['lgnuser'])){
             </div>
             <div class="color-field">
                 <div class="row-fluid">
-                    <div class="span12 pull left breadcrumb">
+                    <div class="span12 pull left breadcrumb"> 
                         <div class="visible-xs">
                             <div class="btn-group" style="float:right;">
                              <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-align-justify"></span></button>
@@ -67,15 +65,13 @@ if(!empty($_SESSION['lgnuser'])){
                               <li><a href="profile.php">Profile</a></li>
                               <li><a href="AccountCreation.php">Create Account</a></li>
                               <li><a href="CurrentAccounts.php">Current Accounts</a></li>
-                                <?php   if($_SESSION['admin']==='1'){ ?>
                               <li role="separator" class="divider"></li>
                               <li><a href="UserCreation.php">Create User</a></li>
                               <li><a href="CurrentUsers.php">Current Users</a></li>
-                              <?php } ?>
                               <li role="separator" class="divider"></li>
                               <li><a href="PHP/Reader_Editor.php?logout=1">Logout</a></li>
                              </ul>
-                            </div>
+                            </div>  
                         </div>
                         <form action="CurrentUsers.php?search" method="POST" class="control form-inline" style="float:right;">
                             <input type="text" class="form-control" name="searchresult" placeholder="Search">
@@ -114,7 +110,7 @@ if(!empty($_SESSION['lgnuser'])){
                               <th>Admin</th>
                              </thead>
                              <tbody>
-                              <?php
+                              <?php 
                                  while($row=mysqli_fetch_array($response,MYSQLI_ASSOC)){
                               ?><tr>
                              <td><?php echo $row['firstname']; ?></td>
@@ -123,7 +119,7 @@ if(!empty($_SESSION['lgnuser'])){
                               <td><?php echo $row['username'];?></td>
                                <td><?php echo gmdate( "F j, Y, g:i a" , $row['lastupdate']); ?></td>
                                <td><?php echo $row['creator']; ?></td>
-                               <td><?php if($row['admin'] ==='1'){
+                               <td><?php if($row['isadmin']==='1'){
                                    echo "Yes";
                                }else{
                                    echo "No";
@@ -136,28 +132,21 @@ if(!empty($_SESSION['lgnuser'])){
                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                              <h4 class="modal-title" id="myModalLabel">Change UserName</h4>
                                             </div>
-                                            <div class="modal-body">
-                                                <form role="form" data-toggle="validator" action="CurrentUsers.php?username=<?php echo $row['username']; ?>" method="POST">
+                                            <div class="modal-body">                                             
+                                                <form role="form" data-toggle="validator" action="CurrentUsers.php?username=<?php echo $row['username']; ?>" method="POST"> 
                                                     <label  for="textinput">First Name: </label>
-                                                     <input type="text" value="<?php echo $row["firstname"]; ?>" class="form-control" name="firstname" >
+                                                     <input type="text" value="<?php echo $row["firstname"]; ?>" class="form-control" name="firstname" >                        
                                                     <label  for="textinput">Last Name: </label>
                                                      <input type="text" value="<?php echo $row["lastname"]; ?>" class="form-control" name="lastname" >
                                                     <label for="textinput">Email: </label>
                                                      <input type="email" value="<?php echo $row["email"]; ?>" class="form-control" name="email" >
-                                                    <label for="textinput">Password</label>
-                                                     <input type="password" name="Password" class="form-control" placeholder="Password">
-                                                     <input type="password" name="confirmpassword" class="form-control" placeholder="Confirm Password">
                                                     <label for="textinput">Admin Privileges </label>
                                                      <div class="checkbox">
-                                                      <?php  if($row['admin'] !== '1'){ ?>
                                                       <label><input type="checkbox" name="adminp"  value="1">Yes</label>
-                                                      <?php }else{ ?>
-                                                      <label><input type="checkbox" name="adminp"  value="1">No</label>
-                                                      <?php } ?>
                                                      </div>
                                                      <button type="reset" class="btn btn-danger">Reset</button>
                                                      <button type="submit" class="btn btn-primary">Save</button>
-                                                </form>
+                                                </form>  
                                             </div>
                                         </div>
                                     </div>
@@ -173,24 +162,25 @@ if(!empty($_SESSION['lgnuser'])){
         </div>
         <script src='js/jquery-2.1.4.min.js'></script>
         <script src='js/bootstrap.js'></script>
-    </body>
-    <div class="container text-center ">
+    </body> 
+    <div class="container text-center "> 
         <footer>
-            <a title="Texas A&amp;M University" href="http://www.tamu.edu">Texas A&amp;M University</a>
-            <a title="Employment" href="http://library.tamu.edu/about/employment/">Employment</a>
-            <a title="Webmaster" href="http://library.tamu.edu/services/forms/contact-info.html">Webmaster</a>
-            <a title="Legal" href="http://library.tamu.edu/about/general-information/legal-notices.html">Legal</a>
-            <a title="Comments" href="http://guides.library.tamu.edu/AskTheLibraries">Comments</a>
+            <a title="Texas A&amp;M University" href="http://www.tamu.edu">Texas A&amp;M University</a>  
+            <a title="Employment" href="http://library.tamu.edu/about/employment/">Employment</a>  
+            <a title="Webmaster" href="http://library.tamu.edu/services/forms/contact-info.html">Webmaster</a>  
+            <a title="Legal" href="http://library.tamu.edu/about/general-information/legal-notices.html">Legal</a>  
+            <a title="Comments" href="http://guides.library.tamu.edu/AskTheLibraries">Comments</a>  
             <a title="979-845-3731" href="http://library.tamu.edu/about/phone/">979-845-3731</a>
             <a title="Site Map" href="http://library.tamu.edu/sitemap.html">Site Map</a>
             <a title="Accessibility" href="http://library.tamu.edu/accessibility/">Accessibility</a>
         </footer>
     </div>
 </html>
-<?php
+<?php 
 }else{
     header("location:/AccountManagement/public_html/profile.php?falseadmin");
 }
+
 }else{
-header("location:/AccountManagement/public_html/index.php?badlogin=1");
+header("location:/AccountManagement/public_html/index.php?badlogin=1");   
 }?>

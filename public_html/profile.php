@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
-    <?php session_start();
-        if(!empty($_SESSION['lgnuser'])){
+    <?php session_start(); 
+        if(!empty($_SESSION['lgnuser'])){ 
             $values=$_SESSION['lgnuserinfo'];
             include ('PHP/Validation.php');
             include ('PHP/Reader_Editor.php');
@@ -12,7 +12,7 @@
                    $run = new DataHandler($conn);
                    $run->updateProfile($_POST);
                 }
-            }
+            }  
     ?>
 
     <title> Profile </title>
@@ -23,7 +23,7 @@
     </head>
     <body>
         <div class="navbar navbar fixed top">
-            <div class="navbar-inner">
+            <div class="navbar-inner"> 
                 <div class="hidden-xs">
                  <ul id="tab-group" class="nav nav-pills" >
                   <li  role="presentation" class="active" ><a id="active-tab" href="profile.php">Profile</a></li>
@@ -31,17 +31,16 @@
                    <a class="dropdown-toggle" data-toggle="dropdown"  role="button" aria-expanded="false"> Accounts <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                      <li><a href="AccountCreation.php">Create Account</a></li>
-                     <li><a href="CurrentAccounts.php">Current Accounts</a></li>
+                     <li><a href="CurrentAccounts.php">Current Accounts</a></li> 
                     </ul>
                   </li>
-                  <?php   if($_SESSION['admin']==='1'){ ?>
                   <li role="presentation" class="dropdown">
                    <a class="dropdown-toggle" data-toggle="dropdown"  role="button" aria-expanded="false"> Users <span class="caret"></span></a>
                    <ul class="dropdown-menu" role="menu">
                     <li><a href="UserCreation.php">Create User</a></li>
-                    <li><a href="CurrentUsers.php">Current Users</a></li>
+                    <li><a href="CurrentUsers.php">Current Users</a></li> 
                    </ul>
-                 </li><?php } ?>
+                  </li>      
                   <li role="presentation"><a href="PHP/Reader_Editor.php?logout=1">Logout</a></li>
                  </ul>
                 </div>
@@ -58,21 +57,19 @@
                              <ul class="dropdown-menu dropdown-menu-right">
                               <li><a href="AccountCreation.php">Create Account</a></li>
                               <li><a href="CurrentAccounts.php">Current Accounts</a></li>
-                              <?php   if($_SESSION['admin']==='1'){ ?>
                               <li role="separator" class="divider"></li>
                               <li><a href="UserCreation.php">Create User</a></li>
                               <li><a href="CurrentUsers.php">Current Users</a></li>
-                              <?php } ?>
                               <li role="separator" class="divider"></li>
                               <li><a href="PHP/Reader_Editor.php?logout=1">Logout</a></li>
                              </ul>
-                            </div>
+                            </div>  
                         </div>
                         <ul class="breadcrumb">
                          <a href="http://library.tamu.edu/">University Libraries</a>
                          >
                          <a href="profile.php">Profile</a>
-                        </ul>
+                        </ul>  
                     </div>
                 </div>
             </div>
@@ -109,24 +106,28 @@
                         <?php if(isset($_GET['falseadmin'])){?>
                         <div class="alert alert-danger col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-3  col-sm-8 col-xs-12" role="alert" >
                          <span class="glyphicon glyphicon-alert" aria-hidden="true"></span>
+<<<<<<< HEAD
                          <span class="sr-only"></span>Insufficient Permissions<?php  print_r(implode(",",$profileerrors));?>
+=======
+                         <span class="sr-only"></span>Insufficient permissions
+>>>>>>> parent of ef40bf9... Issue #7 fix
                         </div>
                         <?php } ?>
                         <div class="col-lg-offset-3 col-lg-6 col-md-offset-3 col-md-6 col-sm-offset-1 col-sm-4 col-xs-12">
                             <div class="form-group">
-                                <form role="form" data-toggle="validator" action="profile.php" method="POST">
+                                <form role="form" data-toggle="validator" action="profile.php" method="POST"> 
                               <label  for="textinput">First Name: </label>
-                                <input type="text" value="<?php echo $values["firstname"]; ?>" class="form-control" name="firstname" required>
+                                <input type="text" value="<?php echo $values["firstname"]; ?>" class="form-control" name="firstname" required>                        
                               <label  for="textinput">Last Name: </label>
                                 <input type="text" value="<?php echo $values["lastname"]; ?>" class="form-control" name="lastname" required>
                               <label for="textinput">Email: </label>
                                 <input type="email" value="<?php echo $values["email"]; ?>" class="form-control" name="email" required>
-                          <!--<label  form="textinput" >password: </label>
-                                <input type="password"  class="form-control" name="password" value="<?php echo $values[""];?>" required>
-                                <input type="password" class="form-control"  name="confirmpassword" placeholder="Confirm Password" required>-->
+                              <label  form="textinput" >password: </label>
+                                <input type="password"  class="form-control" name="password" placeholder="Password" >
+                                <input type="password" class="form-control"  name="confirmpassword" placeholder="Confirm Password">
                                 <button type="reset" class="btn btn-danger">Reset</button>
                                 <button type="submit" class="btn btn-primary">Save</button>
-                             </form>
+                             </form>  
                             </div>
                         </div>
                     </div>
@@ -135,14 +136,14 @@
         </div>
         <script src='js/jquery-2.1.4.min.js'></script>
         <script src='js/bootstrap.js'></script>
-    </body>
-    <div class="container text-center">
+    </body> 
+    <div class="container text-center"> 
         <footer>
-            <a title="Texas A&amp;M University" href="http://www.tamu.edu">Texas A&amp;M University</a>
-            <a title="Employment" href="http://library.tamu.edu/about/employment/">Employment</a>
-            <a title="Webmaster" href="http://library.tamu.edu/services/forms/contact-info.html">Webmaster</a>
-            <a title="Legal" href="http://library.tamu.edu/about/general-information/legal-notices.html">Legal</a>
-            <a title="Comments" href="http://guides.library.tamu.edu/AskTheLibraries">Comments</a>
+            <a title="Texas A&amp;M University" href="http://www.tamu.edu">Texas A&amp;M University</a>  
+            <a title="Employment" href="http://library.tamu.edu/about/employment/">Employment</a>  
+            <a title="Webmaster" href="http://library.tamu.edu/services/forms/contact-info.html">Webmaster</a>  
+            <a title="Legal" href="http://library.tamu.edu/about/general-information/legal-notices.html">Legal</a>  
+            <a title="Comments" href="http://guides.library.tamu.edu/AskTheLibraries">Comments</a>  
             <a title="979-845-3731" href="http://library.tamu.edu/about/phone/">979-845-3731</a>
             <a title="Site Map" href="http://library.tamu.edu/sitemap.html">Site Map</a>
             <a title="Accessibility" href="http://library.tamu.edu/accessibility/">Accessibility</a>
@@ -150,5 +151,5 @@
     </div>
 </html>
 <?php }else{
-header("location:/AccountManagement/public_html/index.php?badlogin=1");
+header("location:/AccountManagement/public_html/index.php?badlogin=1");   
 } ?>
